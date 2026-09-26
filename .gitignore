@@ -1,0 +1,72 @@
+.DS_Store
+.env*
+!.env.example
+node_modules/
+dist/
+.codex-backups/
+
+# Credenciais e configuracoes locais (inclusive modelos .env neste envio)
+.env*
+.npmrc
+.netrc
+.git-credentials
+credentials/
+secrets/
+credentials*.json
+*service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+.claude/
+
+# Backups, caches e temporarios
+backups/
+backup/
+.cache/
+.npm/
+coverage/
+tmp/
+temp/
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+/Arquivo.zip
+
+# Evidencias e historicos locais sem uso no build
+/audit-premium/
+/css-review/
+/design-qa-evidence/
+/editorial-redesign/
+/final-polish/
+/final-refinement/
+/mobile-qa/
+/redesign-hero/
+/redesign-home/
+/support-assistant-qa/
+/visual-audit-*/
+/src/home.css
+/src/editorial.css
+
+# Referencias e variantes de midia nao utilizadas pelo build atual
+/public/assets/references/
+/public/assets/brand/Logo principal.jpeg
+/public/assets/brand/Logo transparente.jpeg
+/public/assets/brand/logo-amr-light.jpg
+/public/assets/brand/logo-amr-wall.jpg
+/public/assets/brand/logo-amr-web.webp
+/public/assets/generated/amr-casa-conectada-3d.png
+/public/assets/generated/amr-atendimento-local-editorial-v2.png
+/public/assets/generated/amr-atendimento-humano-3d.png
+/public/assets/generated/amr-rotina-conectada-3d.png
+/public/assets/generated/amr-escritorio-conectado-3d.jpg
+/public/assets/generated/amr-escritorio-conectado-3d.png
+/public/assets/videos/AMR Telecom.mp4
+/public/assets/videos/amr-empresas.webm
+/public/assets/videos/amr-telecom-poster.jpg
+/public/assets/videos/hero-amr-integrado.mp4
+/public/assets/videos/hero-amr-integrado.webm
