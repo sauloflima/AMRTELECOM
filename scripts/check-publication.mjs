@@ -7,6 +7,7 @@ import { routes } from '../src/routes.mjs';
 import { privacy, terms } from '../src/legal.mjs';
 import { heroAssets } from '../src/components/hero.mjs';
 import { supportAvatar } from '../src/components/support-assistant.mjs';
+import { customerAvatar } from '../src/components/customer.mjs';
 import { homeAssets } from '../src/components/home-sections.mjs';
 import { publicationIssues } from './publication.mjs';
 
@@ -15,7 +16,7 @@ const dist = path.join(root, 'dist');
 const allowed = new Set([
   ...routes.map(route => route.file), 'styles.css', 'home-refresh.css', 'support-assistant.css', 'robots.txt', 'sitemap.xml',
   ...['client.mjs', 'config.mjs', 'lib/whatsapp.mjs', 'lib/carousel.mjs', 'lib/hero-video.mjs', 'lib/support-assistant.mjs'].map(file => `src/${file}`),
-  ...[config.brand.logo, config.brand.logoLight, config.brand.favicon, ...heroAssets, ...homeAssets, supportAvatar].map(file => file.slice(1)),
+  ...[config.brand.logo, config.brand.logoLight, config.brand.favicon, ...heroAssets, ...homeAssets, supportAvatar, customerAvatar].map(file => file.slice(1)),
 ]);
 
 async function files(dir, prefix = '') {

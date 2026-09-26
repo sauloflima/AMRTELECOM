@@ -8,7 +8,7 @@ import { plans } from '../src/components/plans.mjs';
 import { homeAssets, testimonials, homeBusiness, homeRoutine, homeSupport, homeFaq, pendingStories, homeContactBand, coverageDock } from '../src/components/home-sections.mjs';
 import { routines, wifi, business } from '../src/components/benefits.mjs';
 import { WhatsAppAssistant, supportAvatar } from '../src/components/support-assistant.mjs';
-import { customerArea } from '../src/components/customer.mjs';
+import { customerArea, customerAvatar } from '../src/components/customer.mjs';
 import { coverage, support, faq, contactPage } from '../src/components/contact.mjs';
 import { routes, routeFor } from '../src/routes.mjs';
 import { homeNavigation, interiorPage } from '../src/components/navigation.mjs';
@@ -56,7 +56,7 @@ await copyFile(path.join(root,'src/home-refresh.css'),path.join(output,'home-ref
 await copyFile(path.join(root,'src/support-assistant.css'),path.join(output,'support-assistant.css'));
 await mkdir(path.join(output,'src/lib'),{recursive:true});
 for(const file of ['client.mjs','config.mjs','lib/whatsapp.mjs','lib/carousel.mjs','lib/hero-video.mjs','lib/support-assistant.mjs']) await copyFile(path.join(root,'src',file),path.join(output,'src',file));
-for(const asset of [config.brand.logo,config.brand.logoLight,config.brand.favicon,...heroAssets,...homeAssets,supportAvatar]) {
+for(const asset of [config.brand.logo,config.brand.logoLight,config.brand.favicon,...heroAssets,...homeAssets,supportAvatar,customerAvatar]) {
   if (!asset.startsWith('/assets/') || asset.includes('..')) throw new Error('Caminho de mídia inválido: '+asset);
   const source=path.join(root,'public',asset);
   await stat(source);
