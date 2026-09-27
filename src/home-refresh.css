@@ -79,13 +79,13 @@
 .hero-house.video-failed .hero-house-fallback { display:block; }
 .arrival-word { display:inline-block;white-space:nowrap; }
 .arrival-letter { display:inline-block; }
-.hero-slide-enterprise { background:#f5f9fc; }
+.hero-slide-enterprise { background:#fff; }
 .hero-slide-enterprise .hero-copy h2 { max-width:590px;font-size:clamp(2.75rem,4.15vw,4.15rem); }
 .hero-slide-enterprise .hero-copy h2 > span,.hero-slide-enterprise .arrival-word,.hero-slide-enterprise .arrival-letter { color:inherit; }
 .hero-slide-enterprise .hero-copy h2 .arrival-accent { color:var(--home-blue); }
 .enterprise-stage { min-width:0;align-self:center; }
-.enterprise-media { position:relative;overflow:hidden;background:#f5f9fc;aspect-ratio:16/9; }
-.enterprise-media:after { content:"";position:absolute;z-index:2;inset:-1px;pointer-events:none;background:linear-gradient(to right,#f5f9fc,transparent 3%,transparent 97%,#f5f9fc),linear-gradient(to bottom,#f5f9fc,transparent 3%,transparent 97%,#f5f9fc); }
+.enterprise-media { position:relative;overflow:hidden;background:#fff;aspect-ratio:16/9; }
+.enterprise-media:after { content:"";position:absolute;z-index:2;inset:-1px;pointer-events:none;background:linear-gradient(to right,#fff,transparent 3%,transparent 97%,#fff),linear-gradient(to bottom,#fff,transparent 3%,transparent 97%,#fff); }
 .enterprise-media img,.enterprise-media video { display:block;width:100%;height:100%;object-fit:cover; }
 .enterprise-media video { position:absolute;inset:0;opacity:0;transition:opacity 300ms ease; }
 .enterprise-media.video-ready video { opacity:1; }
@@ -208,7 +208,7 @@
 
 /* Benefícios em linha, com foco na leitura. */
 .trust-section { padding:54px 0;background:var(--home-paper); }
-.trust-section>.container { display:grid;grid-template-columns:minmax(250px,.84fr) minmax(0,1.16fr);gap:36px 54px;padding:38px 42px;border:1px solid #d2dee7;border-radius:26px;background:#f5f8fb;box-shadow:0 8px 22px rgba(6,27,49,.055); }
+.trust-section>.container { display:grid;grid-template-columns:minmax(250px,.84fr) minmax(0,1.16fr);gap:36px 54px;padding:38px 42px;border:1px solid #d2dee7;border-radius:26px;background:#fff;box-shadow:0 8px 22px rgba(6,27,49,.055); }
 .trust-heading { max-width:440px;margin:0;text-align:left; }
 .trust-heading h2 { margin:0;color:var(--home-ink);font-size:clamp(2rem,3.2vw,3rem);line-height:1.05;letter-spacing:-.045em; }
 .trust-heading>p:last-child { margin:10px 0 0;font-size:1rem; }
@@ -223,7 +223,7 @@
 .trust-action { display:flex!important;grid-column:1;width:max-content;max-width:100%;margin:-84px 0 0;align-self:end; }
 
 /* Soluções visuais em três perfis. */
-.routine-section { padding:60px 0;background:#f6f8fa; }
+.routine-section { padding:60px 0;background:#fff; }
 .routine-heading { margin-bottom:28px; }
 .routine-heading h2 { margin:0;color:var(--home-ink);font-size:clamp(2.1rem,3.4vw,3.25rem);line-height:1.04;letter-spacing:-.05em; }
 .routine-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
@@ -278,7 +278,7 @@
 .business-media:is(.video-failed,.video-static) .business-video-fallback { visibility:visible; }
 
 /* Atendimento permanece separado de contratação, em faixa enxuta. */
-.human-section { padding:60px 0;background:var(--home-sky); }
+.human-section { padding:60px 0;background:#fff; }
 .human-layout { display:grid;grid-template-columns:.88fr 1.12fr;align-items:center;gap:clamp(34px,5vw,72px); }
 .human-media { min-width:0;overflow:hidden;border-radius:22px;background:#c3d9e9; }
 .human-media { aspect-ratio:4/3; }
@@ -293,7 +293,7 @@
 .support-actions { margin-top:18px; }
 
 /* FAQ compacto antes da chamada final. */
-.home-faq { padding:58px 0;background:#f5f8fb; }
+.home-faq { padding:58px 0;background:#fff; }
 .home-faq-layout { display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr);gap:clamp(34px,5vw,72px);align-items:start; }
 .home-faq-layout>div:first-child { position:sticky;top:calc(var(--amr-header) + 24px); }
 .home-faq h2 { max-width:470px;margin:0;color:var(--home-ink);font-size:clamp(2.15rem,3.4vw,3.2rem);line-height:1.04;letter-spacing:-.05em; }
