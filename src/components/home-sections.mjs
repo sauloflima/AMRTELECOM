@@ -10,7 +10,7 @@ export const homeAssets = [
   ...Object.values(profileImages),
   '/assets/generated/amr-rotina-conectada-3d.jpg',
   '/assets/generated/amr-escritorio-pessoas.jpg',
-  '/assets/generated/amr-pessoa-celular.png',
+  '/assets/generated/amr-pessoa-celular-walk.png',
   '/assets/generated/amr-atendimento-local-editorial-v2.jpg'
 ];
 
