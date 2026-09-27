@@ -40,7 +40,6 @@ export function mountMedia() {
     const enterpriseVideo=enterpriseMedia?.querySelector('[data-enterprise-video]');
     const enterpriseSlide=enterpriseMedia?.closest('.carousel-slide');
     const toggle=connectedHero.querySelector('.effects-toggle');
-    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
     const desktopPointer=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 901px)');
     const connection=navigator.connection;
     let userPaused=false;
@@ -52,14 +51,14 @@ export function mountMedia() {
     const updateServiceVideo=serviceVideo ? createHeroVideo(serviceVideo,servicePhoto) : null;
     const updateEnterpriseVideo=enterpriseVideo ? createHeroVideo(enterpriseVideo,enterpriseMedia) : null;
     const syncHouseVideo=()=> {
-      updateVideo?.({paused:userPaused,reduced:reduced.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
+      updateVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
     };
     const syncServiceVideo=()=> {
-      updateServiceVideo?.({paused:userPaused,reduced:reduced.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
+      updateServiceVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
     };
     const syncEnterpriseVideo=()=> {
       const active=enterpriseSlide?.classList.contains('is-active');
-      updateEnterpriseVideo?.({paused:userPaused,reduced:reduced.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:enterpriseInView,active});
+      updateEnterpriseVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:enterpriseInView,active});
       if(!active && enterpriseVideo && enterpriseVideo.currentTime) enterpriseVideo.currentTime=0;
     };
     const reset=()=> {
@@ -68,10 +67,10 @@ export function mountMedia() {
       art.style.setProperty('--house-y','0px');
     };
     const update=()=> {
-      const paused=userPaused||reduced.matches||document.hidden||Boolean(connection?.saveData);
+      const paused=userPaused||document.hidden||Boolean(connection?.saveData);
       connectedHero.classList.toggle('effects-paused',paused);
       connectedHero.classList.toggle('user-effects-paused',userPaused);
-      toggle.hidden=reduced.matches;
+      toggle.hidden=false;
       toggle.textContent=userPaused?'Ativar efeitos':'Pausar efeitos';
       toggle.setAttribute('aria-pressed',String(userPaused));
       if(paused||!inView||!desktopPointer.matches)reset();
@@ -81,7 +80,7 @@ export function mountMedia() {
     };
     toggle.addEventListener('click',()=>{userPaused=!userPaused;update();});
     art.addEventListener('pointermove',event=> {
-      if(userPaused||reduced.matches||connection?.saveData||document.hidden||!desktopPointer.matches||!inView)return;
+      if(userPaused||connection?.saveData||document.hidden||!desktopPointer.matches||!inView)return;
       cancelAnimationFrame(frame);
       const box=art.getBoundingClientRect();
       const x=((event.clientX-box.left)/box.width-.5)*10;
@@ -92,7 +91,6 @@ export function mountMedia() {
       });
     });
     art.addEventListener('pointerleave',reset);
-    reduced.addEventListener('change',update);
     desktopPointer.addEventListener('change',update);
     document.addEventListener('visibilitychange',update);
     connection?.addEventListener('change',update);
@@ -119,20 +117,18 @@ export function mountMedia() {
   if(office) {
     const officeVideo=office.querySelector('[data-business-video]');
     const control=office.querySelector('.office-motion-toggle');
-    const motion=matchMedia('(prefers-reduced-motion: reduce)');
     const connection=navigator.connection;
     let visible=!('IntersectionObserver' in window);
     let paused=false;
     const updateVideo=officeVideo ? createHeroVideo(officeVideo,office) : null;
     const sync=()=> {
-      updateVideo?.({paused,reduced:motion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:visible,active:true});
-      office.classList.toggle('office-motion-active',visible && !paused && !motion.matches && !connection?.saveData && !document.hidden);
-      control.hidden=motion.matches;
+      updateVideo?.({paused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:visible,active:true});
+      office.classList.toggle('office-motion-active',visible && !paused && !connection?.saveData && !document.hidden);
+      control.hidden=false;
       control.textContent=paused?'Ativar animação':'Pausar animação';
       control.setAttribute('aria-pressed',String(paused));
     };
     control.addEventListener('click',()=>{paused=!paused;sync();});
-    motion.addEventListener('change',sync);
     document.addEventListener('visibilitychange',sync);
     connection?.addEventListener('change',sync);
     if('IntersectionObserver' in window) new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync();},{threshold:.15}).observe(office);

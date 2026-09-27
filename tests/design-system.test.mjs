@@ -48,7 +48,7 @@ test('Home renovada mantém tokens, escala e cabeçalho responsivo', () => {
   assert.ok(shared.includes('max-height:calc(100dvh - var(--amr-header))'));
 });
 
-test('hero mantém contraste e entradas apenas no slide ativo sem movimento reduzido', () => {
+test('hero mantém contraste e entradas apenas no slide ativo', () => {
   assert.ok(contrast(homeColor('navy'), '#fff') >= 4.5);
   assert.ok(contrast(homeColor('blue'), '#fff') >= 4.5);
   assert.ok(contrast(homeColor('ink'), homeColor('sky')) >= 4.5);
@@ -56,7 +56,7 @@ test('hero mantém contraste e entradas apenas no slide ativo sem movimento redu
   assert.match(home,/\.hero-slide-enterprise\.is-active \.enterprise-stage/);
   assert.match(home,/\.hero-slide-enterprise\.is-active \.arrival-letter/);
   assert.match(home,/\.hero-slide-service\.is-active \.arrival-letter/);
-  assert.match(home,/@media\(prefers-reduced-motion:reduce\) \{\s*\.home-page \*[^}]*animation:none!important/);
+  assert.doesNotMatch(home,/prefers-reduced-motion/);
 });
 
 test('estados críticos de acessibilidade permanecem explícitos no CSS', () => {
@@ -64,12 +64,10 @@ test('estados críticos de acessibilidade permanecem explícitos no CSS', () => 
   assert.ok(home.includes('min-width:44px;min-height:44px'));
   assert.ok(home.includes('input[aria-invalid=true]'));
   assert.ok(shared.includes('.button.primary:disabled:hover'));
-  assert.ok(shared.includes('@media(prefers-reduced-motion:reduce)'));
-  assert.ok(home.includes('.house-parallax { transform:none!important; }'));
+  assert.doesNotMatch(shared,/prefers-reduced-motion/);
   assert.match(home,/\.hero-house-video,.hero-house-fallback \{[^}]*object-fit:contain/);
   assert.doesNotMatch(home,/\.hero-house-video[^}]*object-fit:cover/);
-  assert.match(home,/\.hero-house-video \{ display:none!important; \}/);
-  assert.ok(home.includes('transition:none!important'));
+  assert.ok(home.includes('.hero-house-video'));
   assert.ok(home.includes('.business-video'));
   assert.ok(home.includes('.home-faq-list'));
   assert.ok(home.includes('aspect-ratio:16/9'));

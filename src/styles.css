@@ -1937,19 +1937,6 @@ label {
 @media(min-width:1200px) {
   .plan-use { min-height:52px; }
 }
-@media(prefers-reduced-motion:reduce) {
-  html {
-    scroll-behavior:auto
-  }
-  *,*:before,*:after {
-    animation:none!important;
-    transition:none!important
-  }
-  .button:hover {
-    transform:none
-  }
-}
-
 /* Estados compartilhados: contraste, feedback e reflow sem alterar os fluxos. */
 body .header nav a:hover,
 body .header nav a[aria-current="page"] { color:#fff; }
@@ -1959,7 +1946,7 @@ body .header nav a { padding-inline:8px;margin-inline:-8px; }
   body .header nav a:hover { border-radius:12px;background:rgba(255,255,255,.12);box-shadow:0 7px 18px rgba(0,0,0,.16); }
   body.home-page .header:not(.is-scrolled) nav a:hover { background:#f1f7ff;box-shadow:0 7px 18px rgba(7,26,46,.12); }
 }
-@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+@media(hover:hover) and (pointer:fine) {
   body .header nav a { transition:color 180ms ease,background-color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
   body .header nav a:hover { transform:scale(1.08); }
 }
@@ -1993,7 +1980,7 @@ body .amr-footer .footer-bottom a { display:inline-flex;align-items:center;min-h
 
 /* Feedback de interação compartilhado, sem ciclos decorativos contínuos. */
 #coverage-form:focus-within { border-color:var(--amr-focus); }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .button>.icon,.text-link>.icon { transition:transform 180ms ease; }
   .button:focus-visible>.icon,.text-link:focus-visible>.icon { transform:translateX(3px); }
   .button:active:not(:disabled) { transform:translateY(1px); }
@@ -2071,7 +2058,6 @@ body:not(.home-page) .no-script { background:#eaf4ff;color:#0b2942; }
   body:not(.home-page) .header nav a[aria-current="page"] { color:#9bd1ff; }
 }
 @media(max-width:600px) { body:not(.home-page) .header .brand,body:not(.home-page) .header .brand img { width:136px; } }
-@media(prefers-reduced-motion:reduce) { body:not(.home-page) .header,body:not(.home-page) .header .brand img { transition:none; } }
 
 /* WhatsApp é um canal, não uma ação genérica: verde sólido em todas as páginas. */
 :root { --whatsapp-green:#087843;--whatsapp-green-hover:#066237; }
@@ -2098,7 +2084,7 @@ body .support-cta.whatsapp-action,body .footer-channel-whatsapp { transition:bac
 @media(hover:hover) and (pointer:fine) {
   body .button.whatsapp-action:hover,body .header .header-cta.whatsapp-action:hover,body .support-cta.whatsapp-action:hover,body .footer-channel-whatsapp:hover { box-shadow:0 10px 22px rgba(4,94,53,.24); }
 }
-@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+@media(hover:hover) and (pointer:fine) {
   body .button.whatsapp-action:hover:not(:disabled),body .support-cta.whatsapp-action:hover,body .footer-channel-whatsapp:hover { transform:scale(1.04); }
 }
 body:has(.user-effects-paused) .button.whatsapp-action:hover,body:has(.user-effects-paused) .support-cta.whatsapp-action:hover,body:has(.user-effects-paused) .footer-channel-whatsapp:hover { transform:none; }
@@ -2132,7 +2118,6 @@ body:not(.home-page) main .contact-page .contact-panel { display:flex;flex-direc
 .contact-panel dt { color:#426178; }
 @media(max-width:800px) { .contact-layout { grid-template-columns:1fr;gap:34px; }.contact-intro h1 { max-width:700px; }.contact-shortcuts { max-width:none; }.contact-page .contact-panel { min-height:0; } }
 @media(max-width:600px) { .contact-shortcuts { margin-top:28px; }.contact-shortcuts a { gap:12px;min-height:82px; }.contact-shortcuts small { font-size:.8125rem; }.contact-panel h2 { margin-top:30px; }.contact-panel .button.whatsapp-action { align-self:stretch; }.contact-panel .contact-number { align-items:flex-start;flex-direction:column;gap:5px; } }
-@media(prefers-reduced-motion:reduce) { .contact-shortcuts a { transition:none; } }
 
 .footer-links a>.icon { flex:0 0 18px;width:18px;height:18px;vertical-align:middle; }
 .selected-plan-profile { display:inline-flex;align-items:center;gap:8px;margin:6px 0;color:#0a579c;font-weight:600; }
@@ -2179,7 +2164,7 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
   .customer-symbol { flex-basis:56px;height:56px; }
   .customer-card-top img { width:105px;height:53px; }
 }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .customer-section.is-visible .customer-copy { animation:customer-arrive 600ms cubic-bezier(.2,.7,.2,1) both; }
   .customer-section.is-visible .customer-card { animation:customer-arrive 700ms 100ms cubic-bezier(.2,.7,.2,1) both; }
   @keyframes customer-arrive { from { opacity:0;transform:translateY(14px); } to { opacity:1;transform:translateY(0); } }
@@ -2193,7 +2178,7 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
 .service-photo .video-play { top:24%; }
 
 /* Ícones de serviços: movimento independente do mouse, só enquanto visíveis. */
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .icon:where(:not(.office-signal-wifi)) {
     transform-box:fill-box;transform-origin:center;
     animation:amr-icon-float 2.8s ease-in-out infinite;

@@ -36,7 +36,7 @@ test('três slides, um H1 e conteúdo inativo protegido antes do JavaScript', ()
   assert.ok(!html.includes('<b aria-hidden="true">'));
   assert.equal((html.match(/class="carousel-dots"/g) || []).length, 1);
 });
-test('autoplay de 10s respeita movimento reduzido, foco por teclado e aba oculta', () => {
+test('autoplay de 10s ignora movimento reduzido e respeita pausa, foco e aba oculta', () => {
   assert.equal(ROTATION_DELAY, 10000);
   const f = fixture(); assert.equal(f.timers.size, 1);
   f.tick(); assert.equal(f.root.dataset.activeSlide, '2');
@@ -44,10 +44,10 @@ test('autoplay de 10s respeita movimento reduzido, foco por teclado e aba oculta
   f.tick(); assert.equal(f.root.dataset.activeSlide, '1');
   f.root.emit('focusin', { target: { matches: () => true } }); assert.equal(f.timers.size, 0);
   f.root.emit('focusout'); assert.equal(f.timers.size, 1);
-  const r = fixture(true); assert.equal(r.timers.size, 0); assert.equal(r.controls['.carousel-rotation'].hidden, true);
+  const r = fixture(true); assert.equal(r.timers.size, 1); assert.equal(r.controls['.carousel-rotation'].hidden, false);
   r.controls['.carousel-rotation'].emit('click'); assert.equal(r.timers.size, 0);
   const h = fixture(); h.doc.hidden = true; h.doc.emit('visibilitychange'); assert.equal(h.timers.size, 0);
-  assert.equal(canRotate({ reduced: true, visible: true }), false);
+  assert.equal(canRotate({ reduced: true, visible: true }), true);
 });
 test('mouse, teclado e toque navegam sem deixar links de slides ocultos no foco', () => {
   const f = fixture(); f.controls['.carousel-next'].emit('click');
@@ -66,5 +66,5 @@ test('pausa por mouse não é desfeita pelo foco automático do botão', () => {
   button.emit('pointerdown'); f.root.emit('focusin'); button.emit('click');
   assert.equal(f.root.dataset.rotation, 'paused');
   button.emit('pointerdown'); button.emit('click'); assert.equal(f.root.dataset.rotation, 'playing');
-  f.motion.matches = true; f.motion.emit('change'); assert.equal(f.timers.size, 0);
+  f.motion.matches = true; f.motion.emit('change'); assert.equal(f.timers.size, 1);
 });

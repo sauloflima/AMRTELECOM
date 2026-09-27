@@ -33,7 +33,7 @@ body:has(.coverage-dock:not([hidden])) .support-assistant { bottom:calc(var(--su
   .support-close .icon { width:14px;height:14px; }
   .support-prompt::after { display:none; }
 }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .support-assistant { animation:amr-support-enter 420ms ease-out both; }
   @media(max-width:800px) { .support-assistant { animation-name:amr-support-fade; } }
   .support-avatar { transition:transform 180ms ease,box-shadow 180ms ease; }

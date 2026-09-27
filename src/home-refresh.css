@@ -116,7 +116,7 @@
 .service-wall-logo { --wall-mark:url('/assets/brand/logo-amr-relief.png');position:absolute;top:7.5%;left:4%;width:27%;max-width:200px;aspect-ratio:1.85;pointer-events:none;background:var(--wall-mark) center/82% auto no-repeat;opacity:.92;transform-origin:left center;transform:perspective(900px) rotateY(6deg) skewY(.5deg);filter:saturate(.72) brightness(.84) drop-shadow(.6px 1px .65px rgba(7,20,31,.55)); }
 .service-wall-logo:after { content:"";position:absolute;inset:0; }
 .service-wall-logo:after { mask:var(--wall-mark) center/82% auto no-repeat;background:linear-gradient(110deg,transparent 38%,#fff4 49%,#fff8 50%,transparent 61%) 160% 0/300% 100% no-repeat;opacity:0; }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .hero-slide-service.is-active .service-wall-logo { animation:amr-wall-logo-enter 900ms ease-out both; }
   .hero-slide-service.is-active .service-wall-logo:after { animation:amr-wall-reflection 3200ms 500ms ease-in-out both; }
   .user-effects-paused .service-wall-logo,.user-effects-paused .service-wall-logo:after { animation:none!important; }
@@ -260,7 +260,7 @@
 .office-screen { position:absolute;inset:0;z-index:1;pointer-events:none;background:#8bcaff;opacity:0; }
 .office-screen-game { clip-path:polygon(15.65% 36.9%,19% 39.1%,19% 43.5%,15.7% 41.3%); }
 .office-screen-stream { clip-path:polygon(68% 55.1%,72.8% 51.5%,72.8% 57.7%,68% 61.4%); }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .office-motion-active .office-person { animation:amr-person-breathe var(--person-duration) ease-in-out infinite alternate; }
   .office-motion-active .office-walker { animation:amr-office-walk 8s ease-in-out infinite; }
   .office-motion-active .office-screen { animation:amr-screen-light 4s ease-in-out infinite alternate; }
@@ -274,7 +274,7 @@ body:has(.user-effects-paused) :is(.office-person,.office-walker,.office-screen,
 .office-signal { position:absolute;z-index:2;left:50%;top:40%;width:13%;max-width:78px;aspect-ratio:2;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(0 2px 2px #173b5355); }
 .office-signal-wifi.icon { position:absolute;left:30%;top:8%;width:40%;height:auto;color:#50baff;stroke-width:1.7;opacity:0; }
 .office-signal-mark { position:absolute;inset:0;background:url('/assets/brand/logo-amr-relief.png') center/contain no-repeat;opacity:.92;translate:0 -10px; }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .office-motion-active .office-signal-wifi { animation:amr-office-signal 10s ease-in-out infinite both; }
   .office-motion-active .office-signal-mark { animation:amr-office-brand 10s ease-in-out infinite both; }
 }
@@ -520,15 +520,6 @@ body:has(.user-effects-paused) :is(.office-person,.office-walker,.office-screen,
   .home-page .footer-contact { grid-column:1; }
 }
 
-@media(prefers-reduced-motion:reduce) {
-  .home-page *,.home-page *:before,.home-page *:after,.plans-catalog *,.plans-catalog *:before,.plans-catalog *:after { animation:none!important;scroll-behavior:auto!important;transition:none!important; }
-  .house-parallax { transform:none!important; }
-  .hero-house .house-parallax { top:calc(50% + 20.5px);right:-7%;transform:translateY(-50%)!important; }
-  .hero-house-video { display:none!important; }
-  .hero-house-fallback { display:block!important;visibility:visible!important;transform:none!important; }
-  .effects-toggle { display:none!important; }
-}
-
 .home-page .header .header-cta.whatsapp-action,
 .home-page .button.whatsapp-action,
 .home-page .button.primary.whatsapp-action,
@@ -546,24 +537,16 @@ body:has(.user-effects-paused) :is(.office-person,.office-walker,.office-screen,
 .home-page .whatsapp-action.text-link { color:#087843; }
 .home-page .amr-footer .whatsapp-action.text-link { color:#a7f2c4; }
 
-@media(max-width:800px) and (prefers-reduced-motion:reduce) {
-  .hero-house .house-parallax { right:-3%; }
-}
-
-@media(max-width:600px) and (prefers-reduced-motion:reduce) {
-  .hero-house .house-parallax { right:auto;left:50%;transform:translate(-50%,-50%)!important; }
-}
-
 /* Movimento pontual: conteúdo legível mesmo sem JS ou sem observer. */
 .carousel-controls[hidden],.carousel-rotation[hidden],.effects-toggle[hidden] { display:none!important; }
 .plan-card:focus-within { border-color:var(--home-blue);box-shadow:0 0 0 3px rgba(8,104,223,.13); }
 .quick-coverage:focus-within { border-color:var(--home-blue);box-shadow:0 0 0 3px rgba(8,104,223,.10),var(--home-shadow); }
 .home-page .routine-card:focus-visible { outline-offset:5px; }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .hero-house-video { transition:opacity 260ms ease,transform 420ms ease-out; }
   .quick-coverage { transition:border-color 180ms ease,box-shadow 180ms ease; }
 }
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .hero-slide-enterprise.is-active .hero-lead,.hero-slide-enterprise.is-active .hero-cta,.hero-slide-service.is-active .hero-lead,.hero-slide-service.is-active .hero-cta { animation:amr-slide-enter 480ms cubic-bezier(.22,.61,.36,1) both; }
   .hero-slide-enterprise.is-active .arrival-letter,.hero-slide-service.is-active .arrival-letter { animation:amr-letter-arrive 360ms cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--letter-delay); }
   .hero-slide-enterprise.is-active .hero-lead { animation-delay:580ms; }
@@ -580,15 +563,7 @@ body:has(.user-effects-paused) :is(.office-person,.office-walker,.office-screen,
 @keyframes amr-slide-enter { from { opacity:.65;transform:translateY(7px); } to { opacity:1;transform:none; } }
 @keyframes amr-letter-arrive { from { opacity:0;transform:translateY(.28em); } to { opacity:1;transform:none; } }
 @keyframes amr-slide-fade { from { opacity:.72; } to { opacity:1; } }
-@media(prefers-reduced-motion:reduce) {
-  .home-page .header .brand img { transition:none; }
-  .carousel-arrow,.carousel-dots button span { transition:none; }
-  .carousel-arrow:hover,.carousel-dots button:hover span { transform:none; }
-  .home-page .button:hover,.plans-catalog .button:hover,.plan-card:hover,.plan-media img,.routine-card:hover,.routine-card img { transform:none!important; }
-  .trust-grid .icon { transform:none!important;transition:none; }
-}
-
-@media(prefers-reduced-motion:no-preference) {
+@media all {
   .plan-details[open]>div { animation:amr-plan-details 180ms ease-out both;transform-origin:top; }
 }
 @keyframes amr-plan-details {
@@ -601,11 +576,6 @@ body:has(.user-effects-paused) :is(.office-person,.office-walker,.office-screen,
 .office-motion-toggle { position:absolute;z-index:2;right:16px;bottom:16px;min-height:44px;padding:10px 15px;border:1px solid #789bb8;border-radius:999px;background:#061b31;color:#fff;font:inherit;font-size:.8125rem;font-weight:700;cursor:pointer; }
 .office-motion-toggle[hidden] { display:none; }
 .home-page .office-motion-toggle:focus-visible { outline-color:#9bd1ff;outline-offset:3px; }
-@media(prefers-reduced-motion:reduce) {
-  .business-video { transition:none; }
-}
-
-
 /* Explicação comercial compartilhada entre a home e o catálogo. */
 .plan-use { display:flex;align-items:flex-start;gap:10px;min-height:122px; }
 .plan-use>.icon { flex:0 0 26px;width:26px;height:26px;margin-top:2px;color:var(--home-blue); }

@@ -1,7 +1,7 @@
 // Cada cena fica tempo suficiente para ler o texto e concluir os vídeos de 8s.
 export const ROTATION_DELAY = 10000;
 export function canRotate(state) {
-  return !state.reduced && !state.paused && !state.focused && !state.hidden && state.visible;
+  return !state.paused && !state.focused && !state.hidden && state.visible;
 }
 export function swipeStep(dx, dy) {
   return Math.abs(dx) >= 50 && Math.abs(dx) > Math.abs(dy) * 1.5 ? (dx < 0 ? 1 : -1) : 0;
@@ -13,12 +13,11 @@ export function mountCarousel(root, environment = window) {
   const dots = [...root.querySelectorAll('[data-slide]')];
   const rotation = root.querySelector('.carousel-rotation');
   const status = root.querySelector('.carousel-status');
-  const motion = environment.matchMedia('(prefers-reduced-motion: reduce)');
-  const state = { reduced: motion.matches, paused: false, focused: false, hidden: document.hidden, visible: true };
+  const state = { paused: false, focused: false, hidden: document.hidden, visible: true };
   let index = 0, timer, origin, rotationIntent;
   function schedule() {
     environment.clearTimeout(timer);
-    rotation.hidden = state.reduced;
+    rotation.hidden = false;
     rotation.textContent = state.paused ? 'Ativar carrossel' : 'Pausar carrossel';
     root.dataset.rotation = canRotate(state) ? 'playing' : 'paused';
     if (canRotate(state)) timer = environment.setTimeout(() => show(index + 1, false), ROTATION_DELAY);
@@ -68,7 +67,6 @@ export function mountCarousel(root, environment = window) {
   });
   root.addEventListener('pointercancel', () => { origin = null; });
   root.addEventListener('dragstart', event => event.preventDefault());
-  motion.addEventListener('change', () => { state.reduced = motion.matches; schedule(); });
   document.addEventListener('visibilitychange', () => { state.hidden = document.hidden; schedule(); });
   if ('IntersectionObserver' in environment) new environment.IntersectionObserver(([entry]) => {
     state.visible = entry.isIntersecting; schedule();

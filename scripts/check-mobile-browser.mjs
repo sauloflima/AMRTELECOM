@@ -96,6 +96,18 @@ try {
       Object.defineProperty(navigator,'connection',{value:connection});
     });
     await page.goto(origin);
+    if(mode==='reduced') {
+      assert.equal(await page.locator('.carousel-rotation').isVisible(),true);
+      await visibleVideo(page,0);
+      assert.equal(await page.locator('.hero-proof .icon').first().evaluate(el=>getComputedStyle(el).animationName==='none'),false);
+      await page.locator('[data-office-motion]').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('[data-office-motion]').classList.contains('office-motion-active'));
+      await page.locator('.office-motion-toggle').click();
+      assert.equal(await page.locator('.office-walker').evaluate(el=>getComputedStyle(el).animationName),'none');
+      await snapshot(page,mode);
+      await page.close();console.log('Aprovado: movimento reduzido não bloqueia animações; pausa manual funciona.');
+      continue;
+    }
     for(let index=0;index<3;index++) {
       await page.locator(`[data-slide="${index}"]`).dispatchEvent('click');
       await page.locator(mediaSelectors[index]).scrollIntoViewIfNeeded();
@@ -108,11 +120,9 @@ try {
       if(index) assert.equal(await page.locator('.carousel-slide.is-active .arrival-letter').first().evaluate(el=>getComputedStyle(el).opacity),'1');
     }
     await snapshot(page, mode);
-    if(mode==='reduced') await page.emulateMedia({reducedMotion:'no-preference'});
-    else await page.evaluate(()=>{navigator.connection.saveData=false;navigator.connection.dispatchEvent(new Event('change'));});
+    await page.evaluate(()=>{navigator.connection.saveData=false;navigator.connection.dispatchEvent(new Event('change'));});
     await visibleVideo(page,2);
-    if(mode==='reduced') await page.emulateMedia({reducedMotion:'reduce'});
-    else await page.evaluate(()=>{navigator.connection.saveData=true;navigator.connection.dispatchEvent(new Event('change'));});
+    await page.evaluate(()=>{navigator.connection.saveData=true;navigator.connection.dispatchEvent(new Event('change'));});
     await page.waitForFunction(()=>document.querySelector('.service-photo').classList.contains('video-static'));
     assert.equal(await page.locator('.service-photo img').evaluate(img=>getComputedStyle(img).visibility),'visible','Poster retorna mesmo após vídeo já ter tocado');
     assert.equal(await page.locator('[data-service-video]').evaluate(v=>v.paused),true);
