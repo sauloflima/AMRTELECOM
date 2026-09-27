@@ -11,7 +11,7 @@ const origin = process.env.AMR_ORIGIN || 'http://127.0.0.1:4173';
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 
 try {
-  for (const mode of ['normal', 'sem-javascript', 'falha-no-script']) {
+  for (const mode of ['normal', 'sem-javascript', 'falha-no-script', 'falha-no-modulo']) {
     const context = await browser.newContext({
       javaScriptEnabled: mode !== 'sem-javascript',
       viewport: { width: 390, height: 844 },
@@ -19,7 +19,11 @@ try {
 
     try {
       const page = await context.newPage();
-      await page.route('**/*', route => mode === 'falha-no-script' && new URL(route.request().url()).pathname === '/src/client.mjs' ? route.abort() : new URL(route.request().url()).hostname === '127.0.0.1' ? route.continue() : route.abort());
+      await page.route('**/*', route => {
+        const url = new URL(route.request().url());
+        const failedModule = mode === 'falha-no-script' ? '/src/client.mjs' : mode === 'falha-no-modulo' ? '/src/client/contact.mjs' : null;
+        return url.pathname === failedModule || url.hostname !== '127.0.0.1' ? route.abort() : route.continue();
+      });
       const navigations = [];
       let popups = 0;
       page.on('popup', () => { popups++; });

@@ -12,18 +12,18 @@ if (issues.length) {
 }
 
 const origin = config.siteUrl.replace(/\/$/, '');
+const redirect = await fetch(origin.replace('https:', 'http:') + '/', { redirect: 'manual', signal: AbortSignal.timeout(10000) });
+assert.ok([301, 302, 303, 307, 308].includes(redirect.status), 'HTTP deve redirecionar para HTTPS.');
+assert.equal(new URL(redirect.headers.get('location'), redirect.url).href, origin + '/', 'Redirecionamento HTTP deve apontar ao HTTPS oficial.');
+await redirect.body?.cancel();
 for (const route of routes) {
   const response = await fetch(origin + route.path, { redirect: 'follow', signal: AbortSignal.timeout(10000) });
   assert.equal(response.status, 200, route.path);
   assert.equal(new URL(response.url).origin, origin, `Redirecionamento inesperado em ${route.path}`);
   assert.equal(new URL(response.url).protocol, 'https:');
   for (const [name, expected] of Object.entries(hostingHeaders)) {
-    const actual = response.headers.get(name);
-    assert.ok(actual, `${name} ausente em ${route.path}`);
-    if (name === 'Content-Security-Policy') {
-      for (const directive of ["script-src 'self'", "object-src 'none'", "frame-ancestors 'none'"]) assert.ok(actual.includes(directive), `${directive} ausente em ${route.path}`);
-      assert.doesNotMatch(actual, /script-src[^;]*(?:'unsafe-inline'|'unsafe-eval'|data:)/, `Scripts inseguros na CSP de ${route.path}`);
-    } else assert.equal(actual, expected, `${name} incorreto em ${route.path}`);
+    // Compara a política completa: substrings aceitavam, por exemplo, script-src 'self' *.
+    assert.equal(response.headers.get(name), expected, `${name} ausente ou diferente da configuração auditada em ${route.path}`);
   }
   assert.match(await response.text(), /<meta name="robots" content="index, follow"/);
 }

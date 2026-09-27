@@ -13,3 +13,11 @@ export function publicationIssues(config, privacy, terms) {
   if (!approved('terms') || terms.includes('PENDENTE DE REVISÃO')) issues.push('A AMR precisa completar e aprovar os termos de uso.');
   return issues;
 }
+
+export const pagesBase = '/AMRTELECOM';
+
+// Só adapta caminhos absolutos locais em HTML/CSS/JS; repetir não duplica a base.
+export function withPagesBase(content) {
+  return content.replace(/(["'`])\/(?!\/)/g, (match, quote, index, source) =>
+    source.startsWith(`${pagesBase}/`, index + 1) ? match : `${quote}${pagesBase}/`);
+}
