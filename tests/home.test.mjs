@@ -62,10 +62,8 @@ test('rotina e empresas usam mídias próprias e não usam referência Nio',()=>
   assert.match(html,/amr-perfil-familia\.jpg/);
   assert.match(html,/amr-perfil-trabalho\.jpg/);
   assert.match(html,/amr-perfil-entretenimento\.jpg/);
-  assert.match(html,/poster="\/assets\/generated\/amr-escritorio-conectado-poster\.jpg"/);
-  assert.match(html,/class="business-video-fallback" src="\/assets\/generated\/amr-escritorio-conectado-poster\.jpg"/);
-  assert.match(html,/class="business-video"[^>]*muted loop playsinline preload="none"/);
-  assert.match(html,/<source src="\/assets\/videos\/amr-empresas\.mp4" type="video\/mp4">/);
+  assert.match(html,/class="business-video-fallback" src="\/assets\/generated\/amr-escritorio-pessoas\.jpg"/);
+  assert.doesNotMatch(html,/data-business-video/);
   assert.ok(html.includes('href="/empresas.html"'));
   assert.ok(html.includes('href="/solucoes.html"'));
   assert.ok(!html.includes('/assets/references/'));

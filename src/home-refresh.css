@@ -251,6 +251,22 @@
 /* Um sinal sobe do centro da cena e revela a marca, sem placa ou moldura. */
 .business-scene { position:relative;width:100%;aspect-ratio:16/9; }
 .business-scene .business-video { position:absolute;inset:0; }
+.office-person { position:absolute;inset:0;z-index:1;pointer-events:none;background:url('/assets/generated/amr-escritorio-pessoas.jpg') center/100% 100% no-repeat;filter:brightness(1.03); }
+.office-person-gamer { clip-path:polygon(12.7% 38%,14.5% 38%,15.3% 41%,17% 43%,16.3% 47%,13.5% 46%,12.5% 42%);transform-origin:14% 46%;--person-duration:3.2s; }
+.office-person-worker { clip-path:polygon(46% 40%,48.3% 40%,49% 44%,50.2% 45%,49.5% 48%,46.5% 49%,45.8% 44%);transform-origin:47.5% 49%;--person-duration:4.1s; }
+.office-person-colleague { clip-path:polygon(52% 43.5%,54.6% 44%,54.8% 48%,56.2% 49%,55% 52%,52% 51%,51.5% 48%);transform-origin:53.5% 52%;--person-duration:3.7s; }
+.office-person-viewer { clip-path:polygon(77% 49%,79% 49.5%,80% 53%,79% 56%,75% 56%,74% 54%,76.5% 52%);transform-origin:78% 56%;--person-duration:5.2s; }
+.office-screen { position:absolute;inset:0;z-index:1;pointer-events:none;background:#8bcaff;opacity:0; }
+.office-screen-game { clip-path:polygon(15.65% 36.9%,19% 39.1%,19% 43.5%,15.7% 41.3%); }
+.office-screen-stream { clip-path:polygon(68% 55.1%,72.8% 51.5%,72.8% 57.7%,68% 61.4%); }
+@media(prefers-reduced-motion:no-preference) {
+  .office-motion-active .office-person { animation:amr-person-breathe var(--person-duration) ease-in-out infinite alternate; }
+  .office-motion-active .office-screen { animation:amr-screen-light 4s ease-in-out infinite alternate; }
+  .office-motion-active .office-screen-stream { animation-delay:-2s; }
+}
+body:has(.user-effects-paused) :is(.office-person,.office-screen,.office-signal-mark,.office-signal-wifi) { animation-play-state:paused!important; }
+@keyframes amr-person-breathe { from { transform:rotate(-.45deg) scale(1.005); } to { transform:rotate(.65deg) scale(1.018); } }
+@keyframes amr-screen-light { from { opacity:.02; } to { opacity:.18; } }
 .office-wall-logo { position:absolute;z-index:2;left:57.4%;top:65%;width:8%;aspect-ratio:2;pointer-events:none;background:url('/assets/brand/logo-amr-relief.png') center/contain no-repeat;transform:skewY(-26deg) scaleX(.9);filter:drop-shadow(1px 1px 1px #162f4266);opacity:.9; }
 .office-signal { position:absolute;z-index:2;left:50%;top:40%;width:13%;max-width:78px;aspect-ratio:2;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(0 2px 2px #173b5355); }
 .office-signal-wifi.icon { position:absolute;left:30%;top:8%;width:40%;height:auto;color:#50baff;stroke-width:1.7;opacity:0; }

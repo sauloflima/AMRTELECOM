@@ -77,15 +77,15 @@ try {
     await page.waitForTimeout(250);
     assert.equal(await page.locator('.hero-frame video').evaluateAll(videos=>videos.every(v=>v.paused)),true);
     assert.equal(await page.locator('.hero-proof .icon').first().evaluate(el=>getComputedStyle(el).animationPlayState),'paused');
-    // A mesma proteção de reprodução serve ao quarto vídeo da seção empresarial.
+    // A ilustração mantém controle sobre os efeitos da marca.
     await page.locator('[data-office-motion]').scrollIntoViewIfNeeded();
-    await page.waitForFunction(()=>!document.querySelector('[data-business-video]').paused);
+    await page.waitForFunction(()=>document.querySelector('[data-office-motion]').classList.contains('office-motion-active'));
     await page.locator('.office-motion-toggle').click();
-    assert.equal(await page.locator('[data-business-video]').evaluate(v=>v.paused),true);
+    assert.equal(await page.locator('[data-office-motion]').evaluate(el=>el.classList.contains('office-motion-active')),false);
     await page.locator('.office-motion-toggle').click();
-    await page.waitForFunction(()=>!document.querySelector('[data-business-video]').paused);
+    await page.waitForFunction(()=>document.querySelector('[data-office-motion]').classList.contains('office-motion-active'));
     await page.close();
-    console.log(`Aprovado: ${width}x${height}, três slides, vídeos, entrada, pausa/retomada, mídia fora da tela e vídeo empresarial.`);
+    console.log(`Aprovado: ${width}x${height}, três slides, vídeos, entrada, pausa/retomada, mídia fora da tela e efeitos da ilustração.`);
   }
 
   // Preferências iniciais e alteradas durante a reprodução.

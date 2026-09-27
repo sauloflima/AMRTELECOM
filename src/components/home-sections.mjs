@@ -9,9 +9,8 @@ export const profileImages = {
 export const homeAssets = [
   ...Object.values(profileImages),
   '/assets/generated/amr-rotina-conectada-3d.jpg',
-  '/assets/generated/amr-escritorio-conectado-poster.jpg',
-  '/assets/generated/amr-atendimento-local-editorial-v2.jpg',
-  '/assets/videos/amr-empresas.mp4'
+  '/assets/generated/amr-escritorio-pessoas.jpg',
+  '/assets/generated/amr-atendimento-local-editorial-v2.jpg'
 ];
 
 export function connectionStrip() {
@@ -25,7 +24,7 @@ export function testimonials(items=config.testimonials) {
 }
 
 export function homeBusiness() {
-  return `<section class="business-section-home" aria-labelledby="business-title"><div class="container business-layout-home"><div class="business-copy"><p class="section-kicker">AMR para empresas</p><h2 id="business-title">Conexão para o trabalho continuar em movimento.</h2><p>Para pequenos negócios e escritórios, a equipe conversa sobre a rotina de uso antes de indicar uma opção.</p><ul><li>${icon('check')} Solução avaliada para a operação</li><li>${icon('check')} Tecnologia em fibra óptica</li><li>${icon('check')} Suporte técnico com atendimento humano</li></ul><a class="button primary" href="/empresas.html">Conhecer soluções para empresas ${icon('arrow')}</a></div><div class="business-media" data-office-motion><div class="business-scene"><video class="business-video" data-business-video muted loop playsinline preload="none" poster="/assets/generated/amr-escritorio-conectado-poster.jpg" aria-hidden="true" width="1920" height="1080"><source src="/assets/videos/amr-empresas.mp4" type="video/mp4"></video><img class="business-video-fallback" src="/assets/generated/amr-escritorio-conectado-poster.jpg" alt="Escritório em ilustração 3D, com estações de trabalho e reunião conectadas por fibra óptica." width="1920" height="1080" loading="lazy" decoding="async"><span class="office-wall-logo" aria-hidden="true"></span><span class="office-signal" aria-hidden="true">${icon('wifi','office-signal-wifi')}<span class="office-signal-mark"></span></span></div><button class="office-motion-toggle" type="button" aria-pressed="false" hidden>Pausar animação</button></div></div></section>`;
+  return `<section class="business-section-home" aria-labelledby="business-title"><div class="container business-layout-home"><div class="business-copy"><p class="section-kicker">AMR para empresas</p><h2 id="business-title">Conexão para o trabalho continuar em movimento.</h2><p>Para pequenos negócios e escritórios, a equipe conversa sobre a rotina de uso antes de indicar uma opção.</p><ul><li>${icon('check')} Solução avaliada para a operação</li><li>${icon('check')} Tecnologia em fibra óptica</li><li>${icon('check')} Suporte técnico com atendimento humano</li></ul><a class="button primary" href="/empresas.html">Conhecer soluções para empresas ${icon('arrow')}</a></div><div class="business-media" data-office-motion><div class="business-scene"><img class="business-video-fallback" src="/assets/generated/amr-escritorio-pessoas.jpg" alt="Ambiente conectado em 3D, com pessoas trabalhando online, jogando no computador e assistindo a uma série." width="1672" height="941" loading="lazy" decoding="async"><span class="office-person office-person-gamer" aria-hidden="true"></span><span class="office-person office-person-worker" aria-hidden="true"></span><span class="office-person office-person-colleague" aria-hidden="true"></span><span class="office-person office-person-viewer" aria-hidden="true"></span><span class="office-screen office-screen-game" aria-hidden="true"></span><span class="office-screen office-screen-stream" aria-hidden="true"></span><span class="office-wall-logo" aria-hidden="true"></span><span class="office-signal" aria-hidden="true">${icon('wifi','office-signal-wifi')}<span class="office-signal-mark"></span></span></div><button class="office-motion-toggle" type="button" aria-pressed="false" hidden>Pausar animação</button></div></div></section>`;
 }
 
 export function homeSupport() {
