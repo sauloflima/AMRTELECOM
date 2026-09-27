@@ -1,3 +1,5 @@
+const SUPPORT_PROMPT_DELAY_MS = 11_000;
+
 export function mountSupportAssistant(root) {
   if (!root) return;
   const prompt = root.querySelector('.support-prompt');
@@ -94,7 +96,7 @@ export function mountSupportAssistant(root) {
     ready = false;
     setExpanded(!mobile.matches);
     sync();
-    timer = setTimeout(() => { ready = true; sync(); }, 11000);
+    timer = setTimeout(() => { ready = true; sync(); }, SUPPORT_PROMPT_DELAY_MS);
   };
   addEventListener('pageshow', event => { if (event.persisted) start(); });
   addEventListener('pagehide', () => { clearTimeout(timer); root.hidden = true; });

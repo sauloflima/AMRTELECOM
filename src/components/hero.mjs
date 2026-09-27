@@ -15,7 +15,7 @@ export const heroAssets = [
 
 function arrivingTitle(text, accent='') {
   let index=0;
-  const words=part=>part.split(' ').map(word=>`<span class="arrival-word">${[...word].map(letter=>`<span class="arrival-letter" style="--letter-delay:${index++*14}ms">${letter}</span>`).join('')}</span>`).join(' ');
+  const words=part=>part.split(' ').map(word=>`<span class="arrival-word">${[...word].map(letter=>`<span class="arrival-letter" data-letter-delay="${index++*14}">${letter}</span>`).join('')}</span>`).join(' ');
   return `${words(text)}${accent?` <span class="arrival-accent">${words(accent)}</span>`:''}`;
 }
 

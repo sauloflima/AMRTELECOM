@@ -38,7 +38,7 @@ npm run preview
 npm test
 ```
 
-`build` recria a versão estática em `dist`, removendo o conteúdo anterior dessa pasta. `preview` serve o último build na mesma porta. Rode apenas um servidor por vez.
+`build` recria a versão estática em `dist`, removendo o conteúdo anterior dessa pasta. `preview` serve o último build na mesma porta padrão. Rode apenas um servidor por porta.
 
 ## Onde editar
 
@@ -54,7 +54,7 @@ Todos os dados comerciais ficam em `src/config.mjs`:
 - `social`: URLs HTTPS dos perfis oficiais.
 - `messages`: mensagens de planos, cobertura, Wi-Fi, empresas, suporte e contato geral.
 - `siteUrl`: domínio HTTPS definitivo. Vazio enquanto não confirmado.
-- `customerPortalUrl`: link HTTPS oficial da Área do cliente. Ainda pendente; até recebê-lo, a página informa que o acesso está em preparação e mantém o botão do portal desabilitado.
+- `customerPortalUrl`: link oficial `https://www.amrfibra.com.br/central/`. O certificado apresentado em 26/09/2026 está vencido e não corresponde ao domínio; a hospedagem do portal precisa corrigir o HTTPS antes do lançamento.
 
 Recompile após editar a configuração. A indexação só é habilitada quando há domínio HTTPS válido, `commercialConfirmed`, referências das três aprovações e textos legais sem o marcador `PENDENTE DE REVISÃO`. Enquanto houver pendências, `robots.txt` e meta robots bloqueiam a indexação e `sitemap.xml` fica vazio. Uma referência preenchida não comprova, por si só, que a AMR realmente aprovou o conteúdo.
 
@@ -74,11 +74,14 @@ O carrossel avança automaticamente a cada 10 segundos e oferece controles de na
 src/
   config.mjs                Dados editáveis
   routes.mjs                Catálogo das 12 páginas e metadados
-  client.mjs                Menu, formulário, contato, carrossel e vídeos
+  client.mjs                Composição dos comportamentos do navegador
+  client/                   Navegação, contato e mídia/movimento
   styles.css                Base compartilhada e páginas internas
   home-refresh.css          Início e catálogo de planos
   support-assistant.css     Widget flutuante de atendimento humano
   lib/whatsapp.mjs           Links, mensagens e validação
+  lib/carousel.mjs           Estado e controles do carrossel
+  lib/hero-video.mjs         Reprodução com poster e fallback
   lib/support-assistant.mjs  Delay e visibilidade do atendimento
   components/
     shared.mjs              Cabeçalho, rodapé, botões e ícones
@@ -90,7 +93,9 @@ src/
     contact.mjs
     navigation.mjs          Acessos, caminho de navegação e páginas internas
 scripts/
-  build.mjs                 Geração de HTML e cópia de mídias selecionadas
+  build.mjs                 Geração das páginas e cópia de recursos
+  build-files.mjs           Lista permitida de módulos, CSS e mídias
+  check-publication.mjs     Verificação do conteúdo exato de dist
   dev.mjs                   Servidor local e atualização do build
 tests/contact.test.mjs
 tests/routes.test.mjs
@@ -100,11 +105,13 @@ dist/                       Saída estática
 
 `src/home.css` e `src/editorial.css` são rascunhos históricos: o build não os referencia nem os copia para `dist`.
 
+[ARCHITECTURE.md](ARCHITECTURE.md) descreve as fronteiras, o runtime, a publicação e como acrescentar páginas, componentes e comportamentos.
+
 ## Pendências antes de publicar
 
-O WhatsApp, os preços e benefícios residenciais desta versão e as cidades Gravatá e Amaraji já estão configurados. Antes de publicar, confirmar os demais contatos, endereço, horários, bairros, domínio, condições de instalação e equipamentos, registrar as aprovações comerciais e legais e fornecer o link oficial da Área do cliente. Cobertura e condições específicas continuam sujeitas à consulta. A solução empresarial não exibe preço: a equipe avalia a necessidade e apresenta uma proposta. O selo “Para uso intenso” destaca editorialmente 700 Mega; não foi usada a alegação “Mais escolhido” sem dados que a comprovem.
+O WhatsApp, os preços e benefícios residenciais desta versão e as cidades Gravatá e Amaraji já estão configurados. Antes de publicar, confirmar os demais contatos, endereço, horários, bairros, domínio, condições de instalação e equipamentos, registrar as aprovações comerciais e legais e corrigir o certificado HTTPS do portal oficial da Área do cliente. Cobertura e condições específicas continuam sujeitas à consulta. A solução empresarial não exibe preço: a equipe avalia a necessidade e apresenta uma proposta. O selo “Para uso intenso” destaca editorialmente 700 Mega; não foi usada a alegação “Mais escolhido” sem dados que a comprovem.
 
-As páginas de privacidade e termos descrevem a versão atual e precisam de revisão e complementação com os dados da empresa antes da publicação. Nenhuma mensagem foi enviada a terceiros e o site não foi publicado.
+As páginas de privacidade e termos descrevem a versão atual e precisam de revisão e complementação com os dados da empresa antes da publicação. A versão anterior está pública no GitHub Pages. As correções desta auditoria são locais; nenhuma mensagem foi enviada a terceiros nem um novo deploy foi realizado.
 
 O formulário não utiliza banco de dados, cookies ou armazenamento local/sessionStorage. A consulta completa usa nome, cidade, bairro e rua ou referência; a rápida usa CEP e número ou referência. Nenhuma pede telefone. Após a validação, o visitante vê a mensagem preparada. Só o clique no link de continuação abre o WhatsApp: nesse momento os dados entram na URL do serviço, antes de qualquer envio da mensagem no aplicativo. Sem número oficial configurado, o site informa a indisponibilidade.
 
@@ -118,9 +125,11 @@ O componente `WhatsAppAssistant` aguarda 11 segundos. Até 800 px, mostra soment
 
 Publique somente o conteúdo de `dist/`. Não configure a raiz do repositório nem `public/` como diretório público: ali há originais, históricos e um backup que não pertencem ao site. `src/config.mjs` é copiado para o navegador; não coloque senhas ou chaves nele. Rode `npm run check:dist` para validar a lista exata de arquivos gerados e `npm run prepublish:check` antes de preparar qualquer deploy. O segundo comando deve falhar enquanto as pendências acima existirem.
 
-Quando a plataforma de hospedagem for escolhida, configure nela os valores de `hostingHeaders` em `scripts/security.mjs`: CSP com `frame-ancestors 'none'`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer` e `Permissions-Policy: camera=(), microphone=(), geolocation=()`. O HTML já traz a parte da CSP que funciona em meta tag; `frame-ancestors` exige cabeçalho HTTP. A CSP ainda permite estilos inline porque removê-los bloqueou a animação do título e o menu móvel sem JavaScript em teste local. Não remova `unsafe-inline` sem migrar esses estilos e repetir os testes.
+O workflow atual publica pelo GitHub Pages, que respondeu sem os headers de proteção configurados na prévia local. Configure os valores de `hostingHeaders` em `scripts/security.mjs` no servidor/CDN que servir a produção: CSP com `frame-ancestors 'none'`, proteção MIME, referrer, permissões, COOP e CORP. A meta CSP não substitui headers como `frame-ancestors`. A política não permite `unsafe-inline` nem `unsafe-eval` e bloqueia frames, conexões e envios nativos dos formulários; os links para WhatsApp continuam funcionando. O único `<style>` de fallback sem JavaScript tem hash calculado a partir de seu conteúdo, e as animações definem suas propriedades pelo JavaScript local. A configuração completa e as pendências estão em [SECURITY_AUDIT.md](SECURITY_AUDIT.md).
 
 Após configurar a hospedagem, execute `npm run check:hosting` para testar as 12 respostas reais via HTTPS. Os cabeçalhos de `npm run preview` não comprovam a configuração de produção. Verifique também que HTTP redireciona para HTTPS e que todo o domínio funciona por HTTPS antes de habilitar HSTS. Depois de configurar HSTS, execute `node scripts/check-hosting.mjs --require-hsts`. Não habilite `includeSubDomains` ou `preload` sem confirmar cada subdomínio.
+
+O workflow separa build e deploy, fixa as Actions por commit, instala com `npm ci --ignore-scripts`, audita dependências e exige `npm run prepublish:check` antes de enviar o artefato. Enquanto faltarem domínio e aprovações, o deploy ficará bloqueado. O GitHub Pages já publicado não é alterado por esse bloqueio. `noindex` não restringe acesso ao site.
 
 Antes da publicação, defina `siteUrl` com o domínio HTTPS definitivo e revise os textos de privacidade e termos com a identificação e o canal oficial da empresa. Enquanto o domínio estiver vazio, o build mantém `noindex` e `Disallow: /` de propósito.
 
@@ -128,7 +137,7 @@ Antes da publicação, defina `siteUrl` com o domínio HTTPS definitivo e revise
 
 O estado visual mais recente e a validação do segundo slide estão em [design-qa.md](design-qa.md). [REDESIGN_HOME.md](REDESIGN_HOME.md), [REDESIGN_HERO.md](REDESIGN_HERO.md), [AUDITORIA_PREMIUM.md](AUDITORIA_PREMIUM.md) e [VALIDACAO.md](VALIDACAO.md) registram etapas anteriores. Assets e proveniência estão em [ASSETS_HOME.md](ASSETS_HOME.md). `testimonials` e `mostChosenPlanId` devem receber somente dados reais confirmados; sem depoimentos aprovados, a seção permanece oculta.
 
-Selecionar um plano residencial abre a consulta de cobertura com `?plano=ID` e preserva a opção na mensagem preparada. Apenas IDs existentes no catálogo são aceitos. A opção empresarial leva ao contato para uma avaliação sem preço anunciado. Na última revisão funcional, `npm test` aprovou 50 testes, `npm run build` gerou as 12 páginas e `npm run check:dist` passou; houve inspeção visual em 1440 e 390 px, sem rolagem horizontal ou erros no console. Core Web Vitals não foram medidos.
+Selecionar um plano residencial abre a consulta de cobertura com `?plano=ID` e preserva a opção na mensagem preparada. Apenas IDs existentes no catálogo são aceitos. A opção empresarial leva ao contato para uma avaliação sem preço anunciado. Na revisão de integridade do build, `npm test` aprovou 56 testes, `npm run build` gerou as 12 páginas e `npm run check:dist` aprovou os 44 arquivos selecionados. A revisão visual anterior cobriu 1440 e 390 px, sem rolagem horizontal ou erros no console. Core Web Vitals não foram medidos.
 
 As verificações opcionais `scripts/check-pages-browser.mjs` e `scripts/check-form-browser.mjs` usam Playwright já disponível no ambiente, indicado por `AMR_PLAYWRIGHT_ROOT`. Execute com o servidor local ativo. Elas não instalam dependências.
 
