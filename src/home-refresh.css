@@ -258,6 +258,8 @@
 .office-person-viewer { clip-path:polygon(77% 49%,79% 49.5%,80% 53%,79% 56%,75% 56%,74% 54%,76.5% 52%);transform-origin:78% 56%;--person-duration:4.6s;--person-action:amr-viewer-shift; }
 .office-phone-user { position:absolute;z-index:2;left:34.7%;top:34.4%;width:5.8%;aspect-ratio:2/3;pointer-events:none;transform-origin:53% 95%;background:url('/assets/generated/amr-pessoa-celular-parada.png') center/contain no-repeat;filter:drop-shadow(0 2px 1px #10263b55); }
 .office-phone-user:after { content:"";position:absolute;left:66%;top:27%;width:7%;height:5%;border-radius:50%;background:#91cfff;filter:blur(2px);opacity:.1; }
+.office-floor-light { position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none; }
+.office-floor-light path { fill:none;stroke:#c4efff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:120 880;stroke-dashoffset:1000;opacity:0;filter:drop-shadow(0 0 5px #34baff); }
 .office-screen { position:absolute;inset:0;z-index:1;pointer-events:none;background:#8bcaff;opacity:0; }
 .office-screen-game { clip-path:polygon(15.65% 36.9%,19% 39.1%,19% 43.5%,15.7% 41.3%); }
 .office-screen-stream { clip-path:polygon(68% 55.1%,72.8% 51.5%,72.8% 57.7%,68% 61.4%); }
@@ -268,18 +270,21 @@
   .office-motion-active .office-person { animation:var(--person-action) var(--person-duration) ease-in-out infinite alternate; }
   .office-motion-active .office-phone-user { animation:amr-phone-breathe 4.8s ease-in-out infinite alternate; }
   .office-motion-active .office-phone-user:after { animation:amr-phone-tap 3.2s ease-in-out infinite; }
+  .office-motion-active .office-floor-light path { animation:amr-floor-flow 7s linear infinite; }
+  .office-motion-active .office-floor-light path:nth-child(2) { animation-delay:-3.5s; }
   .office-motion-active .office-screen { animation:amr-screen-light 4s ease-in-out infinite alternate; }
   .office-motion-active .office-screen-stream { animation-delay:-2s; }
   .office-motion-active .office-monitor { animation:amr-monitor-work 3.4s ease-in-out infinite alternate; }
   .office-motion-active .office-monitor-work { animation-delay:-1.7s; }
 }
-body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-phone-user:after,.office-screen,.office-monitor,.office-wall-logo) { animation-play-state:paused!important; }
+body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-phone-user:after,.office-floor-light path,.office-screen,.office-monitor,.office-wall-logo) { animation-play-state:paused!important; }
 @keyframes amr-gamer-play { from { transform:rotate(-.65deg) translateY(0); } to { transform:rotate(.7deg) translate(1px,1.5px); } }
 @keyframes amr-worker-type { from { transform:rotate(-.5deg) translateY(0); } to { transform:rotate(.65deg) translateY(1.5px); } }
 @keyframes amr-colleague-nod { from { transform:rotate(.6deg) translateY(0); } to { transform:rotate(-1deg) translateY(1.5px); } }
 @keyframes amr-viewer-shift { from { transform:rotate(-.5deg) translateY(0); } to { transform:rotate(.7deg) translateY(1.5px); } }
 @keyframes amr-phone-breathe { from { transform:rotate(-.3deg) translateY(0); } to { transform:rotate(.45deg) translateY(-1px); } }
 @keyframes amr-phone-tap { 0%,37%,54%,100% { opacity:.08; } 44%,48% { opacity:.45; } }
+@keyframes amr-floor-flow { 0% { opacity:0;stroke-dashoffset:1000; } 10%,90% { opacity:.8; } 100% { opacity:0;stroke-dashoffset:0; } }
 @keyframes amr-monitor-work { from { opacity:.62;filter:brightness(.88); } to { opacity:.9;filter:brightness(1.12); } }
 @keyframes amr-screen-light { from { opacity:.02; } to { opacity:.18; } }
 .office-wall-logo { position:absolute;z-index:2;left:57.4%;top:65%;width:8%;aspect-ratio:2;pointer-events:none;background:url('/assets/brand/logo-amr-relief.png') center/contain no-repeat;transform:skewY(-26deg) scaleX(.9);filter:drop-shadow(1px 1px 1px #162f4266);animation:amr-office-logo-reveal 650ms 4s ease-out both;animation-play-state:paused; }

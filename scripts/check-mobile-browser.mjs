@@ -81,10 +81,12 @@ try {
     await page.locator('[data-office-motion]').scrollIntoViewIfNeeded();
     await page.waitForFunction(()=>document.querySelector('[data-office-motion]').classList.contains('office-motion-active'));
     assert.equal(await page.locator('.office-phone-user').evaluate(el=>getComputedStyle(el).animationName),'amr-phone-breathe');
+    assert.equal(await page.locator('.office-floor-light path').first().evaluate(el=>getComputedStyle(el).animationName),'amr-floor-flow');
     assert.equal(await page.locator('.office-monitor-game').evaluate(el=>getComputedStyle(el).animationName),'amr-monitor-work');
     await page.locator('.office-motion-toggle').click();
     assert.equal(await page.locator('[data-office-motion]').evaluate(el=>el.classList.contains('office-motion-active')),false);
     assert.equal(await page.locator('.office-phone-user').evaluate(el=>getComputedStyle(el).animationName),'none');
+    assert.equal(await page.locator('.office-floor-light path').first().evaluate(el=>getComputedStyle(el).animationName),'none');
     await page.locator('.office-motion-toggle').click();
     await page.waitForFunction(()=>document.querySelector('[data-office-motion]').classList.contains('office-motion-active'));
     await page.close();
