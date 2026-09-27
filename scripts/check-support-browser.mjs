@@ -111,16 +111,15 @@ try {
     if (width <= 800) {
       const toggle = page.locator('.support-avatar-toggle');
       const prompt = page.locator('.support-prompt');
-      assert.equal(await prompt.isVisible(), false, 'Mobile inicia recolhido');
-      assert.equal(await toggle.getAttribute('aria-expanded'), 'false');
-      await toggle.press('Enter');
+      assert.equal(await prompt.isVisible(), true, 'Mobile abre o balão automaticamente após 11 segundos');
+      await toggle.focus();
       assert.equal(await prompt.isVisible(), true);
       assert.equal(await toggle.getAttribute('aria-expanded'), 'true');
       await page.keyboard.press('Tab');
       assert.equal(await page.locator('.support-close').evaluate(el => el === document.activeElement), true);
       const card = await prompt.boundingBox();
       assert.ok(card.x >= 12 && card.x + card.width <= width - 12 && card.y >= 68);
-      assert.ok(card.y + card.height < avatar.y, 'Card cabe acima do avatar');
+      assert.ok(card.x + card.width <= avatar.x - 8, 'Card compacto cabe ao lado do avatar');
       await page.screenshot({ path: path.join(evidence, `open-${width}.png`), animations: 'disabled' });
       await openWhatsApp(page, '.support-cta');
       await page.locator('.support-close').click();
@@ -161,7 +160,7 @@ try {
   await short.clock.install();
   await short.goto(origin);
   await short.clock.fastForward(11000);
-  await short.locator('.support-avatar-toggle').tap();
+  assert.equal(await short.locator('.support-prompt').isVisible(), true);
   const shortCard = await short.locator('.support-prompt').boundingBox();
   assert.ok(shortCard.y >= 69 && shortCard.y + shortCard.height <= 400);
   await short.screenshot({path:path.join(evidence,'short-390x400.png'),animations:'disabled'});

@@ -2168,6 +2168,11 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
   .customer-layout { grid-template-columns:1fr;gap:30px;max-width:650px; }
   .customer-copy { max-width:none; }
 }
+@media(max-width:600px) {
+  .customer-card-body { flex-direction:column;align-items:center;text-align:center;gap:16px;padding-block:22px; }
+  .customer-card-body .customer-symbol { flex:0 0 80px;width:80px;height:80px; }
+  .customer-section { padding-top:28px; }
+}
 @media(max-width:380px) {
   .customer-card { padding:20px; }
   .customer-card-body { gap:12px; }
