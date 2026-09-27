@@ -256,40 +256,31 @@
 .office-person-worker { clip-path:polygon(46% 40%,48.3% 40%,49% 44%,50.2% 45%,49.5% 48%,46.5% 49%,45.8% 44%);transform-origin:47.5% 49%;--person-duration:2.2s;--person-action:amr-worker-type; }
 .office-person-colleague { clip-path:polygon(52% 43.5%,54.6% 44%,54.8% 48%,56.2% 49%,55% 52%,52% 51%,51.5% 48%);transform-origin:53.5% 52%;--person-duration:3.4s;--person-action:amr-colleague-nod; }
 .office-person-viewer { clip-path:polygon(77% 49%,79% 49.5%,80% 53%,79% 56%,75% 56%,74% 54%,76.5% 52%);transform-origin:78% 56%;--person-duration:4.6s;--person-action:amr-viewer-shift; }
-.office-walker { position:absolute;z-index:2;left:40%;top:23%;width:5.4%;aspect-ratio:1/2;pointer-events:none;transform-origin:50% 95%;filter:drop-shadow(0 3px 2px #10263b77); }
-.office-walker:before { content:"";position:absolute;inset:0;background:url('/assets/generated/amr-pessoa-celular-walk.png') 0 0/400% 100% no-repeat; }
-.office-walker:after { content:"";position:absolute;left:28%;bottom:-2%;width:55%;height:4%;border-radius:50%;background:#10263b55;filter:blur(2px); }
+.office-phone-user { position:absolute;z-index:2;left:34.7%;top:34.4%;width:5.8%;aspect-ratio:2/3;pointer-events:none;transform-origin:53% 95%;background:url('/assets/generated/amr-pessoa-celular-parada.png') center/contain no-repeat;filter:drop-shadow(0 2px 1px #10263b55); }
+.office-phone-user:after { content:"";position:absolute;left:66%;top:27%;width:7%;height:5%;border-radius:50%;background:#91cfff;filter:blur(2px);opacity:.1; }
 .office-screen { position:absolute;inset:0;z-index:1;pointer-events:none;background:#8bcaff;opacity:0; }
 .office-screen-game { clip-path:polygon(15.65% 36.9%,19% 39.1%,19% 43.5%,15.7% 41.3%); }
 .office-screen-stream { clip-path:polygon(68% 55.1%,72.8% 51.5%,72.8% 57.7%,68% 61.4%); }
+.office-monitor { position:absolute;z-index:4;display:grid;place-items:center;pointer-events:none;overflow:hidden;background:#08263fb8;color:#d7efff;font-size:clamp(2px,.35vw,7px);font-weight:800;letter-spacing:.05em;text-shadow:0 0 3px #8ed6ff;opacity:.72; }
+.office-monitor-game { left:15.85%;top:37.25%;width:3%;height:5.8%;clip-path:polygon(0 0,100% 20%,100% 100%,0 80%); }
+.office-monitor-work { left:48.35%;top:41.5%;width:1.9%;height:3.6%;font-size:clamp(2px,.25vw,5px);clip-path:polygon(0 0,100% 5%,100% 100%,0 94%); }
 @media all {
   .office-motion-active .office-person { animation:var(--person-action) var(--person-duration) ease-in-out infinite alternate; }
-  .office-motion-active .office-walker { animation:amr-office-lap 14.4s linear infinite; }
-  .office-motion-active .office-walker:before { animation:amr-office-step .9s linear infinite; }
+  .office-motion-active .office-phone-user { animation:amr-phone-breathe 4.8s ease-in-out infinite alternate; }
+  .office-motion-active .office-phone-user:after { animation:amr-phone-tap 3.2s ease-in-out infinite; }
   .office-motion-active .office-screen { animation:amr-screen-light 4s ease-in-out infinite alternate; }
   .office-motion-active .office-screen-stream { animation-delay:-2s; }
+  .office-motion-active .office-monitor { animation:amr-monitor-work 3.4s ease-in-out infinite alternate; }
+  .office-motion-active .office-monitor-work { animation-delay:-1.7s; }
 }
-body:has(.user-effects-paused) :is(.office-person,.office-walker,.office-walker:before,.office-screen,.office-wall-logo) { animation-play-state:paused!important; }
-@keyframes amr-gamer-play { from { transform:rotate(-.45deg) translateY(0); } to { transform:rotate(.55deg) translateY(1px); } }
-@keyframes amr-worker-type { from { transform:rotate(-.35deg) scale(1.002); } to { transform:rotate(.4deg) scale(1.013); } }
-@keyframes amr-colleague-nod { from { transform:rotate(.5deg) translateY(0); } to { transform:rotate(-.7deg) translateY(1px); } }
-@keyframes amr-viewer-shift { from { transform:rotate(-.35deg) scale(1.002); } to { transform:rotate(.5deg) scale(1.011); } }
-@keyframes amr-office-lap {
-  0%,100% { left:40%;top:23%;transform:scale(.84) rotateY(0deg); }
-  12.5% { left:46%;top:22%;transform:scale(.86) rotateY(0deg); }
-  25% { left:54%;top:22%;transform:scale(.89) rotateY(0deg); }
-  37.5% { left:59%;top:24%;transform:scale(.93) rotateY(35deg); }
-  50% { left:61%;top:27%;transform:scale(.97) rotateY(180deg); }
-  62.5% { left:56%;top:29%;transform:scale(.95) rotateY(180deg); }
-  75% { left:48%;top:28%;transform:scale(.91) rotateY(180deg); }
-  87.5% { left:41%;top:26%;transform:scale(.86) rotateY(300deg); }
-}
-@keyframes amr-office-step {
-  0%,24.99% { background-position:0 0; }
-  25%,49.99% { background-position:33.333% 0; }
-  50%,74.99% { background-position:66.667% 0; }
-  75%,100% { background-position:100% 0; }
-}
+body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-phone-user:after,.office-screen,.office-monitor,.office-wall-logo) { animation-play-state:paused!important; }
+@keyframes amr-gamer-play { from { transform:rotate(-.65deg) translateY(0); } to { transform:rotate(.7deg) translate(1px,1.5px); } }
+@keyframes amr-worker-type { from { transform:rotate(-.5deg) translateY(0); } to { transform:rotate(.65deg) translateY(1.5px); } }
+@keyframes amr-colleague-nod { from { transform:rotate(.6deg) translateY(0); } to { transform:rotate(-1deg) translateY(1.5px); } }
+@keyframes amr-viewer-shift { from { transform:rotate(-.5deg) translateY(0); } to { transform:rotate(.7deg) translateY(1.5px); } }
+@keyframes amr-phone-breathe { from { transform:rotate(-.3deg) translateY(0); } to { transform:rotate(.45deg) translateY(-1px); } }
+@keyframes amr-phone-tap { 0%,37%,54%,100% { opacity:.08; } 44%,48% { opacity:.45; } }
+@keyframes amr-monitor-work { from { opacity:.62;filter:brightness(.88); } to { opacity:.9;filter:brightness(1.12); } }
 @keyframes amr-screen-light { from { opacity:.02; } to { opacity:.18; } }
 .office-wall-logo { position:absolute;z-index:2;left:57.4%;top:65%;width:8%;aspect-ratio:2;pointer-events:none;background:url('/assets/brand/logo-amr-relief.png') center/contain no-repeat;transform:skewY(-26deg) scaleX(.9);filter:drop-shadow(1px 1px 1px #162f4266);animation:amr-office-logo-reveal 650ms 4s ease-out both;animation-play-state:paused; }
 .office-motion-active .office-wall-logo { animation-play-state:running; }
