@@ -227,7 +227,7 @@
 .routine-heading { margin-bottom:28px; }
 .routine-heading h2 { margin:0;color:var(--home-ink);font-size:clamp(2.1rem,3.4vw,3.25rem);line-height:1.04;letter-spacing:-.05em; }
 .routine-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
-.routine-card { position:relative;display:block;min-height:380px;overflow:hidden;border-radius:18px;background:var(--home-navy);color:#fff; }
+.routine-card { position:relative;display:block;min-height:380px;overflow:hidden;border-radius:18px;background:var(--home-navy);color:#fff;transition:box-shadow 180ms ease,transform 180ms ease; }
 .routine-card:after { content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(4,22,38,.88) 100%); }
 .routine-card img { display:block;width:100%;height:100%;min-height:380px;object-fit:cover; }
 .routine-card>span { position:absolute;z-index:2;right:0;bottom:0;left:0;display:grid;grid-template-columns:1fr auto;align-items:end;gap:5px 14px;padding:26px 22px 20px; }
@@ -341,14 +341,16 @@
   .home-page .button.primary:hover,.plans-catalog .button.primary:hover { background:var(--home-blue-dark);border-color:var(--home-blue-dark); }
   .home-page .button.light:hover { background:#eaf4fc; }
   .home-page .button.outline:hover { border-color:var(--home-blue);color:var(--home-blue-dark); }
-  .plan-card:hover { border-color:#7da3c1;box-shadow:0 12px 26px rgba(6,27,49,.13);transform:translateY(-4px); }
+  .plan-card:hover { border-color:#7da3c1;box-shadow:0 12px 26px rgba(6,27,49,.13);transform:translateY(-4px) scale(1.015); }
   .plan-card:hover .plan-media img { transform:scale(1.025); }
+  .routine-card:hover { box-shadow:0 12px 26px rgba(6,27,49,.18);transform:translateY(-4px) scale(1.015); }
   .carousel-arrow:hover { color:var(--home-blue-dark);box-shadow:0 7px 16px rgba(6,27,49,.14);transform:translateY(-2px); }
   .carousel-dots button:hover span { box-shadow:0 0 0 4px rgba(8,104,223,.12);transform:scale(1.15); }
   .support-paths a:hover { color:var(--home-blue); }
   .plan-details summary:hover,.home-faq-list summary:hover { background:#edf5fb;color:var(--home-blue-dark); }
 }
 .home-page:has(.user-effects-paused) .plan-card:hover { transform:none; }
+.home-page:has(.user-effects-paused) .routine-card:hover { transform:none; }
 
 @media(max-width:1100px) {
   .home-page .header .brand,.home-page .header .brand img { width:146px; }
@@ -561,7 +563,7 @@
   .home-page .header .brand img { transition:none; }
   .carousel-arrow,.carousel-dots button span { transition:none; }
   .carousel-arrow:hover,.carousel-dots button:hover span { transform:none; }
-  .home-page .button:hover,.plans-catalog .button:hover,.plan-card:hover,.plan-media img,.routine-card img { transform:none!important; }
+  .home-page .button:hover,.plans-catalog .button:hover,.plan-card:hover,.plan-media img,.routine-card:hover,.routine-card img { transform:none!important; }
   .trust-grid .icon { transform:none!important;transition:none; }
 }
 
