@@ -1,5 +1,23 @@
 # Auditoria de segurança — AMR Telecom
 
+## Atualização de segurança — 27/09/2026
+
+Este adendo atualiza os estados da auditoria histórica abaixo, sem apagar suas evidências. Base pública conferida: `1ceb3d8`. Evidências coletadas em 27/09/2026 às 14h57 (America/Recife).
+
+- **SEC-001 — CORRIGIDO:** o portal `https://www.amrfibra.com.br/central/` apresenta certificado Let's Encrypt (YR2), válido para `amrfibra.com.br` e `www.amrfibra.com.br`, de 27/09/2026 14:54:47 UTC a 26/12/2026 14:54:46 UTC. A consulta com validação TLS normal recebeu 302 para `login.hhvm` e HTTP 200 no destino. Não houve login, teste de sessões ou auditoria interna do portal. Renovação automática não foi verificada.
+- **SEC-002 — PENDENTE:** a Home pública continua sem os headers de segurança previstos para produção. HSTS, CSP em meta e referrer em meta estão presentes. Esta atualização consultou a Home; a auditoria histórica examinou 12 páginas.
+- **SEC-003 — REABERTO PARA LIBERAÇÃO FINAL:** a main passou a executar `npm run build` no lugar de `npm run prepublish:check` para publicar a prévia. Domínio definitivo e referências de aprovação comercial, privacidade e termos continuam pendentes. O workflow remoto atual não exige esse gate; ele deve ser exigido na publicação final.
+- **SEC-004/005:** CSP restritiva observada no HTML público e workflow com Actions por SHA, instalação sem lifecycle scripts, auditoria npm e jobs separados.
+- **SEC-006:** correção do verificador mantida; hospedagem definitiva ainda precisa de validação.
+
+Na sessão de atualização, 57 testes Node, build e verificação dos 44 arquivos passaram; npm audit reportou zero vulnerabilidades. Os cinco scripts de navegador constam como aprovados na etapa anterior e não foram integralmente repetidos para este adendo. O workflow [36336542791](https://github.com/sauloflima/AMRTELECOM/actions/runs/36336542791) concluiu build e deploy com sucesso; revisão de CSS/JS observada: `2df7dccb4ac5e921`.
+
+**Conclusão atual:** HTTPS do portal corrigido; pendências de headers e liberação final permanecem. A prévia publicada permite avaliação funcional, sem constituir aprovação completa de segurança de produção. Os status e números posteriores neste arquivo documentam a auditoria de 26/09 e devem ser lidos com este adendo.
+
+[Relatório de segurança atualizado para a AMR (PDF)](docs/seguranca/relatorio_seguranca_amr_2026-09-27.pdf).
+
+---
+
 Data: 26/09/2026 (America/Recife). Base inspecionada: commit `75fbf18`, com árvore de trabalho limpa no início. Auditoria do código, correções locais, testes de regressão e segunda revisão na mesma sessão. Nenhum commit, push, deploy, alteração de DNS ou mensagem para terceiros foi realizado.
 
 ## Resumo executivo
