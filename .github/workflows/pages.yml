@@ -22,7 +22,7 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm audit --audit-level=low
       - run: npm test
-      - run: npm run prepublish:check
+      - run: npm run build
       - run: node scripts/prepare-pages.mjs
       - run: npm run check:dist
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
