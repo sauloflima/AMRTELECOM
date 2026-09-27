@@ -2179,11 +2179,11 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
 
 /* Ícones de serviços: movimento independente do mouse, só enquanto visíveis. */
 @media all {
-  .icon:where(:not(.office-signal-wifi)) {
+  .icon {
     transform-box:fill-box;transform-origin:center;
     animation:amr-icon-float 2.8s ease-in-out infinite;
   }
-  .icon:is(.icon-wifi,.icon-fiber):not(.office-signal-wifi) { animation-name:amr-icon-signal;animation-duration:2.2s; }
+  .icon:is(.icon-wifi,.icon-fiber) { animation-name:amr-icon-signal;animation-duration:2.2s; }
   .icon:is(.icon-headset,.icon-game,.icon-mobile) { animation-name:amr-icon-sway;animation-duration:2.6s; }
   .icon:is(.icon-whatsapp,.icon-instagram,.icon-chat,.icon-check,.icon-shield) { animation-name:amr-icon-breathe;animation-duration:2.8s; }
   .icon:is(.icon-fiber,.icon-streaming,.icon-work,.icon-instagram) { animation-delay:-1.2s; }
