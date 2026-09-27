@@ -126,15 +126,16 @@
 @media(max-width:800px) { .service-photo .service-wall-logo { top:7.5%;left:3%;width:30%;max-width:135px; } }
 .carousel-controls { position:absolute;z-index:6;left:50%;bottom:20px;display:flex!important;align-items:center;gap:10px;transform:translateX(-50%); }
 .carousel-arrow,.carousel-dots button { display:grid;place-items:center;min-width:44px;min-height:44px;padding:0;border:0;border-radius:50%;background:transparent;color:#214c6c; }
-.carousel-arrow { border:1px solid #bfd1df;background:rgba(255,255,255,.94);box-shadow:0 4px 12px rgba(6,27,49,.09);transition:transform 180ms ease,box-shadow 180ms ease; }
+.carousel-arrow { position:relative;isolation:isolate;transition:transform 180ms ease; }
+.carousel-arrow:before { content:"";position:absolute;inset:6px;z-index:-1;border:1px solid #bfd1df;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 2px 6px rgba(6,27,49,.06); }
 .carousel-prev .icon { transform:rotate(180deg); }
-.carousel-arrow .icon { width:19px;height:19px;opacity:1; }
+.carousel-arrow .icon { width:15px;height:15px;opacity:1; }
 .carousel-dots { display:flex;align-items:center;gap:0; }
 .carousel-dots button span { width:8px;height:8px;border-radius:50%;background:#6c8599;transition:transform 180ms ease,box-shadow 180ms ease; }
 .carousel-dots button[aria-current=true] span { background:var(--home-blue);box-shadow:0 0 0 4px rgba(8,104,223,.14);transform:scale(1.15); }
 .hero-frame:has(.hero-slide-service.is-active) .carousel-dots button span { background:#c6d9e8; }
 .hero-frame:has(.hero-slide-service.is-active) .carousel-dots button[aria-current=true] span { background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.2); }
-.home-page .hero-frame .carousel-controls button:focus-visible { outline:3px solid var(--home-blue-dark);outline-offset:2px; }
+.home-page .hero-frame .carousel-controls button:focus-visible { outline:2px solid var(--home-blue-dark);outline-offset:-3px; }
 .home-page .hero-frame:has(.hero-slide-service.is-active) .carousel-controls button:focus-visible { outline-color:#fff; }
 .carousel-rotation,.effects-toggle { position:absolute;z-index:6;top:calc(var(--amr-header) + 12px);min-height:44px;border:0;background:transparent;color:#315c7b;font-size:.75rem;text-decoration:underline;text-underline-offset:3px; }
 .hero-frame:has(.hero-slide-service.is-active) :is(.carousel-rotation,.effects-toggle) { color:#d9edff; }
@@ -345,7 +346,7 @@
   .plan-card:hover { border-color:#7da3c1;box-shadow:0 12px 26px rgba(6,27,49,.13);transform:translateY(-4px) scale(1.015); }
   .plan-card:hover .plan-media img { transform:scale(1.025); }
   .routine-card:hover { box-shadow:0 12px 26px rgba(6,27,49,.18);transform:translateY(-4px) scale(1.015); }
-  .carousel-arrow:hover { color:var(--home-blue-dark);box-shadow:0 7px 16px rgba(6,27,49,.14);transform:translateY(-2px); }
+  .carousel-arrow:hover { color:var(--home-blue-dark);transform:translateY(-1px); }
   .carousel-dots button:hover span { box-shadow:0 0 0 4px rgba(8,104,223,.12);transform:scale(1.15); }
   .support-paths a:hover { color:var(--home-blue); }
   .plan-details summary:hover,.home-faq-list summary:hover { background:#edf5fb;color:var(--home-blue-dark); }
