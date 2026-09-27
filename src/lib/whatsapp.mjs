@@ -51,6 +51,6 @@ export function quickCoverageMessage(values) {
 
 export function coverageMessage(values, planId = '') {
   const plan = selectedPlan(planId);
-  const interest = plan ? `\n\n${messageFor('plan', plan.id)}` : '';
-  return `${config.messages.coverage}${interest}\n\nNome: ${values.name.trim()}\nCidade: ${values.city.trim()}\nBairro: ${values.neighborhood.trim()}\nRua ou referência: ${values.street.trim()}\n\nAguardo a confirmação de disponibilidade pela equipe.`;
+  const intro = plan ? messageFor('plan', plan.id) : config.messages.coverage;
+  return `${intro}\n\nNome: ${values.name.trim()}\nCidade: ${values.city.trim()}\nBairro: ${values.neighborhood.trim()}\nRua ou referência: ${values.street.trim()}\n\nAguardo a confirmação de disponibilidade pela equipe.`;
 }

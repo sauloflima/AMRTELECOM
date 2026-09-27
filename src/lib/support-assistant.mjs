@@ -25,7 +25,8 @@ export function mountSupportAssistant(root) {
     const box = (mobile.matches && !prompt.hidden ? prompt : root).getBoundingClientRect();
     const top = document.querySelector('.header').getBoundingClientRect().bottom + 12;
     let lift = 0;
-    const controls = [...document.querySelectorAll('main .button, main button, main input, main summary')];
+    const controls = [...document.querySelectorAll('main .button, main button, main input, main summary' +
+      (mobile.matches && prompt.hidden ? ', main p, main li, main h1, main h2, main h3, main .plan-compare a' : ''))];
     const obstacles = controls.filter(control => !control.closest('[inert]')).map(control => control.getBoundingClientRect())
       .filter(rect => rect.width && rect.height && rect.left < box.right && rect.right > box.left)
       .sort((a, b) => b.top - a.top);

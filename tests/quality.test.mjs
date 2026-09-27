@@ -13,6 +13,7 @@ test('plano escolhido acompanha a consulta com preço vindo do catálogo', () =>
     assert.equal(selectedPlan(plan.id), plan);
     const text = coverageMessage(values, plan.id);
     assert.ok(text.includes(messageFor('plan', plan.id)));
+    assert.equal((text.match(/Olá, AMR Telecom!/g) || []).length, 1);
     for (const value of Object.values(values)) assert.ok(text.includes(value));
     assert.equal(new URL(whatsappUrl(text, '5581912345678')).searchParams.get('text'), text);
   }
@@ -48,5 +49,17 @@ test('aviso de indisponibilidade antecede os campos e desaparece com canal váli
     assert.ok(coverage().includes('Abrir consulta no WhatsApp'));
   } finally {
     config.contact.whatsapp = previous;
+  }
+});
+
+test('comparação rápida usa o catálogo e aponta para cartões existentes', () => {
+  for (const home of [true, false]) {
+    const html = plans({ home });
+    for (const plan of config.plans) {
+      assert.ok(html.includes(`href="#plano-${plan.id}"`));
+      assert.ok(html.includes(`id="plano-${plan.id}"`));
+      assert.ok(html.includes(`R$ ${plan.price.toFixed(2).replace('.', ',')}<small>/mês</small>`));
+    }
+    assert.ok(html.includes('id="plano-empresarial"'));
   }
 });

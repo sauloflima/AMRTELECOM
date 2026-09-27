@@ -2051,6 +2051,7 @@ body:not(.home-page) main label { color:#294961; }
 body:not(.home-page) main input { background:#fff;border-color:#718da4;border-radius:12px;color:#0b2942; }
 body:not(.home-page) main input::placeholder { color:#5e7589; }
 body:not(.home-page) main :is(.field-error,.form-status) { color:#a52035; }
+body:not(.home-page) main .form-status[data-state="ready"] { color:#294961; }
 body:not(.home-page) main .availability-note { background:#eaf4ff;color:#294961; }
 body:not(.home-page) main .button.primary { background:#0868df;border-color:#0868df;border-radius:999px;color:#fff; }
 body:not(.home-page) main .button.outline { background:#fff;border-color:#8ba6ba;border-radius:999px;color:#0b2942; }
@@ -2061,6 +2062,10 @@ body:not(.home-page) .legal-main { background:#fff; }
 body:not(.home-page) .no-script { background:#eaf4ff;color:#0b2942; }
 @media(max-width:1100px) { body:not(.home-page) .header .brand,body:not(.home-page) .header .brand img { width:146px; } }
 @media(max-width:800px) {
+  body:not(.home-page) { --amr-header:68px; }
+  body:not(.home-page) .header .header-inner { min-height:68px; }
+  .breadcrumb { padding-block:8px; }
+  .breadcrumb a { display:inline-flex;align-items:center;min-height:44px; }
   body:not(.home-page) .header nav { top:var(--amr-header); }
   body:not(.home-page) .header nav a { color:#fff; }
   body:not(.home-page) .header nav a[aria-current="page"] { color:#9bd1ff; }

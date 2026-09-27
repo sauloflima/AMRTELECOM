@@ -48,9 +48,11 @@ function mountCoverageForm(form, showPending) {
       document.querySelector(`#${name}-error`).textContent=errors[name]||'';
     }
     const status=document.querySelector('#form-status');
+    status.dataset.state='error';
     if(Object.keys(errors).length){status.textContent='Confira os campos indicados antes de continuar.';form.elements.namedItem(Object.keys(errors)[0]).focus();return;}
     const url=whatsappUrl(coverageMessage(values,interest?.id));
     if(!url){status.textContent='O WhatsApp oficial ainda não está disponível. Nenhuma consulta foi enviada.';showPending();return;}
+    status.dataset.state='ready';
     status.textContent='Revise a mensagem abaixo. Ao abrir o WhatsApp, os dados na URL serão compartilhados com o serviço.';
     const preview=document.querySelector('#coverage-preview');
     preview.textContent=coverageMessage(values,interest?.id);
