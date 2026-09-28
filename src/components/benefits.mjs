@@ -16,8 +16,7 @@ const enterpriseOfferings = {
       ['Backup e recuperação', 'RPO indica a perda máxima de dados tolerável; RTO, o tempo desejado para retomar a operação. Esses objetivos orientam periodicidade, retenção e testes de restauração.', 'restore'],
       ['Acesso e conectividade', 'Mapeamos usuários, origem do tráfego, autenticação e dependência do link entre escritório e nuvem. A latência pode ser decisiva para sistemas sensíveis.', 'lock'],
       ['Operação e responsabilidades', 'Monitoramento, atualizações, gestão dos acessos e resposta a incidentes precisam ter responsáveis definidos no escopo da proposta.', 'settings'],
-    ],
-    inputs: 'Tenha em mãos os sistemas utilizados, volume aproximado de dados, número de usuários e requisitos de recuperação.'
+    ]
   },
   ti: {
     title: 'Outsourcing de TI', image: 'ti', alt: 'Especialista de TI avaliando equipamentos de rede com um notebook',
@@ -28,8 +27,7 @@ const enterpriseOfferings = {
       ['Incidentes e solicitações', 'Separamos falhas que interrompem o serviço de pedidos de acesso, configuração ou mudança. Categorias, prioridades e escalonamento são definidos na proposta.', 'alert'],
       ['Monitoramento', 'Avaliamos quais indicadores e alertas fazem sentido para os ativos críticos, como disponibilidade, capacidade e eventos recorrentes.', 'report'],
       ['Mudanças e documentação', 'Atualizações, registros de configuração e histórico de intervenções ajudam a reduzir retrabalho e tornam o ambiente mais previsível.', 'document'],
-    ],
-    inputs: 'Compartilhe o tamanho da equipe, os principais sistemas e os desafios recorrentes do ambiente.'
+    ]
   },
   seguranca: {
     title: 'Cibersegurança', image: 'seguranca', alt: 'Profissional analisando painéis de segurança digital em computadores',
@@ -40,8 +38,7 @@ const enterpriseOfferings = {
       ['Identidade e permissões', 'Autenticação multifator, revisão de privilégios e separação de perfis limitam o alcance de uma conta comprometida.', 'key'],
       ['Rede e dispositivos', 'Avaliamos segmentação, regras de acesso e proteção de endpoints para reduzir movimento indevido entre sistemas e setores.', 'network'],
       ['Resposta e continuidade', 'Cópias restauráveis, responsáveis e procedimentos de contenção devem ser definidos antes de um incidente, conforme a criticidade dos sistemas.', 'refresh'],
-    ],
-    inputs: 'Informe quantidade de usuários e unidades, sistemas críticos e requisitos internos de segurança.'
+    ]
   },
   conectividade: {
     title: 'Conectividade', image: 'conectividade', alt: 'Equipe trabalhando conectada em um escritório',
@@ -52,8 +49,7 @@ const enterpriseOfferings = {
       ['Acesso e topologia', 'A viabilidade da fibra no endereço e a distribuição física da rede orientam pontos de instalação, cabeamento e equipamentos.', 'fiber'],
       ['Wi-Fi no ambiente', 'Planta, paredes, interferências e densidade de dispositivos influenciam a posição e a quantidade de pontos de acesso.', 'wifi'],
       ['Segmentação e prioridade', 'Redes separadas para equipes e visitantes e políticas de QoS podem ser avaliadas quando aplicações críticas disputam a mesma conexão.', 'network'],
-    ],
-    inputs: 'Envie o endereço, quantidade de usuários, planta ou descrição dos ambientes e aplicações principais.'
+    ]
   }
 };
 
@@ -90,5 +86,5 @@ export function business() {
 export function businessDetail(key) {
   const offer = enterpriseOfferings[key];
   return `<section class="company-detail"><div class="company-detail-hero"><div class="container company-detail-hero-inner"><div><p class="eyebrow">AMR PARA EMPRESAS</p><h2>${offer.title} para a sua operação.</h2><p>${offer.intro}</p><div class="company-actions">${action('Solicitar avaliação técnica','business',offer.title,'button primary')}<a href="/empresas.html#solucoes-integradas">Todas as soluções ${icon('arrow')}</a></div></div><img src="/assets/generated/amr-empresas-${offer.image}.jpg" alt="${offer.alt}" width="1672" height="941" fetchpriority="high" decoding="async"></div></div>
-    <div class="container company-detail-content"><div class="company-section-heading"><p class="eyebrow">ESCOPO TÉCNICO</p><h2>O que analisamos com a sua equipe.</h2><p>Os itens abaixo orientam a conversa técnica. A solução e os serviços incluídos são definidos em proposta, conforme viabilidade e necessidade.</p></div><div class="company-detail-grid">${offer.topics.map(([title, text, symbol]) => `<article><span class="company-detail-icon">${icon(symbol)}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div><div class="company-detail-next"><div><p class="eyebrow">PREPARE SUA CONSULTA</p><h2>Vamos entender o ambiente?</h2><p>${offer.inputs}</p></div>${action('Falar com a equipe técnica','business',offer.title,'button primary')}</div></div></section>`;
+    <div class="container company-detail-content"><div class="company-section-heading"><p class="eyebrow">ESCOPO TÉCNICO</p><h2>O que analisamos com a sua equipe.</h2><p>Os itens abaixo orientam a conversa técnica. A solução e os serviços incluídos são definidos em proposta, conforme viabilidade e necessidade.</p></div><div class="company-detail-grid">${offer.topics.map(([title, text, symbol]) => `<article><span class="company-detail-icon">${icon(symbol)}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div></div></section>`;
 }
