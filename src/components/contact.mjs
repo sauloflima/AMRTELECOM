@@ -1,6 +1,7 @@
 import { config } from '../config.mjs';
 import { icon, action, escape, displayWhatsapp } from './shared.mjs';
 import { whatsappUrl } from '../lib/whatsapp.mjs';
+import { supportAvatar } from './support-assistant.mjs';
 export function coverage() {
   const fields = [['name','Seu nome','text','name','Como podemos chamar você?'],['city','Cidade','text','address-level2','Em qual cidade você mora?'],['neighborhood','Bairro','text','address-level3','Qual é o seu bairro?'],['street','Rua ou ponto de referência','text','street-address','Informe sua rua ou uma referência próxima']];
   const available = Boolean(whatsappUrl(''));
@@ -54,7 +55,7 @@ export function contactPage() {
     <div class="contact-intro"><p class="eyebrow">FALE COM A AMR</p><h2>Uma conversa é<br>o primeiro passo.</h2>
     <p>Fale com a equipe sobre planos, cobertura ou suporte. Para consultar um endereço, use o formulário de cobertura.</p>
     <nav class="contact-shortcuts" aria-label="Escolha o assunto"><a href="/cobertura.html"><span>${icon('pin')}</span><span><strong>Quero consultar cobertura</strong><small>Verificar disponibilidade no meu endereço</small></span>${icon('arrow')}</a><a href="/suporte.html"><span>${icon('headset')}</span><span><strong>Já sou cliente e preciso de ajuda</strong><small>Encontrar o canal certo para suporte</small></span>${icon('arrow')}</a></nav></div>
-    <div class="contact-panel"><div class="contact-panel-heading"><span class="contact-panel-icon">${icon('whatsapp')}</span><span>CANAL DIRETO · AMR TELECOM</span></div><h2>Atendimento pelo WhatsApp</h2>
+    <div class="contact-panel"><div class="contact-panel-top"><div class="contact-panel-heading"><span class="contact-panel-icon">${icon('whatsapp')}</span><span>CANAL DIRETO · AMR TELECOM</span></div><span class="contact-agent" aria-hidden="true"><img src="${supportAvatar}" alt="" loading="lazy" decoding="async"></span></div><h2>Atendimento pelo WhatsApp</h2>
     <p>${c.whatsapp ? 'Converse com a equipe sobre planos, disponibilidade e atendimento.' : 'O canal oficial está pendente de confirmação e será disponibilizado aqui.'}</p>
     ${action('Falar com a AMR')}
     ${c.whatsapp ? `<p class="contact-number">Número oficial <strong>${escape(displayWhatsapp(c.whatsapp))}</strong></p>` : ''}

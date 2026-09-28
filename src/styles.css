@@ -2034,9 +2034,12 @@ body:not(.home-page) main .contact-page { padding-block:clamp(48px,6vw,88px) cla
 .contact-shortcuts strong { font-size:1rem;line-height:1.35; }
 .contact-shortcuts small { color:#587086;font-size:.875rem;line-height:1.4; }
 body:not(.home-page) main .contact-page .contact-panel { display:flex;flex-direction:column;min-height:470px;padding:clamp(32px,3.5vw,58px);border:1px solid #bfd8e8;border-radius:26px;background:#e1eef8;color:#0b2942;box-shadow:none; }
+.contact-panel-top { display:flex;align-items:center;justify-content:space-between;gap:18px; }
 .contact-panel-heading { display:flex;align-items:center;gap:14px;color:#41627b;font-size:.75rem;font-weight:750;letter-spacing:.16em; }
 .contact-panel-icon { display:grid;place-items:center;width:50px;height:50px;border:1px solid #b9cddd;border-radius:14px;background:#ffffff8a;color:var(--whatsapp-green); }
 .contact-panel-icon .icon { width:26px;height:26px; }
+.contact-agent { position:relative;flex:none;width:90px;height:90px;overflow:hidden;border:3px solid #fff;border-radius:50%;background:#0b2942;box-shadow:0 0 0 1px #b9d3e7,0 8px 20px #0b294222; }
+.contact-agent img { position:absolute;left:-75%;top:-20%;width:480%;height:auto;max-width:none; }
 .contact-panel h2 { max-width:440px;margin:38px 0 0;color:#0b2942;font-size:clamp(1.75rem,2.5vw,2.45rem);line-height:1.12;letter-spacing:-.04em; }
 .contact-panel>p:not(.contact-number) { max-width:420px;margin:18px 0 0;color:#3e5b72;font-size:1.05rem;line-height:1.6; }
 .contact-panel .button.whatsapp-action { align-self:flex-start;min-height:56px;margin-top:34px;padding-inline:22px;font-weight:750; }
@@ -2046,7 +2049,7 @@ body:not(.home-page) main .contact-page .contact-panel { display:flex;flex-direc
 .contact-panel dl>div { border-top-color:#bdd3e3; }
 .contact-panel dt { color:#426178; }
 @media(max-width:800px) { .contact-layout { grid-template-columns:1fr;gap:34px; }.contact-intro h1 { max-width:700px; }.contact-shortcuts { max-width:none; }.contact-page .contact-panel { min-height:0; } }
-@media(max-width:600px) { .contact-shortcuts { margin-top:28px; }.contact-shortcuts a { gap:12px;min-height:82px; }.contact-shortcuts small { font-size:.8125rem; }.contact-panel h2 { margin-top:30px; }.contact-panel .button.whatsapp-action { align-self:stretch; }.contact-panel .contact-number { align-items:flex-start;flex-direction:column;gap:5px; } }
+@media(max-width:600px) { .contact-shortcuts { margin-top:28px; }.contact-shortcuts a { gap:12px;min-height:82px; }.contact-shortcuts small { font-size:.8125rem; }.contact-panel-heading { gap:9px;font-size:.65rem;letter-spacing:.1em; }.contact-panel-icon { flex:none;width:42px;height:42px; }.contact-agent { width:72px;height:72px; }.contact-panel h2 { margin-top:30px; }.contact-panel .button.whatsapp-action { align-self:stretch; }.contact-panel .contact-number { align-items:flex-start;flex-direction:column;gap:5px; } }
 
 .footer-links a>.icon { flex:0 0 18px;width:18px;height:18px;vertical-align:middle; }
 .selected-plan-profile { display:inline-flex;align-items:center;gap:8px;margin:6px 0;color:#0a579c;font-weight:600; }
