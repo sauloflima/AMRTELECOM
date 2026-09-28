@@ -13,8 +13,8 @@ export function WhatsAppAssistant() {
     <div class="support-prompt" id="support-prompt" hidden>
       <img class="support-watermark" src="${escape(config.brand.logoLight)}" alt="" aria-hidden="true" width="480" height="229" decoding="async" fetchpriority="low">
       <button class="support-close" type="button" aria-label="Fechar mensagem de atendimento">${icon('close')}</button>
-      <p class="support-title"><span class="support-greeting">Olá! <span aria-hidden="true">👋</span><br></span>Precisa de ajuda?</p>
-      <p class="support-description"><span class="support-description-detail">A equipe </span><strong>${escape(config.brand.name)}</strong><span class="support-description-detail"> está aqui para ajudar.</span></p>
+      <p class="support-title">Precisa de ajuda?</p>
+      <p class="support-description">Equipe <strong>${escape(config.brand.name)}</strong> à disposição.</p>
       ${action('Falar no WhatsApp', 'assistant', '', 'support-cta support-cta-desktop')}
       <a class="support-cta-mobile" href="${escape(href)}" target="_blank" rel="noopener noreferrer">Posso ajudar?</a>
     </div>
