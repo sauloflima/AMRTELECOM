@@ -1009,7 +1009,7 @@ footer {
 .footer-links>a:hover,.footer-bottom a:hover {
   color:var(--soft)
 }
-.footer-credit { color:#9eb1c2;font-size:.8625rem;font-weight:700;line-height:1.6;text-align:right; }
+.footer-credit { color:#fff;font-size:.8625rem;font-weight:700;line-height:1.6;text-align:right; }
 .footer-bottom {
   border-top:1px solid var(--border);
   display:flex;
