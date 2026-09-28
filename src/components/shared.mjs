@@ -15,6 +15,7 @@ const iconFiles = {
   pin: 'map-pin',
   home: 'home-simple',
   work: 'laptop',
+  cloud: 'cloud',
   game: 'gamepad',
   shield: 'shield-check',
   user: 'user',

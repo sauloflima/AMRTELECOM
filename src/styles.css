@@ -2126,25 +2126,25 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
 
 /* Página empresarial: a mesma identidade azul da AMR, com espaço para o futuro vídeo. */
 .company-page { background:#fff;color:#0b2942; }
-.company-hero { padding:clamp(50px,6vw,88px) 0;background:linear-gradient(125deg,#061b31 0%,#0b3158 70%,#08457e 100%);color:#fff; }
+.company-hero { padding:clamp(50px,6vw,88px) 0;background:#fff;color:#0b2942; }
 .company-hero-inner { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);align-items:center;gap:clamp(30px,5vw,76px); }
-.company-hero .eyebrow { margin-bottom:18px;color:#8fc6ff; }
+.company-hero .eyebrow { margin-bottom:18px;color:#075fdb; }
 .company-hero h1 { max-width:650px;font-size:clamp(2.6rem,4.2vw,4.6rem);line-height:1.07;letter-spacing:-.035em; }
-.company-lead { max-width:570px;margin:24px 0 0;color:#dbeaf8;font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.65; }
+.company-lead { max-width:570px;margin:24px 0 0;color:#46627c;font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.65; }
 .company-actions { display:flex;align-items:center;flex-wrap:wrap;gap:16px 26px;margin-top:32px; }
-.company-actions>a:not(.button) { display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#fff;font-weight:600; }
-.company-actions>a:not(.button):hover { color:#9bd1ff; }
+.company-actions>a:not(.button) { display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#0757b8;font-weight:600; }
+.company-actions>a:not(.button):hover { color:#034b9e; }
 .company-actions>a:not(.button) .icon { width:18px;height:18px; }
-.company-hero-media { position:relative;overflow:hidden;aspect-ratio:1.54;border:1px solid #ffffff32;border-radius:24px;box-shadow:0 24px 55px #0004; }
+.company-hero-media { position:relative;overflow:hidden;aspect-ratio:1.54;border:1px solid #d5e3f0;border-radius:24px;box-shadow:0 24px 55px #0c34521c; }
 .company-hero-media img { display:block;width:100%;height:100%;object-fit:cover; }
 .company-hero-media span { position:absolute;left:22px;bottom:22px;padding:9px 14px;border:1px solid #ffffff58;border-radius:999px;background:#061b31d9;color:#fff;font-size:.8125rem;font-weight:600;backdrop-filter:blur(8px); }
-.company-solutions { padding-block:clamp(62px,7vw,100px); }
+.company-solutions { padding:clamp(62px,7vw,100px) 0 42px; }
 .company-section-heading { max-width:750px; }
 .company-section-heading .eyebrow,.company-story .eyebrow { margin-bottom:14px;color:#075fdb; }
 .company-section-heading h2,.company-story h2 { font-size:clamp(2.15rem,3.2vw,3.5rem);line-height:1.12;letter-spacing:-.025em; }
 .company-section-heading>p:last-child,.company-story-copy>p:not(.eyebrow) { max-width:630px;margin-top:20px;color:#46627c;font-size:1.0625rem;line-height:1.65; }
 .company-solution-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px; }
-.company-solution-grid article { min-width:0;overflow:hidden;border:1px solid #d5e3f0;border-radius:22px;background:#f5f9fd; }
+.company-solution-grid article { min-width:0;overflow:hidden;border:1px solid #d5e3f0;border-radius:22px;background:#fff; }
 .company-solution-grid article>img { display:block;width:100%;height:auto;aspect-ratio:1.6;object-fit:cover; }
 .company-solution-body { padding:26px 28px 30px; }
 .company-solution-icon { display:grid;place-items:center;width:50px;height:50px;margin-bottom:20px;border-radius:14px;background:#e0efff;color:#075fdb; }
@@ -2153,11 +2153,11 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
 .company-solution-grid p { margin-top:12px;color:#46627c;line-height:1.6; }
 .company-solutions-action { display:flex;align-items:center;flex-wrap:wrap;gap:14px 22px;margin-top:34px; }
 .company-solutions-action span { color:#46627c;font-size:.875rem; }
-.company-integrated { padding:clamp(62px,7vw,100px) 0;background:linear-gradient(155deg,#061b31,#073b70);color:#fff; }
-.company-integrated .eyebrow { color:#85c1ff; }
-.company-integrated .company-section-heading>p:last-child { color:#c5dced; }
+.company-integrated { padding:clamp(42px,5vw,68px) 0 clamp(62px,7vw,100px);border-top:1px solid #e2eaf1;background:#fff;color:#0b2942; }
+.company-integrated .eyebrow { color:#075fdb; }
+.company-integrated .company-section-heading>p:last-child { color:#46627c; }
 .company-integrated-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px; }
-.company-integrated-card { position:relative;min-width:0;overflow:hidden;min-height:430px;border:1px solid #ffffff30;border-radius:22px;background:#061b31; }
+.company-integrated-card { position:relative;min-width:0;overflow:hidden;min-height:430px;border:1px solid #d5e3f0;border-radius:22px;background:#061b31; }
 .company-integrated-card:after { content:"";position:absolute;inset:0;background:linear-gradient(180deg,#061b3100 18%,#061b3140 47%,#061b31f5 100%);pointer-events:none; }
 .company-integrated-card>img { display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover; }
 .company-integrated-wide { grid-column:1/-1;min-height:300px; }
@@ -2165,7 +2165,8 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
 @keyframes amr-cloud-logo { 50% { opacity:.9;transform:translate(-50%,-50%) scale(1.035); } }
 body:has(.user-effects-paused) .company-cloud-logo { animation:none; }
 .company-integrated-copy { position:absolute;z-index:1;right:26px;bottom:28px;left:26px; }
-.company-integrated-copy>span { color:#b8dfff;font-size:.75rem;font-weight:700;letter-spacing:.13em; }
+.company-integrated-icon { display:grid;place-items:center;width:46px;height:46px;border:1px solid #ffffff80;border-radius:14px;background:#061b3199;color:#fff;backdrop-filter:blur(8px); }
+.company-integrated-icon .icon { width:25px;height:25px; }
 .company-integrated-copy h3 { margin-top:10px;color:#fff;font-size:clamp(1.65rem,2.3vw,2.3rem); }
 .company-integrated-copy p { max-width:590px;margin-top:8px;color:#e1ecf6;line-height:1.5; }
 .company-integrated-copy a { display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;margin-top:18px;padding:8px 14px;border:1px solid #ffffffbd;border-radius:12px;background:#fffffff2;color:#0754bd;font-size:.875rem;font-weight:700;text-decoration:none;transition:background-color 200ms ease,box-shadow 200ms ease,transform 200ms ease; }
@@ -2175,20 +2176,20 @@ body:has(.user-effects-paused) .company-cloud-logo { animation:none; }
 body:has(.user-effects-paused) .company-integrated-copy a,body:has(.user-effects-paused) .company-integrated-copy a .icon { transition:none; }
 body:has(.user-effects-paused) .company-integrated-copy a:hover,body:has(.user-effects-paused) .company-integrated-copy a:focus-visible,body:has(.user-effects-paused) .company-integrated-copy a:hover .icon,body:has(.user-effects-paused) .company-integrated-copy a:focus-visible .icon { transform:none; }
 .company-detail { background:#fff;color:#0b2942; }
-.company-detail-hero { padding:clamp(42px,5vw,72px) 0;background:linear-gradient(125deg,#061b31,#0b3158);color:#fff; }
+.company-detail-hero { padding:clamp(42px,5vw,72px) 0;background:#fff;color:#0b2942; }
 .company-detail-hero-inner { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);align-items:center;gap:clamp(28px,5vw,76px); }
-.company-detail-hero .eyebrow { color:#8fc6ff; }
+.company-detail-hero .eyebrow { color:#075fdb; }
 .company-detail-hero h1 { max-width:700px;margin-top:16px;font-size:clamp(2.5rem,4.3vw,4.5rem);line-height:1.09;letter-spacing:-.035em; }
-.company-detail-hero p:not(.eyebrow) { max-width:620px;margin-top:22px;color:#dbeaf8;font-size:1.0625rem;line-height:1.7; }
-.company-detail-hero img { display:block;width:100%;max-height:470px;aspect-ratio:1.35;object-fit:cover;border:1px solid #ffffff35;border-radius:22px; }
+.company-detail-hero p:not(.eyebrow) { max-width:620px;margin-top:22px;color:#46627c;font-size:1.0625rem;line-height:1.7; }
+.company-detail-hero img { display:block;width:100%;max-height:470px;aspect-ratio:1.35;object-fit:cover;border:1px solid #d5e3f0;border-radius:22px; }
 .company-detail-hero img[src$="amr-empresas-seguranca.jpg"] { object-position:center top; }
 .company-detail-content { padding-block:clamp(62px,7vw,100px); }
 .company-detail-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:38px; }
-.company-detail-grid article { padding:30px;border:1px solid #d5e3f0;border-radius:20px;background:#f5f9fd; }
+.company-detail-grid article { padding:30px;border:1px solid #d5e3f0;border-radius:20px;background:#fff; }
 .company-detail-grid article>span { color:#075fdb;font-size:.8125rem;font-weight:700;letter-spacing:.1em; }
 .company-detail-grid h3 { margin-top:18px;font-size:1.25rem; }
 .company-detail-grid p { margin-top:12px;color:#46627c;line-height:1.65; }
-.company-detail-next { display:flex;align-items:center;justify-content:space-between;gap:28px;margin-top:50px;padding:34px;border-radius:22px;background:#eaf3fc; }
+.company-detail-next { display:flex;align-items:center;justify-content:space-between;gap:28px;margin-top:50px;padding:34px;border:1px solid #d5e3f0;border-radius:22px;background:#fff; }
 .company-detail-next h2 { margin-top:10px;font-size:clamp(1.7rem,2.6vw,2.5rem); }
 .company-detail-next p:last-child { max-width:650px;margin-top:12px;color:#46627c;line-height:1.6; }
 .company-detail-next .button { flex-shrink:0; }
@@ -2212,15 +2213,15 @@ body:has(.user-effects-paused) .company-approach-icon { animation:none; }
 .company-approach-next strong { display:block;font-size:1.0625rem; }
 .company-approach-next p { max-width:700px;margin-top:8px;color:#46627c;line-height:1.55; }
 .company-approach-next .button { flex-shrink:0; }
-.company-story { padding:clamp(62px,7vw,100px) 0;background:#eaf3fc; }
+.company-story { padding:clamp(62px,7vw,100px) 0;background:#fff; }
 .company-story-inner { display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:clamp(30px,5vw,74px); }
 .company-story-copy .button { margin-top:30px; }
 .company-video-slot { position:relative;overflow:hidden;aspect-ratio:16/9;margin:0;border:1px solid #c5d8e8;border-radius:22px;background:#071a2e;box-shadow:0 18px 45px #0c34521c; }
 .company-video-slot img { display:block;width:100%;height:100%;object-fit:cover; }
 .company-video-slot:after { content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#061b31b8);pointer-events:none; }
 .company-video-slot figcaption { position:absolute;z-index:1;left:24px;right:24px;bottom:22px;color:#fff;font-size:.9375rem;font-weight:600;line-height:1.4; }
-/* A área empresarial usa o mesmo azul-marinho do destaque Cloud de ponta a ponta. */
-body:not(.home-page) main:has(.company-page,.company-detail) { --text:#fff;--muted:#c5dced;--border:#ffffff30;--soft:#8fc6ff;background:#061b31;color:#fff; }
+/* A área empresarial usa fundo branco e mantém o azul da AMR nos detalhes. */
+body:not(.home-page) main:has(.company-page,.company-detail) { --text:#0b2942;--muted:#46627c;--border:#d5e3f0;--soft:#075fdb;background:#fff;color:#0b2942; }
 body:not(.home-page):has(.company-page,.company-detail) .header { background:var(--amr-navy);border-bottom-color:#ffffff14; }
 body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) .brand-dark { display:block; }
 body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) .brand-light { display:none; }
@@ -2228,25 +2229,13 @@ body:not(.home-page):has(.company-page,.company-detail) .header nav a,body:not(.
 body:not(.home-page):has(.company-page,.company-detail) .header nav a[aria-current="page"] { color:#fff;box-shadow:inset 0 -3px #258dff; }
 body:not(.home-page):has(.company-page,.company-detail) .header .menu-toggle { border-color:#ffffff66; }
 body:not(.home-page):has(.company-page,.company-detail) .header :is(a,button):focus-visible { outline-color:#8fc6ff; }
-.company-page,.company-detail { background:#061b31;color:#fff; }
-.company-hero,.company-integrated,.company-detail-hero { background:linear-gradient(155deg,#061b31,#073b70); }
-.company-story { background:#061b31; }
-.company-section-heading .eyebrow,.company-story .eyebrow,.company-detail-grid article>span,.company-detail-next .eyebrow { color:#8fc6ff; }
-.company-section-heading>p:last-child,.company-story-copy>p:not(.eyebrow),.company-solution-grid p,.company-detail-grid p,.company-approach li p,.company-detail-next p:last-child,.company-solutions-action span { color:#c5dced; }
-.company-approach .company-section-heading .eyebrow,.company-approach .company-approach-label { color:#075fdb; }
-.company-approach .company-section-heading>p:last-child,.company-approach li p { color:#46627c; }
-.company-solution-grid article,.company-detail-grid article,.company-detail-next { border:1px solid #ffffff30;background:#0b3158; }
-.company-solution-icon { background:#14558c;color:#d6ecff; }
+.company-page,.company-detail { background:#fff;color:#0b2942; }
 .company-detail-grid article,.company-solution-grid article { transition:border-color 240ms ease,box-shadow 240ms ease,transform 240ms ease; }
 @media(hover:hover) and (pointer:fine) {
   .company-detail-grid article:hover,.company-solution-grid article:hover { border-color:#83c5ff;box-shadow:0 16px 32px #0002;transform:translateY(-3px); }
 }
 body:has(.user-effects-paused) .company-detail-grid article,body:has(.user-effects-paused) .company-solution-grid article { transition:none;transform:none; }
-body:not(.home-page) main:has(.company-page,.company-detail) .breadcrumb { color:#c5dced; }
-body:not(.home-page) main:has(.company-page,.company-detail) .breadcrumb [aria-current] { color:#fff; }
-body:not(.home-page) main:has(.company-page,.company-detail) .related-pages { border-top-color:#ffffff30; }
-body:not(.home-page) main:has(.company-page,.company-detail) .related-pages a { color:#b8dfff; }
-body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus-visible { outline-color:#8fc6ff; }
+body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus-visible { outline-color:#075fdb; }
 @media(max-width:900px) {
   .company-hero-inner,.company-story-inner,.company-detail-hero-inner { grid-template-columns:1fr; }
   .company-hero-media { max-width:680px; }
