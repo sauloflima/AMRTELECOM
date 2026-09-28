@@ -2210,10 +2210,6 @@ body:has(.user-effects-paused) .company-integrated-copy a:hover,body:has(.user-e
 body:has(.user-effects-paused) .company-approach-icon { animation:none; }
 .company-approach li h3 { font-size:1.25rem; }
 .company-approach li p { margin-top:10px;color:#46627c;line-height:1.6; }
-.company-approach-next { display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:28px;padding:24px 28px;border:1px solid #d5e3f0;border-radius:18px;background:#fff; }
-.company-approach-next strong { display:block;font-size:1.0625rem; }
-.company-approach-next p { max-width:700px;margin-top:8px;color:#46627c;line-height:1.55; }
-.company-approach-next .button { flex-shrink:0; }
 .company-story { padding:clamp(62px,7vw,100px) 0;background:#fff; }
 .company-story-inner { display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:clamp(30px,5vw,74px); }
 .company-story-copy .button { margin-top:30px; }
@@ -2248,7 +2244,6 @@ body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus
   .company-integrated-card,.company-integrated-wide { min-height:390px; }
   .company-integrated-card>.company-cloud-logo { top:29%;left:50%;width:128px; }
   .company-detail-next { align-items:stretch;flex-direction:column;padding:26px; }
-  .company-approach-next { align-items:stretch;flex-direction:column;padding:22px; }
   .company-solution-body { padding:22px; }
   .company-solution-icon { margin-bottom:18px; }
 }
