@@ -731,43 +731,6 @@ h1 span {
 .wifi-factors>div>span:last-child {
   font-size:.9375rem
 }
-.business-section {
-  background:#0a223c;
-  padding:48px 0;
-  border-bottom:1px solid var(--border)
-}
-.business-layout {
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  align-items:center;
-  gap:38px
-}
-.business-icon {
-  align-self:start;
-  margin-top:8px;
-  color:var(--soft)
-}
-.business-icon .icon {
-  width:38px;
-  height:38px
-}
-.business-layout .eyebrow {
-  margin-bottom:12px;
-  font-size:.6875rem
-}
-.business-layout h2 {
-  font-size:2rem
-}
-.business-layout p:not(.eyebrow) {
-  font-size:.875rem;
-  max-width:500px;
-  margin-top:16px
-}
-.business-layout .button {
-  max-width:265px;
-  text-align:left;
-  font-size:.875rem
-}
 .coverage-layout {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -1178,12 +1141,6 @@ dialog::backdrop {
   .wifi-layout,.coverage-layout,.support-layout {
     gap:50px
   }
-  .business-layout {
-    gap:25px
-  }
-  .business-layout .button {
-    max-width:225px
-  }
   .routine {
     padding:25px
   }
@@ -1356,14 +1313,6 @@ dialog::backdrop {
   }
   .wifi-factors {
     padding-bottom:0
-  }
-  .business-layout {
-    grid-template-columns:auto 1fr
-  }
-  .business-layout .button {
-    grid-column:2;
-    max-width:360px;
-    justify-self:start
   }
   .footer-top {
     grid-template-columns:1fr 1fr
@@ -1568,25 +1517,6 @@ dialog::backdrop {
   .wifi-factors>div>span:last-child {
     font-size:.875rem
   }
-  .business-section {
-    padding:36px 0
-  }
-  .business-layout {
-    grid-template-columns:1fr;
-    gap:23px
-  }
-  .business-icon {
-    display:none
-  }
-  .business-layout h2 {
-    font-size:1.85rem
-  }
-  .business-layout .button {
-    grid-column:auto;
-    width:100%;
-    max-width:none;
-    justify-self:stretch
-  }
   .coverage-layout {
     gap:32px
   }
@@ -1684,7 +1614,7 @@ dialog::backdrop {
 }
 /* Textos de leitura mantêm pelo menos 16 px;
 legendas e metadados têm escala própria. */
-.section-heading>p,.plan-use,.plan li,.benefit-grid p,.routine p:not(.eyebrow),.business-layout p:not(.eyebrow),.coverage-info p,.faq-answer p {
+.section-heading>p,.plan-use,.plan li,.benefit-grid p,.routine p:not(.eyebrow),.coverage-info p,.faq-answer p {
   font-size:1rem
 }
 .plan-use {
@@ -1753,9 +1683,6 @@ label {
 }
 .inner-page>.section {
   padding-block:45px 75px;
-}
-.inner-page>.business-section {
-  padding-block:70px;
 }
 .related-pages {
   display:flex;
@@ -1896,7 +1823,6 @@ label {
 @media(max-width:600px) {
   .inner-page>.section { padding-block:30px 45px; }
   .breadcrumb { padding-block:25px;font-size:.8125rem; }
-  .inner-page>.business-section { padding-block:45px; }
   .page-directory { grid-template-columns:1fr;margin-top:24px; }
   .page-directory a { min-height:72px; }
   .contact-panel { padding:27px; }
@@ -2026,7 +1952,7 @@ body:not(.home-page) .header.is-scrolled :is(a,button):focus-visible { outline-c
 body:not(.home-page) .amr-footer { color:#fff; }
 
 /* Superfícies internas claras, preservando o azul nos detalhes e ações. */
-body:not(.home-page) main :is(.benefits,.support,.business-section) { background:#fff;border-color:#d5e0e8; }
+body:not(.home-page) main :is(.benefits,.support) { background:#fff;border-color:#d5e0e8; }
 body:not(.home-page) main :is(.benefit-grid article,.wifi-factors,.support-options>div,.support-options>div:first-child,.faq details,.faq details:first-child) { border-color:#d5e0e8; }
 body:not(.home-page) main .routine { border:1px solid #d5e0e8;border-radius:22px;background:#fff;box-shadow:0 8px 22px rgba(6,27,49,.06); }
 body:not(.home-page) main .home-routine { background:#f4f9ff;border-top:2px solid #0868df; }
@@ -2197,3 +2123,53 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
 @keyframes amr-icon-signal { 0%,100% { scale:1;opacity:1; } 50% { scale:1.18;opacity:.65; } }
 @keyframes amr-icon-sway { 0%,100% { rotate:-10deg; } 50% { rotate:10deg; } }
 @keyframes amr-icon-breathe { 0%,100% { scale:1; } 50% { scale:1.15; } }
+
+/* Página empresarial: a mesma identidade azul da AMR, com espaço para o futuro vídeo. */
+.company-page { background:#fff;color:#0b2942; }
+.company-hero { padding:clamp(50px,6vw,88px) 0;background:linear-gradient(125deg,#061b31 0%,#0b3158 70%,#08457e 100%);color:#fff; }
+.company-hero-inner { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);align-items:center;gap:clamp(30px,5vw,76px); }
+.company-hero .eyebrow { margin-bottom:18px;color:#8fc6ff; }
+.company-hero h1 { max-width:650px;font-size:clamp(2.6rem,4.2vw,4.6rem);line-height:1.07;letter-spacing:-.035em; }
+.company-lead { max-width:570px;margin:24px 0 0;color:#dbeaf8;font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.65; }
+.company-actions { display:flex;align-items:center;flex-wrap:wrap;gap:16px 26px;margin-top:32px; }
+.company-actions>a:not(.button) { display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#fff;font-weight:600; }
+.company-actions>a:not(.button):hover { color:#9bd1ff; }
+.company-actions>a:not(.button) .icon { width:18px;height:18px; }
+.company-hero-media { position:relative;overflow:hidden;aspect-ratio:1.54;border:1px solid #ffffff32;border-radius:24px;box-shadow:0 24px 55px #0004; }
+.company-hero-media img { display:block;width:100%;height:100%;object-fit:cover; }
+.company-hero-media span { position:absolute;left:22px;bottom:22px;padding:9px 14px;border:1px solid #ffffff58;border-radius:999px;background:#061b31d9;color:#fff;font-size:.8125rem;font-weight:600;backdrop-filter:blur(8px); }
+.company-solutions { padding-block:clamp(62px,7vw,100px); }
+.company-section-heading { max-width:750px; }
+.company-section-heading .eyebrow,.company-story .eyebrow { margin-bottom:14px;color:#075fdb; }
+.company-section-heading h2,.company-story h2 { font-size:clamp(2.15rem,3.2vw,3.5rem);line-height:1.12;letter-spacing:-.025em; }
+.company-section-heading>p:last-child,.company-story-copy>p:not(.eyebrow) { max-width:630px;margin-top:20px;color:#46627c;font-size:1.0625rem;line-height:1.65; }
+.company-solution-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px; }
+.company-solution-grid article { min-width:0;padding:30px;border:1px solid #d5e3f0;border-radius:22px;background:#f5f9fd; }
+.company-solution-icon { display:grid;place-items:center;width:54px;height:54px;margin-bottom:26px;border-radius:16px;background:#e0efff;color:#075fdb; }
+.company-solution-icon .icon { width:28px;height:28px; }
+.company-solution-grid h3 { font-size:1.3rem;line-height:1.25; }
+.company-solution-grid p { margin-top:12px;color:#46627c;line-height:1.6; }
+.company-story { padding:clamp(62px,7vw,100px) 0;background:#eaf3fc; }
+.company-story-inner { display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:clamp(30px,5vw,74px); }
+.company-story-copy .button { margin-top:30px; }
+.company-video-slot { position:relative;overflow:hidden;aspect-ratio:16/9;margin:0;border:1px solid #c5d8e8;border-radius:22px;background:#071a2e;box-shadow:0 18px 45px #0c34521c; }
+.company-video-slot img { display:block;width:100%;height:100%;object-fit:cover; }
+.company-video-slot:after { content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#061b31b8);pointer-events:none; }
+.company-video-slot figcaption { position:absolute;z-index:1;left:24px;right:24px;bottom:22px;color:#fff;font-size:.9375rem;font-weight:600;line-height:1.4; }
+@media(max-width:900px) {
+  .company-hero-inner,.company-story-inner { grid-template-columns:1fr; }
+  .company-hero-media { max-width:680px; }
+}
+@media(max-width:700px) {
+  .company-solution-grid { grid-template-columns:1fr;gap:12px; }
+  .company-solution-grid article { padding:24px; }
+  .company-solution-icon { margin-bottom:18px; }
+}
+@media(max-width:600px) {
+  .company-hero { padding-block:38px 46px; }
+  .company-hero h1 { font-size:clamp(2.25rem,9vw,3.15rem); }
+  .company-actions .button { width:100%; }
+  .company-hero-media span { left:15px;bottom:15px; }
+  .company-section-heading h2,.company-story h2 { font-size:clamp(2rem,8vw,2.6rem); }
+  .company-video-slot figcaption { left:16px;right:16px;bottom:16px;font-size:.8125rem; }
+}

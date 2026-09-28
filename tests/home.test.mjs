@@ -7,6 +7,7 @@ import { hero } from '../src/components/hero.mjs';
 import { coverage } from '../src/components/contact.mjs';
 import { WhatsAppAssistant } from '../src/components/support-assistant.mjs';
 import { footer } from '../src/components/shared.mjs';
+import { business } from '../src/components/benefits.mjs';
 
 test('artes comerciais confirmadas alimentam contatos, localidades e destaque',()=>{
   assert.equal(config.commercialConfirmed,true);
@@ -135,4 +136,12 @@ test('catálogo inclui empresa sem preço e com contato comercial em ambas as p�
     assert.match(enterprise,/href="\/empresas.html"/);
     assert.match(enterprise,/name="plan-details"/);
   }
+});
+
+test('página empresarial mantém fibra, suporte e reserva vídeo sem telefonia',()=> {
+  const html=business();
+  assert.match(html,/amr-empresas-equipe\.jpg/);
+  assert.match(html,/class="company-video-slot"/);
+  assert.match(html,/data-whatsapp="business"/);
+  assert.doesNotMatch(html,/telefonia|R\$|<video|<iframe/i);
 });

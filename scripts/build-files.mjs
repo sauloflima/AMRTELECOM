@@ -17,6 +17,7 @@ export const stylesheets = ['styles.css', 'home-refresh.css', 'support-assistant
 export const mediaAssets = [...new Set([
   config.brand.logo, config.brand.logoLight, config.brand.favicon,
   ...heroAssets, ...homeAssets, supportAvatar, customerAvatar,
+  '/assets/generated/amr-empresas-equipe.jpg',
 ])];
 
 export async function assetRevision(root) {
