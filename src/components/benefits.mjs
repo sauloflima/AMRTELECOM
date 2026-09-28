@@ -12,10 +12,10 @@ const enterpriseOfferings = {
     summary: 'Infraestrutura em nuvem para aplicações, dados e continuidade da operação.',
     intro: 'Ambientes em nuvem exigem decisões sobre capacidade, acesso, proteção dos dados e recuperação. A AMR avalia o cenário técnico da sua empresa para definir uma proposta adequada.',
     topics: [
-      ['Capacidade da carga', 'Processamento, memória, armazenamento e padrão de leitura e escrita são avaliados junto ao crescimento previsto. Esse perfil orienta o dimensionamento de cada aplicação.'],
-      ['Backup e recuperação', 'RPO indica a perda máxima de dados tolerável; RTO, o tempo desejado para retomar a operação. Esses objetivos orientam periodicidade, retenção e testes de restauração.'],
-      ['Acesso e conectividade', 'Mapeamos usuários, origem do tráfego, autenticação e dependência do link entre escritório e nuvem. A latência pode ser decisiva para sistemas sensíveis.'],
-      ['Operação e responsabilidades', 'Monitoramento, atualizações, gestão dos acessos e resposta a incidentes precisam ter responsáveis definidos no escopo da proposta.'],
+      ['Capacidade da carga', 'Processamento, memória, armazenamento e padrão de leitura e escrita são avaliados junto ao crescimento previsto. Esse perfil orienta o dimensionamento de cada aplicação.', 'server'],
+      ['Backup e recuperação', 'RPO indica a perda máxima de dados tolerável; RTO, o tempo desejado para retomar a operação. Esses objetivos orientam periodicidade, retenção e testes de restauração.', 'restore'],
+      ['Acesso e conectividade', 'Mapeamos usuários, origem do tráfego, autenticação e dependência do link entre escritório e nuvem. A latência pode ser decisiva para sistemas sensíveis.', 'lock'],
+      ['Operação e responsabilidades', 'Monitoramento, atualizações, gestão dos acessos e resposta a incidentes precisam ter responsáveis definidos no escopo da proposta.', 'settings'],
     ],
     inputs: 'Tenha em mãos os sistemas utilizados, volume aproximado de dados, número de usuários e requisitos de recuperação.'
   },
@@ -24,10 +24,10 @@ const enterpriseOfferings = {
     summary: 'Apoio técnico para organizar, acompanhar e sustentar a infraestrutura de TI.',
     intro: 'O suporte de TI funciona melhor quando há clareza sobre o ambiente, os responsáveis e as prioridades. A AMR conversa com sua equipe para delimitar o escopo de acompanhamento técnico.',
     topics: [
-      ['Inventário e dependências', 'Estações, servidores, ativos de rede e sistemas são mapeados com suas relações. Assim, uma falha pode ser priorizada pelo impacto real na operação.'],
-      ['Incidentes e solicitações', 'Separamos falhas que interrompem o serviço de pedidos de acesso, configuração ou mudança. Categorias, prioridades e escalonamento são definidos na proposta.'],
-      ['Monitoramento', 'Avaliamos quais indicadores e alertas fazem sentido para os ativos críticos, como disponibilidade, capacidade e eventos recorrentes.'],
-      ['Mudanças e documentação', 'Atualizações, registros de configuração e histórico de intervenções ajudam a reduzir retrabalho e tornam o ambiente mais previsível.'],
+      ['Inventário e dependências', 'Estações, servidores, ativos de rede e sistemas são mapeados com suas relações. Assim, uma falha pode ser priorizada pelo impacto real na operação.', 'server'],
+      ['Incidentes e solicitações', 'Separamos falhas que interrompem o serviço de pedidos de acesso, configuração ou mudança. Categorias, prioridades e escalonamento são definidos na proposta.', 'alert'],
+      ['Monitoramento', 'Avaliamos quais indicadores e alertas fazem sentido para os ativos críticos, como disponibilidade, capacidade e eventos recorrentes.', 'report'],
+      ['Mudanças e documentação', 'Atualizações, registros de configuração e histórico de intervenções ajudam a reduzir retrabalho e tornam o ambiente mais previsível.', 'document'],
     ],
     inputs: 'Compartilhe o tamanho da equipe, os principais sistemas e os desafios recorrentes do ambiente.'
   },
@@ -36,10 +36,10 @@ const enterpriseOfferings = {
     summary: 'Avaliação de riscos, acessos e proteção dos ativos digitais da empresa.',
     intro: 'Proteger a operação começa por entender seus ativos, acessos e pontos de exposição. A AMR avalia as necessidades da empresa e define, sob consulta, o escopo técnico aplicável.',
     topics: [
-      ['Superfície de ataque', 'Inventariamos serviços expostos, dispositivos, aplicações e acessos remotos. A prioridade parte do impacto de cada ativo e da exposição observada.'],
-      ['Identidade e permissões', 'Autenticação multifator, revisão de privilégios e separação de perfis limitam o alcance de uma conta comprometida.'],
-      ['Rede e dispositivos', 'Avaliamos segmentação, regras de acesso e proteção de endpoints para reduzir movimento indevido entre sistemas e setores.'],
-      ['Resposta e continuidade', 'Cópias restauráveis, responsáveis e procedimentos de contenção devem ser definidos antes de um incidente, conforme a criticidade dos sistemas.'],
+      ['Superfície de ataque', 'Inventariamos serviços expostos, dispositivos, aplicações e acessos remotos. A prioridade parte do impacto de cada ativo e da exposição observada.', 'inspect'],
+      ['Identidade e permissões', 'Autenticação multifator, revisão de privilégios e separação de perfis limitam o alcance de uma conta comprometida.', 'key'],
+      ['Rede e dispositivos', 'Avaliamos segmentação, regras de acesso e proteção de endpoints para reduzir movimento indevido entre sistemas e setores.', 'network'],
+      ['Resposta e continuidade', 'Cópias restauráveis, responsáveis e procedimentos de contenção devem ser definidos antes de um incidente, conforme a criticidade dos sistemas.', 'refresh'],
     ],
     inputs: 'Informe quantidade de usuários e unidades, sistemas críticos e requisitos internos de segurança.'
   },
@@ -48,10 +48,10 @@ const enterpriseOfferings = {
     summary: 'Rede empresarial planejada para os usuários, equipamentos e aplicações do negócio.',
     intro: 'A qualidade da conexão depende do endereço, da distribuição da rede e do perfil de tráfego. A AMR analisa esses fatores para indicar uma arquitetura e condições compatíveis com a operação.',
     topics: [
-      ['Perfil de tráfego', 'Número de usuários, aplicações simultâneas, upload, download, latência e horários de pico ajudam a estimar a capacidade necessária.'],
-      ['Acesso e topologia', 'A viabilidade da fibra no endereço e a distribuição física da rede orientam pontos de instalação, cabeamento e equipamentos.'],
-      ['Wi-Fi no ambiente', 'Planta, paredes, interferências e densidade de dispositivos influenciam a posição e a quantidade de pontos de acesso.'],
-      ['Segmentação e prioridade', 'Redes separadas para equipes e visitantes e políticas de QoS podem ser avaliadas quando aplicações críticas disputam a mesma conexão.'],
+      ['Perfil de tráfego', 'Número de usuários, aplicações simultâneas, upload, download, latência e horários de pico ajudam a estimar a capacidade necessária.', 'report'],
+      ['Acesso e topologia', 'A viabilidade da fibra no endereço e a distribuição física da rede orientam pontos de instalação, cabeamento e equipamentos.', 'fiber'],
+      ['Wi-Fi no ambiente', 'Planta, paredes, interferências e densidade de dispositivos influenciam a posição e a quantidade de pontos de acesso.', 'wifi'],
+      ['Segmentação e prioridade', 'Redes separadas para equipes e visitantes e políticas de QoS podem ser avaliadas quando aplicações críticas disputam a mesma conexão.', 'network'],
     ],
     inputs: 'Envie o endereço, quantidade de usuários, planta ou descrição dos ambientes e aplicações principais.'
   }
@@ -90,5 +90,5 @@ export function business() {
 export function businessDetail(key) {
   const offer = enterpriseOfferings[key];
   return `<section class="company-detail"><div class="company-detail-hero"><div class="container company-detail-hero-inner"><div><p class="eyebrow">AMR PARA EMPRESAS</p><h2>${offer.title} para a sua operação.</h2><p>${offer.intro}</p><div class="company-actions">${action('Solicitar avaliação técnica','business',offer.title,'button primary')}<a href="/empresas.html#solucoes-integradas">Todas as soluções ${icon('arrow')}</a></div></div><img src="/assets/generated/amr-empresas-${offer.image}.jpg" alt="${offer.alt}" width="1672" height="941" fetchpriority="high" decoding="async"></div></div>
-    <div class="container company-detail-content"><div class="company-section-heading"><p class="eyebrow">ESCOPO TÉCNICO</p><h2>O que analisamos com a sua equipe.</h2><p>Os itens abaixo orientam a conversa técnica. A solução e os serviços incluídos são definidos em proposta, conforme viabilidade e necessidade.</p></div><div class="company-detail-grid">${offer.topics.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div><div class="company-detail-next"><div><p class="eyebrow">PREPARE SUA CONSULTA</p><h2>Vamos entender o ambiente?</h2><p>${offer.inputs}</p></div>${action('Falar com a equipe técnica','business',offer.title,'button primary')}</div></div></section>`;
+    <div class="container company-detail-content"><div class="company-section-heading"><p class="eyebrow">ESCOPO TÉCNICO</p><h2>O que analisamos com a sua equipe.</h2><p>Os itens abaixo orientam a conversa técnica. A solução e os serviços incluídos são definidos em proposta, conforme viabilidade e necessidade.</p></div><div class="company-detail-grid">${offer.topics.map(([title, text, symbol]) => `<article><span class="company-detail-icon">${icon(symbol)}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div><div class="company-detail-next"><div><p class="eyebrow">PREPARE SUA CONSULTA</p><h2>Vamos entender o ambiente?</h2><p>${offer.inputs}</p></div>${action('Falar com a equipe técnica','business',offer.title,'button primary')}</div></div></section>`;
 }

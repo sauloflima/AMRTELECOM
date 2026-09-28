@@ -158,7 +158,8 @@ test('soluções empresariais abrem páginas técnicas próprias',()=> {
     const detail=interiorPage(`/empresas-${key}.html`,businessDetail(key));
     assert.equal((detail.match(/<h1>/g)||[]).length,1);
     assert.match(detail,/ESCOPO TÉCNICO/);
-    assert.equal((detail.match(/<article><span>0[1-4]<\/span>/g)||[]).length,4);
+    assert.equal((detail.match(/<article><span class="company-detail-icon"><svg class="icon icon-[a-z-]+"/g)||[]).length,4);
+    assert.doesNotMatch(detail,/<article><span>0[1-4]<\/span>/);
     assert.ok(detail.toLowerCase().includes(technicalTerms[key].toLowerCase()));
     assert.match(detail,/Solicitar avaliação técnica/);
     assert.match(messageFor('business', {cloud:'Cloud',ti:'Outsourcing de TI',seguranca:'Cibersegurança',conectividade:'Conectividade'}[key]),/avaliação técnica sobre/);
