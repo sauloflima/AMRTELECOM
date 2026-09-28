@@ -33,20 +33,19 @@ body .amr-footer .footer-summary { font-size:.9375rem;max-width:560px; }
 .footer-brand-row .brand { width:140px; }.footer-brand-row .brand img { width:140px;height:auto; }
 .footer-brand-row p { font-size:.9375rem; }
 .footer-channels { display:grid;gap:12px; }
-.footer-channel { display:flex;align-items:center;gap:10px;min-height:80px;padding:14px;border:1px solid #ffffff29;border-radius:16px;background:linear-gradient(120deg,#ffffff0c,#ffffff04);color:#fff;text-decoration:none;box-shadow:0 6px 18px #0000000d; }
+.footer-channel { display:grid;grid-template-columns:40px minmax(0,1fr) 40px;align-items:center;gap:8px;min-height:80px;padding:14px;border:1px solid #ffffff29;border-radius:16px;background:linear-gradient(120deg,#ffffff0c,#ffffff04);color:#fff;text-decoration:none;box-shadow:0 6px 18px #0000000d; }
 .footer-channel:hover { background:#ffffff12;border-color:#ffffff50; }
 .footer-channel:focus-visible { outline:2px solid #fff;outline-offset:4px; }
 .footer-channel-whatsapp { background:#ffffff0c;border-color:#ffffff29; }
 .footer-channel-whatsapp:hover { background:#ffffff12;border-color:#ffffff50; }
 .footer-channel-whatsapp .footer-channel-icon { color:#4be39a; }
-.footer-channel-icon { display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:10px;background:#ffffff14;color:#fff; }
+.footer-channel-icon { display:grid;place-items:center;justify-self:center;width:36px;height:36px;border-radius:10px;background:#ffffff14;color:#fff; }
 .footer-channel-icon .icon { width:24px;height:24px; }
-.footer-channel-copy { display:grid;gap:3px;min-width:0; }
-.instagram-icon + .footer-channel-copy { flex:1;text-align:center; }
+.footer-channel-copy { display:grid;gap:3px;min-width:0;text-align:center; }
 .footer-channel-copy small { color:#d5e3ef;font-size:.6875rem;line-height:1.4;font-weight:500; }
 .footer-channel-whatsapp small { color:#d5e3ef; }
 .footer-channel-copy strong { font-size:.9375rem;line-height:1.4;font-weight:600;letter-spacing:.01em;overflow-wrap:anywhere; }
-.footer-channel>.icon { width:16px;height:16px;flex:none;margin-left:auto;opacity:.75; }
+.footer-channel>.icon { width:16px;height:16px;justify-self:center;opacity:.75; }
 .instagram-icon { background:radial-gradient(circle at 30% 105%,#feda75 0%,#fa7e1e 25%,#d62976 50%,#962fbf 75%,#4f5bd5 100%); }
 @media(min-width:1001px) { body .amr-footer .footer-columns { grid-template-columns:repeat(3,minmax(0,1fr)) minmax(260px,1.5fr); } }
 .footer-columns { display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:34px;padding-block:36px 40px; }
