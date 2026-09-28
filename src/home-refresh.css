@@ -520,22 +520,22 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
   .home-page .footer-contact { grid-column:1; }
 }
 
-.home-page .header .header-cta.whatsapp-action,
 .home-page .button.whatsapp-action,
 .home-page .button.primary.whatsapp-action,
-.home-page .button.light.whatsapp-action,
-.home-page .amr-footer .footer-contact .button.whatsapp-action {
-  border-color:var(--whatsapp-green);background:var(--whatsapp-green);color:#fff;
+.home-page .button.light.whatsapp-action {
+  border-color:#b9cddd;background:#ffffffb8;color:#0b2942;backdrop-filter:blur(8px);
 }
-.home-page .header .header-cta.whatsapp-action:hover,
 .home-page .button.whatsapp-action:hover,
 .home-page .button.primary.whatsapp-action:hover,
-.home-page .button.light.whatsapp-action:hover,
-.home-page .amr-footer .footer-contact .button.whatsapp-action:hover {
-  border-color:var(--whatsapp-green-hover);background:var(--whatsapp-green-hover);color:#fff;
+.home-page .button.light.whatsapp-action:hover {
+  border-color:#8ba6ba;background:#fff;color:#0b2942;
 }
-.home-page .whatsapp-action.text-link { color:#087843; }
-.home-page .amr-footer .whatsapp-action.text-link { color:#a7f2c4; }
+.home-page .header .header-cta.whatsapp-action { border-color:#b9cddd;background:#ffffffb8;color:#0b2942; }
+.home-page .header .header-cta.whatsapp-action:hover { border-color:#8ba6ba;background:#fff;color:#0b2942; }
+.home-page .header.is-scrolled .header-cta.whatsapp-action,.home-page .amr-footer .footer-contact .button.whatsapp-action { border-color:#ffffff40;background:#ffffff14;color:#fff; }
+.home-page .header.is-scrolled .header-cta.whatsapp-action:hover,.home-page .amr-footer .footer-contact .button.whatsapp-action:hover { border-color:#ffffff70;background:#ffffff22;color:#fff; }
+.home-page .whatsapp-action.text-link { color:#0b2942; }
+.home-page .amr-footer .whatsapp-action.text-link { color:#fff; }
 
 /* Movimento pontual: conteúdo legível mesmo sem JS ou sem observer. */
 .carousel-controls[hidden],.carousel-rotation[hidden],.effects-toggle[hidden] { display:none!important; }

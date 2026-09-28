@@ -10,5 +10,6 @@
 - Na seção “O jeito AMR”, mostrar a sequência de entendimento da operação, avaliação do ambiente e proposta técnica clara, sem o card “Para começar a conversa”, removido a pedido de Saulo. Preservar o enquadramento que mostra a cabeça do profissional na imagem de Cibersegurança.
 - As quatro páginas de “Saiba mais” empresariais mostram o escopo técnico sem o card final “Vamos entender o ambiente?”, também removido a pedido de Saulo. O contato por WhatsApp continua disponível no topo das páginas.
 - O assistente de atendimento surge após 11 segundos e deve permanecer pequeno e discreto, especialmente no celular; a chamada móvel é “Posso ajudar?” acima do avatar. O rodapé traz WhatsApp, Instagram @amrtelecomltda e o crédito discreto “Desenvolvido por © Saulo Ferreira Technology”.
+- Cards e botões de contato pelo WhatsApp devem usar superfície translúcida e neutra; reservar o verde ao ícone do WhatsApp, com texto legível sobre fundos claros e escuros.
 - A demonstração no GitHub Pages foi autorizada em 27/09/2026: https://sauloflima.github.io/AMRTELECOM/. Publicação definitiva, domínio e textos legais ainda exigem validação; manter a demonstração sem indexação até isso ocorrer.
 - Preferências registradas a pedido do usuário em 26–27/09/2026. O contexto de design também consta em /Users/saulolima/.codex/state/plugins/product-design/user-context.md.

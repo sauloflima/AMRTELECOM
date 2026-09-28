@@ -36,14 +36,15 @@ body .amr-footer .footer-summary { font-size:.9375rem;max-width:560px; }
 .footer-channel { display:flex;align-items:center;gap:10px;min-height:80px;padding:14px;border:1px solid #ffffff29;border-radius:16px;background:linear-gradient(120deg,#ffffff0c,#ffffff04);color:#fff;text-decoration:none;box-shadow:0 6px 18px #0000000d; }
 .footer-channel:hover { background:#ffffff12;border-color:#ffffff50; }
 .footer-channel:focus-visible { outline:2px solid #fff;outline-offset:4px; }
-.footer-channel-whatsapp { background:var(--whatsapp-green);border-color:#ffffff24; }
-.footer-channel-whatsapp:hover { background:var(--whatsapp-green-hover); }
+.footer-channel-whatsapp { background:#ffffff0c;border-color:#ffffff29; }
+.footer-channel-whatsapp:hover { background:#ffffff12;border-color:#ffffff50; }
+.footer-channel-whatsapp .footer-channel-icon { color:#4be39a; }
 .footer-channel-icon { display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:10px;background:#ffffff14;color:#fff; }
 .footer-channel-icon .icon { width:24px;height:24px; }
 .footer-channel-copy { display:grid;gap:3px;min-width:0; }
 .instagram-icon + .footer-channel-copy { flex:1;text-align:center; }
 .footer-channel-copy small { color:#d5e3ef;font-size:.6875rem;line-height:1.4;font-weight:500; }
-.footer-channel-whatsapp small { color:#e3f7ea; }
+.footer-channel-whatsapp small { color:#d5e3ef; }
 .footer-channel-copy strong { font-size:.9375rem;line-height:1.4;font-weight:600;letter-spacing:.01em;overflow-wrap:anywhere; }
 .footer-channel>.icon { width:16px;height:16px;flex:none;margin-left:auto;opacity:.75; }
 .instagram-icon { background:radial-gradient(circle at 30% 105%,#feda75 0%,#fa7e1e 25%,#d62976 50%,#962fbf 75%,#4f5bd5 100%); }
@@ -1985,30 +1986,33 @@ body:not(.home-page) .no-script { background:#eaf4ff;color:#0b2942; }
 }
 @media(max-width:600px) { body:not(.home-page) .header .brand,body:not(.home-page) .header .brand img { width:136px; } }
 
-/* WhatsApp é um canal, não uma ação genérica: verde sólido em todas as páginas. */
+/* Contato discreto: superfícies translúcidas e verde reservado ao ícone do WhatsApp. */
 :root { --whatsapp-green:#087843;--whatsapp-green-hover:#066237; }
 body .header .header-cta.whatsapp-action,
 body .amr-footer .footer-contact .button.whatsapp-action,
 body:not(.home-page) main .button.whatsapp-action {
-  background:var(--whatsapp-green);border-color:var(--whatsapp-green);color:#fff;
+  background:#ffffffb8;border-color:#b9cddd;color:#0b2942;backdrop-filter:blur(8px);
 }
 body .header .header-cta.whatsapp-action:hover,
 body .amr-footer .footer-contact .button.whatsapp-action:hover,
 body:not(.home-page) main .button.whatsapp-action:hover {
-  background:var(--whatsapp-green-hover);border-color:var(--whatsapp-green-hover);color:#fff;
+  background:#fff;border-color:#8ba6ba;color:#0b2942;
 }
-body .header .header-cta.whatsapp-action:active,
-body .amr-footer .footer-contact .button.whatsapp-action:active { background:var(--whatsapp-green-hover);border-color:var(--whatsapp-green-hover); }
+body .header.is-scrolled .header-cta.whatsapp-action,body:not(.home-page):has(.company-page,.company-detail) .header .header-cta.whatsapp-action,body .amr-footer .footer-contact .button.whatsapp-action { background:#ffffff14;border-color:#ffffff40;color:#fff; }
+body .header.is-scrolled .header-cta.whatsapp-action:hover,body:not(.home-page):has(.company-page,.company-detail) .header .header-cta.whatsapp-action:hover,body .amr-footer .footer-contact .button.whatsapp-action:hover { background:#ffffff22;border-color:#ffffff70;color:#fff; }
+body .header.is-scrolled .header-cta.whatsapp-action:active,body .amr-footer .footer-contact .button.whatsapp-action:active { background:#ffffff2a; }
 .whatsapp-action.button>.icon { order:-1;flex:none; }
-body:not(.home-page) main .whatsapp-action.text-link { color:#087843;letter-spacing:0; }
-body:not(.home-page) main .support-link.whatsapp-action { color:#087843; }
+body:not(.home-page) main .whatsapp-action.text-link { color:#0b2942;letter-spacing:0; }
+body:not(.home-page) main .support-link.whatsapp-action { color:#0b2942; }
 body:not(.home-page) main .support-link.whatsapp-action .icon { order:2;margin-left:auto; }
-body .amr-footer .whatsapp-action.text-link { color:#a7f2c4; }
+body .amr-footer .whatsapp-action.text-link { color:#fff; }
 .whatsapp-action>.icon { transform:none!important; }
-body .button.whatsapp-action,body .support-cta.whatsapp-action { box-shadow:0 4px 12px rgba(4,94,53,.16);transition:background-color 180ms ease,border-color 180ms ease,color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
+.whatsapp-action .icon-whatsapp { color:var(--whatsapp-green); }
+body .header.is-scrolled .whatsapp-action .icon-whatsapp,body:not(.home-page):has(.company-page,.company-detail) .header .whatsapp-action .icon-whatsapp,body .amr-footer .whatsapp-action .icon-whatsapp { color:#4be39a; }
+body .button.whatsapp-action,body .support-cta.whatsapp-action { box-shadow:0 4px 12px #071a2e14;transition:background-color 180ms ease,border-color 180ms ease,color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
 body .support-cta.whatsapp-action,body .footer-channel-whatsapp { transition:background-color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
 @media(hover:hover) and (pointer:fine) {
-  body .button.whatsapp-action:hover,body .header .header-cta.whatsapp-action:hover,body .support-cta.whatsapp-action:hover,body .footer-channel-whatsapp:hover { box-shadow:0 10px 22px rgba(4,94,53,.24); }
+  body .button.whatsapp-action:hover,body .header .header-cta.whatsapp-action:hover,body .support-cta.whatsapp-action:hover,body .footer-channel-whatsapp:hover { box-shadow:0 10px 22px #071a2e24; }
 }
 @media(hover:hover) and (pointer:fine) {
   body .button.whatsapp-action:hover:not(:disabled),body .support-cta.whatsapp-action:hover,body .footer-channel-whatsapp:hover { transform:scale(1.04); }
@@ -2032,7 +2036,7 @@ body:not(.home-page) main .contact-page { padding-block:clamp(48px,6vw,88px) cla
 .contact-shortcuts small { color:#587086;font-size:.875rem;line-height:1.4; }
 body:not(.home-page) main .contact-page .contact-panel { display:flex;flex-direction:column;min-height:470px;padding:clamp(32px,3.5vw,58px);border:1px solid #bfd8e8;border-radius:26px;background:#e1eef8;color:#0b2942;box-shadow:none; }
 .contact-panel-heading { display:flex;align-items:center;gap:14px;color:#41627b;font-size:.75rem;font-weight:750;letter-spacing:.16em; }
-.contact-panel-icon { display:grid;place-items:center;width:50px;height:50px;border:1px solid #54ac80;border-radius:14px;background:#087843;color:#fff; }
+.contact-panel-icon { display:grid;place-items:center;width:50px;height:50px;border:1px solid #b9cddd;border-radius:14px;background:#ffffff8a;color:var(--whatsapp-green); }
 .contact-panel-icon .icon { width:26px;height:26px; }
 .contact-panel h2 { max-width:440px;margin:38px 0 0;color:#0b2942;font-size:clamp(1.75rem,2.5vw,2.45rem);line-height:1.12;letter-spacing:-.04em; }
 .contact-panel>p:not(.contact-number) { max-width:420px;margin:18px 0 0;color:#3e5b72;font-size:1.05rem;line-height:1.6; }
