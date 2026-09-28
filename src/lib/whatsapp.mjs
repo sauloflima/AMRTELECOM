@@ -13,6 +13,7 @@ export function messageFor(kind, detail = '') {
     return config.messages.plan.replace('{speed}', plan.speed).replace('{price}', new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.price));
   }
   if (kind === 'support') return config.messages.support[detail] || config.messages.support.other;
+  if (kind === 'business' && detail === 'Análise técnica') return 'Olá, AMR Telecom! Gostaria de uma análise técnica para minha empresa. Posso compartilhar o endereço, a rede atual e as aplicações principais para avaliarmos uma solução?';
   if (kind === 'business' && ['Cloud', 'Outsourcing de TI', 'Cibersegurança', 'Conectividade'].includes(detail)) return `Olá, AMR Telecom! Gostaria de uma avaliação técnica sobre ${detail} para minha empresa. Podemos conversar sobre escopo e condições?`;
   return config.messages[kind] || config.messages.general;
 }

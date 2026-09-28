@@ -8,6 +8,7 @@ test('WhatsApp codifica acentos, quebras, & e # sem alterar a mensagem',()=>{con
 test('cada plano informa velocidade, preço e pedido de confirmação',()=>{for(const plan of config.plans){const text=messageFor('plan',plan.id);assert.ok(text.includes(`${plan.speed} Mega`));assert.ok(text.includes(plan.price.toFixed(2).replace('.',',')));assert.ok(text.includes('confirmar'));}});
 test('mensagens de suporte são específicas',()=>{const messages=Object.keys(config.messages.support).map(id=>messageFor('support',id));assert.equal(new Set(messages).size,5);});
 test('Wi-Fi, empresa e contato geral usam mensagens distintas',()=>{assert.equal(new Set(['wifi','business','general'].map(kind=>messageFor(kind))).size,3);});
+test('pedido de análise empresarial pergunta pelo contexto técnico',()=>{assert.match(messageFor('business','Análise técnica'),/rede atual e as aplicações principais/);});
 test('formulário vazio identifica os quatro campos',()=>{assert.equal(Object.keys(validateCoverage({})).length,4);});
 test('telefone extra não entra na URL do WhatsApp',()=>{const text=coverageMessage({...values,phone:'(81) 91234-5678'});assert.ok(!text.includes('91234'));assert.ok(!new URL(whatsappUrl(text)).searchParams.get('text').includes('91234'));});
 test('formulário válido preserva campos e informa confirmação da equipe',()=>{assert.deepEqual(validateCoverage(values),{});const message=coverageMessage(values);for(const value of Object.values(values))assert.ok(message.includes(value));assert.ok(message.includes('confirmação'));});
