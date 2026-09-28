@@ -20,7 +20,7 @@ export function homeNavigation() {
 
 export function breadcrumb(pathname) {
   const route = routeFor(pathname);
-  return `<nav class="container breadcrumb" aria-label="Você está em"><a href="/">Início</a><span aria-hidden="true">/</span><span aria-current="page">${escape(route.label)}</span></nav>`;
+  return `<nav class="container breadcrumb" aria-label="Você está em"><a href="/">Início</a><span aria-hidden="true">/</span>${pathname.startsWith('/empresas-') ? '<a href="/empresas.html">Empresas</a><span aria-hidden="true">/</span>' : ''}<span aria-current="page">${escape(route.label)}</span></nav>`;
 }
 
 export function nextPages(pathnames) {

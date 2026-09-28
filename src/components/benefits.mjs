@@ -6,25 +6,81 @@ export function wifi() {
   return `<section class="section wifi-section"><div class="container wifi-layout"><div><p class="eyebrow">CADA AMBIENTE CONTA</p><h2>Entenda o alcance<br>do seu Wi-Fi.</h2><p>Paredes, distância e posição do roteador podem mudar o sinal em cada cômodo. Fale com a equipe para avaliar seu ambiente e as opções disponíveis.</p>${action('Avaliar meu Wi-Fi','wifi')}</div><div class="wifi-factors"><h3>O que influencia o sinal?</h3>${[['home','Tamanho do imóvel e paredes'],['wifi','Distância e posição do roteador'],['work','Equipamento e aparelhos conectados']].map(([i,t],n)=>`<div><span class="factor-number">0${n+1}</span>${icon(i)}<span>${t}</span></div>`).join('')}<p class="small">O alcance varia de um imóvel para outro. A equipe pode orientar você após conhecer o local.</p></div></div></section>`;
 }
 
+const enterpriseOfferings = {
+  cloud: {
+    title: 'Cloud', image: 'cloud', alt: 'Corredor de servidores em ambiente de datacenter',
+    summary: 'Infraestrutura em nuvem para aplicações, dados e continuidade da operação.',
+    intro: 'Ambientes em nuvem exigem decisões sobre capacidade, acesso, proteção dos dados e recuperação. A AMR avalia o cenário técnico da sua empresa para definir uma proposta adequada.',
+    topics: [
+      ['Computação e armazenamento', 'Sistemas, máquinas virtuais, volume de dados e crescimento previsto para dimensionamento.'],
+      ['Backup e recuperação', 'Políticas de retenção, periodicidade das cópias e objetivos de recuperação (RPO e RTO).'],
+      ['Acesso e segurança', 'Usuários, permissões, autenticação e conectividade entre o ambiente local e a nuvem.'],
+    ],
+    inputs: 'Tenha em mãos os sistemas utilizados, volume aproximado de dados, número de usuários e requisitos de recuperação.'
+  },
+  ti: {
+    title: 'Outsourcing de TI', image: 'ti', alt: 'Especialista de TI avaliando equipamentos de rede com um notebook',
+    summary: 'Apoio técnico para organizar, acompanhar e sustentar a infraestrutura de TI.',
+    intro: 'O suporte de TI funciona melhor quando há clareza sobre o ambiente, os responsáveis e as prioridades. A AMR conversa com sua equipe para delimitar o escopo de acompanhamento técnico.',
+    topics: [
+      ['Inventário técnico', 'Estações, servidores, ativos de rede, sistemas e dependências críticas da operação.'],
+      ['Incidentes e solicitações', 'Categorias de chamados, prioridades, fluxo de escalonamento e canais a definir na proposta.'],
+      ['Sustentação do ambiente', 'Atualizações, monitoramento e documentação, conforme o escopo contratado.'],
+    ],
+    inputs: 'Compartilhe o tamanho da equipe, os principais sistemas e os desafios recorrentes do ambiente.'
+  },
+  seguranca: {
+    title: 'Cibersegurança', image: 'seguranca', alt: 'Profissional analisando painéis de segurança digital em computadores',
+    summary: 'Avaliação de riscos, acessos e proteção dos ativos digitais da empresa.',
+    intro: 'Proteger a operação começa por entender seus ativos, acessos e pontos de exposição. A AMR avalia as necessidades da empresa e define, sob consulta, o escopo técnico aplicável.',
+    topics: [
+      ['Superfície de ataque', 'Dispositivos, serviços expostos, sistemas e acessos remotos a considerar na análise.'],
+      ['Controles preventivos', 'Autenticação multifator, permissões, proteção de endpoints e segmentação da rede.'],
+      ['Continuidade', 'Cópias de segurança, prioridades de recuperação e procedimentos para incidentes.'],
+    ],
+    inputs: 'Informe quantidade de usuários e unidades, sistemas críticos e requisitos internos de segurança.'
+  },
+  conectividade: {
+    title: 'Conectividade', image: 'conectividade', alt: 'Equipe trabalhando conectada em um escritório',
+    summary: 'Rede empresarial planejada para os usuários, equipamentos e aplicações do negócio.',
+    intro: 'A qualidade da conexão depende do endereço, da distribuição da rede e do perfil de tráfego. A AMR analisa esses fatores para indicar uma arquitetura e condições compatíveis com a operação.',
+    topics: [
+      ['Acesso em fibra', 'Viabilidade no endereço, banda necessária e perfil de tráfego das aplicações.'],
+      ['Rede interna e Wi-Fi', 'Topologia, pontos de acesso, cobertura dos ambientes e densidade de dispositivos.'],
+      ['Priorização do tráfego', 'Sistemas críticos, horários de pico e possíveis necessidades de segmentação ou QoS.'],
+    ],
+    inputs: 'Envie o endereço, quantidade de usuários, planta ou descrição dos ambientes e aplicações principais.'
+  }
+};
+
 export function business() {
   const solutions = [
-    ['fiber', 'Internet em fibra óptica', 'Uma conexão para acompanhar a rotina do escritório, da loja ou da sua equipe. Consulte a disponibilidade para o seu endereço.', 'fibra', 'Técnico conectando uma fibra óptica em um escritório'],
-    ['wifi', 'Conexão no ambiente', 'Converse com a equipe sobre o espaço, os equipamentos e a forma como as pessoas usam a rede no dia a dia.', 'ambiente', 'Equipe de um pequeno negócio usando a internet no trabalho'],
-    ['headset', 'Suporte com gente de verdade', 'Quando precisar de orientação técnica, fale com a equipe da AMR pelo canal oficial de atendimento.', 'suporte', 'Profissional de suporte orientando uma cliente diante do computador'],
+    ['fiber', 'Internet em fibra óptica', 'Avaliamos viabilidade no endereço, quantidade de usuários, aplicações e capacidade necessária para a operação.', 'fibra', 'Técnico conectando uma fibra óptica em um escritório'],
+    ['wifi', 'Rede no ambiente', 'Cobertura Wi-Fi, pontos de acesso e distribuição do sinal precisam acompanhar a planta e a densidade de dispositivos.', 'ambiente', 'Equipe de um pequeno negócio usando a internet no trabalho'],
+    ['headset', 'Suporte técnico humano', 'Para incidentes e dúvidas técnicas, fale com a equipe AMR pelo canal oficial de atendimento.', 'suporte', 'Profissional de suporte orientando uma cliente diante do computador'],
   ];
   return `<section class="company-page">
     <div class="company-hero"><div class="container company-hero-inner"><div>
       <p class="eyebrow">AMR PARA EMPRESAS</p><h2>Conexão para o seu negócio seguir em movimento.</h2>
-      <p class="company-lead">Cada operação tem uma rotina. Conte à AMR como a sua empresa trabalha para avaliarmos a conexão disponível e a melhor forma de atender você.</p>
+      <p class="company-lead">Conectividade, infraestrutura e suporte técnico dimensionados a partir do seu ambiente. Conte à AMR sobre usuários, aplicações e requisitos da operação para avaliarmos uma solução.</p>
       <div class="company-actions">${action('Conversar sobre minha empresa','business','','button primary')}<a href="/cobertura.html">Consultar cobertura ${icon('arrow')}</a></div>
     </div><div class="company-hero-media"><img src="/assets/generated/amr-empresas-equipe.jpg" alt="Equipe de uma empresa trabalhando em conjunto com computadores" width="1586" height="992" fetchpriority="high" decoding="async"><span>AMR para empresas</span></div></div></div>
     <div class="container company-solutions"><div class="company-section-heading"><p class="eyebrow">PRODUTOS E SERVIÇOS</p><h2>Soluções para a rotina da sua empresa.</h2><p>Conectividade e atendimento próximos do seu negócio, com opções avaliadas pela equipe.</p></div>
       <div class="company-solution-grid">${solutions.map(([symbol, title, description, photo, alt]) => `<article><img src="/assets/generated/amr-empresas-${photo}.jpg" alt="${alt}" width="1586" height="992" loading="lazy" decoding="async"><div class="company-solution-body"><span class="company-solution-icon">${icon(symbol)}</span><h3>${title}</h3><p>${description}</p></div></article>`).join('')}</div>
       <div class="company-solutions-action">${action('Conversar sobre as soluções','business','','button primary')}<span>Disponibilidade e condições confirmadas pela equipe.</span></div>
     </div>
-    <div class="company-approach"><div class="container"><div class="company-section-heading"><p class="eyebrow">O JEITO AMR</p><h2>Da conversa à indicação, com clareza.</h2></div><ol><li><span>01</span><h3>Entendemos sua rotina</h3><p>Conte como sua equipe usa a internet no trabalho.</p></li><li><span>02</span><h3>Conferimos seu endereço</h3><p>A disponibilidade é avaliada para o local da empresa.</p></li><li><span>03</span><h3>Orientamos a escolha</h3><p>A equipe conversa sobre as opções e condições aplicáveis.</p></li></ol></div></div>
+    <div class="company-integrated" id="solucoes-integradas"><div class="container"><div class="company-section-heading"><p class="eyebrow">SOLUÇÕES INTEGRADAS</p><h2>Tecnologia alinhada à sua operação.</h2><p>Explore cada frente técnica. Arquitetura, capacidade, escopo de suporte e condições são definidos após avaliação do ambiente.</p></div>
+      <div class="company-integrated-grid">${Object.entries(enterpriseOfferings).map(([key, offer], index) => `<article class="company-integrated-card${index === 0 ? ' company-integrated-wide' : ''}"><img src="/assets/generated/amr-empresas-${offer.image}.jpg" alt="${offer.alt}" width="${index === 0 ? 1672 : 1024}" height="${index === 0 ? 941 : 1536}" loading="lazy" decoding="async"><div class="company-integrated-copy"><span>0${index + 1} / SOLUÇÕES AMR</span><h3>${offer.title}</h3><p>${offer.summary}</p><a href="/empresas-${key}.html">Saiba mais ${icon('arrow')}</a></div></article>`).join('')}</div>
+    </div></div>
+    <div class="company-approach"><div class="container"><div class="company-section-heading"><p class="eyebrow">O JEITO AMR</p><h2>Do diagnóstico à proposta técnica.</h2></div><ol><li><span>01</span><h3>Mapeamos o ambiente</h3><p>Usuários, aplicações, equipamentos e pontos críticos da operação.</p></li><li><span>02</span><h3>Verificamos a viabilidade</h3><p>Endereço, infraestrutura existente e requisitos de capacidade.</p></li><li><span>03</span><h3>Definimos o escopo</h3><p>Arquitetura, serviços, condições e responsabilidades em proposta.</p></li></ol></div></div>
     <div class="company-story"><div class="container company-story-inner"><div class="company-story-copy"><p class="eyebrow">CONHEÇA A AMR</p><h2>Por trás da conexão, pessoas prontas para conversar.</h2><p>Vamos entender seu endereço, o perfil de uso e as necessidades da operação antes de apresentar uma opção para a sua empresa.</p>${action('Falar com a equipe','business','','button primary')}</div>
       <figure class="company-video-slot"><img src="/assets/generated/amr-empresa-card.jpg" alt="Prédio comercial iluminado com a marca AMR Telecom" width="1280" height="720" loading="lazy" decoding="async"><figcaption>Espaço reservado para o vídeo da AMR para empresas</figcaption></figure>
     </div></div>
   </section>`;
+}
+
+export function businessDetail(key) {
+  const offer = enterpriseOfferings[key];
+  return `<section class="company-detail"><div class="company-detail-hero"><div class="container company-detail-hero-inner"><div><p class="eyebrow">AMR PARA EMPRESAS / ${offer.title.toUpperCase()}</p><h2>${offer.title} para a sua operação.</h2><p>${offer.intro}</p><div class="company-actions">${action('Solicitar avaliação técnica','business',offer.title,'button primary')}<a href="/empresas.html#solucoes-integradas">Todas as soluções ${icon('arrow')}</a></div></div><img src="/assets/generated/amr-empresas-${offer.image}.jpg" alt="${offer.alt}" width="1672" height="941" fetchpriority="high" decoding="async"></div></div>
+    <div class="container company-detail-content"><div class="company-section-heading"><p class="eyebrow">ESCOPO TÉCNICO</p><h2>O que analisamos com a sua equipe.</h2><p>Os itens abaixo orientam a conversa técnica. A solução e os serviços incluídos são definidos em proposta, conforme viabilidade e necessidade.</p></div><div class="company-detail-grid">${offer.topics.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div><div class="company-detail-next"><div><p class="eyebrow">PREPARE SUA CONSULTA</p><h2>Vamos entender o ambiente?</h2><p>${offer.inputs}</p></div>${action('Falar com a equipe técnica','business',offer.title,'button primary')}</div></div></section>`;
 }

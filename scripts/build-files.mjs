@@ -21,6 +21,7 @@ export const mediaAssets = [...new Set([
   '/assets/generated/amr-empresas-fibra.jpg',
   '/assets/generated/amr-empresas-ambiente.jpg',
   '/assets/generated/amr-empresas-suporte.jpg',
+  ...['cloud', 'ti', 'seguranca', 'conectividade'].map(name => `/assets/generated/amr-empresas-${name}.jpg`),
 ])];
 
 export async function assetRevision(root) {

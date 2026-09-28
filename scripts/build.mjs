@@ -6,7 +6,7 @@ import { header, footer, escape } from '../src/components/shared.mjs';
 import { hero } from '../src/components/hero.mjs';
 import { plans } from '../src/components/plans.mjs';
 import { testimonials, homeBusiness, homeRoutine, homeSupport, homeFaq, pendingStories, homeContactBand, coverageDock } from '../src/components/home-sections.mjs';
-import { routines, wifi, business } from '../src/components/benefits.mjs';
+import { routines, wifi, business, businessDetail } from '../src/components/benefits.mjs';
 import { WhatsAppAssistant } from '../src/components/support-assistant.mjs';
 import { customerArea } from '../src/components/customer.mjs';
 import { coverage, support, faq, contactPage } from '../src/components/contact.mjs';
@@ -39,6 +39,7 @@ const pages = {
     ['/solucoes.html', routines(), ['/planos.html', '/empresas.html']],
     ['/wifi.html', wifi(), ['/suporte.html', '/cobertura.html']],
     ['/empresas.html', business(), ['/contato.html', '/cobertura.html']],
+    ...['cloud', 'ti', 'seguranca', 'conectividade'].map(key => [`/empresas-${key}.html`, businessDetail(key), ['/empresas.html', '/contato.html']]),
     ['/cobertura.html', coverage(), ['/planos.html', '/perguntas.html']],
     ['/suporte.html', support(), ['/wifi.html', '/perguntas.html']],
     ['/perguntas.html', faq(), ['/planos.html', '/suporte.html']],

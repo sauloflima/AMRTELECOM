@@ -42,7 +42,7 @@ export function logo() {
 }
 export function header(pathname = '/') {
   const contact = whatsappUrl(messageFor('general'));
-  return `<a class="skip-link" href="#conteudo">Pular para o conteúdo</a><header class="header"><div class="container header-inner">${logo()}<a class="mobile-support" href="/suporte.html">${icon('headset')} Suporte</a><button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Abrir menu">${icon('menu')}</button><nav id="navigation" aria-label="Navegação principal">${routes.filter(route => route.primary).map(route => `<a href="${route.path}"${route.path === pathname ? ' aria-current="page"' : ''}>${route.label}</a>`).join('')}</nav>${contact ? action('Falar no WhatsApp','general','','button header-cta','whatsapp') : '<a class="button header-cta" href="/contato.html">Canais de contato</a>'}</div></header>`;
+  return `<a class="skip-link" href="#conteudo">Pular para o conteúdo</a><header class="header"><div class="container header-inner">${logo()}<a class="mobile-support" href="/suporte.html">${icon('headset')} Suporte</a><button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Abrir menu">${icon('menu')}</button><nav id="navigation" aria-label="Navegação principal">${routes.filter(route => route.primary).map(route => `<a href="${route.path}"${route.path === pathname || (route.path === '/empresas.html' && pathname.startsWith('/empresas-')) ? ' aria-current="page"' : ''}>${route.label}</a>`).join('')}</nav>${contact ? action('Falar no WhatsApp','general','','button header-cta','whatsapp') : '<a class="button header-cta" href="/contato.html">Canais de contato</a>'}</div></header>`;
 }
 export function footer(pathname = '/') {
   const c = config.contact;

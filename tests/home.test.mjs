@@ -7,7 +7,9 @@ import { hero } from '../src/components/hero.mjs';
 import { coverage } from '../src/components/contact.mjs';
 import { WhatsAppAssistant } from '../src/components/support-assistant.mjs';
 import { footer } from '../src/components/shared.mjs';
-import { business } from '../src/components/benefits.mjs';
+import { business, businessDetail } from '../src/components/benefits.mjs';
+import { interiorPage } from '../src/components/navigation.mjs';
+import { messageFor } from '../src/lib/whatsapp.mjs';
 
 test('artes comerciais confirmadas alimentam contatos, localidades e destaque',()=>{
   assert.equal(config.commercialConfirmed,true);
@@ -143,7 +145,20 @@ test('página empresarial mantém fibra, suporte e reserva vídeo sem telefonia'
   assert.match(html,/amr-empresas-equipe\.jpg/);
   for(const photo of ['fibra','ambiente','suporte']) assert.match(html,new RegExp(`amr-empresas-${photo}\\.jpg`));
   assert.match(html,/class="company-video-slot"/);
-  assert.match(html,/Da conversa à indicação, com clareza/);
+  assert.match(html,/Do diagnóstico à proposta técnica/);
   assert.match(html,/data-whatsapp="business"/);
   assert.doesNotMatch(html,/telefonia|R\$|<video|<iframe/i);
+});
+
+test('soluções empresariais abrem páginas técnicas próprias',()=> {
+  const html=business();
+  for(const key of ['cloud','ti','seguranca','conectividade']) {
+    assert.match(html,new RegExp(`href="/empresas-${key}\\.html"`));
+    const detail=interiorPage(`/empresas-${key}.html`,businessDetail(key));
+    assert.equal((detail.match(/<h1>/g)||[]).length,1);
+    assert.match(detail,/ESCOPO TÉCNICO/);
+    assert.match(detail,/Solicitar avaliação técnica/);
+    assert.match(messageFor('business', {cloud:'Cloud',ti:'Outsourcing de TI',seguranca:'Cibersegurança',conectividade:'Conectividade'}[key]),/avaliação técnica sobre/);
+    assert.doesNotMatch(detail,/telefonia|R\$|Tier III|24x7/i);
+  }
 });

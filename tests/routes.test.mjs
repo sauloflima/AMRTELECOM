@@ -8,8 +8,8 @@ import { homeBusiness, homeProfiles, testimonials, coverageDock } from '../src/c
 import { customerArea } from '../src/components/customer.mjs';
 import { interiorPage, homeNavigation } from '../src/components/navigation.mjs';
 
-test('catálogo contém 12 páginas com caminhos e metadados exclusivos', () => {
-  assert.equal(routes.length, 12);
+test('catálogo contém 16 páginas com caminhos e metadados exclusivos', () => {
+  assert.equal(routes.length, 16);
   for (const field of ['path', 'file', 'title', 'description']) {
     assert.equal(new Set(routes.map(route => route[field])).size, routes.length);
   }
@@ -49,4 +49,5 @@ test('páginas internas recebem H1 e breadcrumb, sem duplicar o próprio link re
   assert.ok(html.includes('aria-current="page">Planos'));
   assert.ok(!html.includes('href="/planos.html"'));
   assert.ok(html.includes('href="/cobertura.html"'));
+  assert.match(interiorPage('/empresas-cloud.html', '<h2>Cloud</h2>'), /href="\/empresas.html">Empresas<\/a>/);
 });
