@@ -12,9 +12,10 @@ const enterpriseOfferings = {
     summary: 'Infraestrutura em nuvem para aplicações, dados e continuidade da operação.',
     intro: 'Ambientes em nuvem exigem decisões sobre capacidade, acesso, proteção dos dados e recuperação. A AMR avalia o cenário técnico da sua empresa para definir uma proposta adequada.',
     topics: [
-      ['Computação e armazenamento', 'Sistemas, máquinas virtuais, volume de dados e crescimento previsto para dimensionamento.'],
-      ['Backup e recuperação', 'Políticas de retenção, periodicidade das cópias e objetivos de recuperação (RPO e RTO).'],
-      ['Acesso e segurança', 'Usuários, permissões, autenticação e conectividade entre o ambiente local e a nuvem.'],
+      ['Capacidade da carga', 'Processamento, memória, armazenamento e padrão de leitura e escrita são avaliados junto ao crescimento previsto. Esse perfil orienta o dimensionamento de cada aplicação.'],
+      ['Backup e recuperação', 'RPO indica a perda máxima de dados tolerável; RTO, o tempo desejado para retomar a operação. Esses objetivos orientam periodicidade, retenção e testes de restauração.'],
+      ['Acesso e conectividade', 'Mapeamos usuários, origem do tráfego, autenticação e dependência do link entre escritório e nuvem. A latência pode ser decisiva para sistemas sensíveis.'],
+      ['Operação e responsabilidades', 'Monitoramento, atualizações, gestão dos acessos e resposta a incidentes precisam ter responsáveis definidos no escopo da proposta.'],
     ],
     inputs: 'Tenha em mãos os sistemas utilizados, volume aproximado de dados, número de usuários e requisitos de recuperação.'
   },
@@ -23,9 +24,10 @@ const enterpriseOfferings = {
     summary: 'Apoio técnico para organizar, acompanhar e sustentar a infraestrutura de TI.',
     intro: 'O suporte de TI funciona melhor quando há clareza sobre o ambiente, os responsáveis e as prioridades. A AMR conversa com sua equipe para delimitar o escopo de acompanhamento técnico.',
     topics: [
-      ['Inventário técnico', 'Estações, servidores, ativos de rede, sistemas e dependências críticas da operação.'],
-      ['Incidentes e solicitações', 'Categorias de chamados, prioridades, fluxo de escalonamento e canais a definir na proposta.'],
-      ['Sustentação do ambiente', 'Atualizações, monitoramento e documentação, conforme o escopo contratado.'],
+      ['Inventário e dependências', 'Estações, servidores, ativos de rede e sistemas são mapeados com suas relações. Assim, uma falha pode ser priorizada pelo impacto real na operação.'],
+      ['Incidentes e solicitações', 'Separamos falhas que interrompem o serviço de pedidos de acesso, configuração ou mudança. Categorias, prioridades e escalonamento são definidos na proposta.'],
+      ['Monitoramento', 'Avaliamos quais indicadores e alertas fazem sentido para os ativos críticos, como disponibilidade, capacidade e eventos recorrentes.'],
+      ['Mudanças e documentação', 'Atualizações, registros de configuração e histórico de intervenções ajudam a reduzir retrabalho e tornam o ambiente mais previsível.'],
     ],
     inputs: 'Compartilhe o tamanho da equipe, os principais sistemas e os desafios recorrentes do ambiente.'
   },
@@ -34,9 +36,10 @@ const enterpriseOfferings = {
     summary: 'Avaliação de riscos, acessos e proteção dos ativos digitais da empresa.',
     intro: 'Proteger a operação começa por entender seus ativos, acessos e pontos de exposição. A AMR avalia as necessidades da empresa e define, sob consulta, o escopo técnico aplicável.',
     topics: [
-      ['Superfície de ataque', 'Dispositivos, serviços expostos, sistemas e acessos remotos a considerar na análise.'],
-      ['Controles preventivos', 'Autenticação multifator, permissões, proteção de endpoints e segmentação da rede.'],
-      ['Continuidade', 'Cópias de segurança, prioridades de recuperação e procedimentos para incidentes.'],
+      ['Superfície de ataque', 'Inventariamos serviços expostos, dispositivos, aplicações e acessos remotos. A prioridade parte do impacto de cada ativo e da exposição observada.'],
+      ['Identidade e permissões', 'Autenticação multifator, revisão de privilégios e separação de perfis limitam o alcance de uma conta comprometida.'],
+      ['Rede e dispositivos', 'Avaliamos segmentação, regras de acesso e proteção de endpoints para reduzir movimento indevido entre sistemas e setores.'],
+      ['Resposta e continuidade', 'Cópias restauráveis, responsáveis e procedimentos de contenção devem ser definidos antes de um incidente, conforme a criticidade dos sistemas.'],
     ],
     inputs: 'Informe quantidade de usuários e unidades, sistemas críticos e requisitos internos de segurança.'
   },
@@ -45,9 +48,10 @@ const enterpriseOfferings = {
     summary: 'Rede empresarial planejada para os usuários, equipamentos e aplicações do negócio.',
     intro: 'A qualidade da conexão depende do endereço, da distribuição da rede e do perfil de tráfego. A AMR analisa esses fatores para indicar uma arquitetura e condições compatíveis com a operação.',
     topics: [
-      ['Acesso em fibra', 'Viabilidade no endereço, banda necessária e perfil de tráfego das aplicações.'],
-      ['Rede interna e Wi-Fi', 'Topologia, pontos de acesso, cobertura dos ambientes e densidade de dispositivos.'],
-      ['Priorização do tráfego', 'Sistemas críticos, horários de pico e possíveis necessidades de segmentação ou QoS.'],
+      ['Perfil de tráfego', 'Número de usuários, aplicações simultâneas, upload, download, latência e horários de pico ajudam a estimar a capacidade necessária.'],
+      ['Acesso e topologia', 'A viabilidade da fibra no endereço e a distribuição física da rede orientam pontos de instalação, cabeamento e equipamentos.'],
+      ['Wi-Fi no ambiente', 'Planta, paredes, interferências e densidade de dispositivos influenciam a posição e a quantidade de pontos de acesso.'],
+      ['Segmentação e prioridade', 'Redes separadas para equipes e visitantes e políticas de QoS podem ser avaliadas quando aplicações críticas disputam a mesma conexão.'],
     ],
     inputs: 'Envie o endereço, quantidade de usuários, planta ou descrição dos ambientes e aplicações principais.'
   }

@@ -2182,7 +2182,7 @@ body:has(.user-effects-paused) .company-integrated-copy a:hover,body:has(.user-e
 .company-detail-hero p:not(.eyebrow) { max-width:620px;margin-top:22px;color:#dbeaf8;font-size:1.0625rem;line-height:1.7; }
 .company-detail-hero img { display:block;width:100%;max-height:470px;aspect-ratio:1.35;object-fit:cover;border:1px solid #ffffff35;border-radius:22px; }
 .company-detail-content { padding-block:clamp(62px,7vw,100px); }
-.company-detail-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px; }
+.company-detail-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:38px; }
 .company-detail-grid article { padding:30px;border:1px solid #d5e3f0;border-radius:20px;background:#f5f9fd; }
 .company-detail-grid article>span { color:#075fdb;font-size:.8125rem;font-weight:700;letter-spacing:.1em; }
 .company-detail-grid h3 { margin-top:18px;font-size:1.25rem; }
@@ -2204,6 +2204,34 @@ body:has(.user-effects-paused) .company-integrated-copy a:hover,body:has(.user-e
 .company-video-slot img { display:block;width:100%;height:100%;object-fit:cover; }
 .company-video-slot:after { content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#061b31b8);pointer-events:none; }
 .company-video-slot figcaption { position:absolute;z-index:1;left:24px;right:24px;bottom:22px;color:#fff;font-size:.9375rem;font-weight:600;line-height:1.4; }
+/* A área empresarial usa o mesmo azul-marinho do destaque Cloud de ponta a ponta. */
+body:not(.home-page) main:has(.company-page,.company-detail) { --text:#fff;--muted:#c5dced;--border:#ffffff30;--soft:#8fc6ff;background:#061b31;color:#fff; }
+body:not(.home-page):has(.company-page,.company-detail) .header { background:var(--amr-navy);border-bottom-color:#ffffff14; }
+body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) .brand-dark { display:block; }
+body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) .brand-light { display:none; }
+body:not(.home-page):has(.company-page,.company-detail) .header nav a,body:not(.home-page):has(.company-page,.company-detail) .header .mobile-support,body:not(.home-page):has(.company-page,.company-detail) .header .menu-toggle { color:#fff; }
+body:not(.home-page):has(.company-page,.company-detail) .header nav a[aria-current="page"] { color:#fff;box-shadow:inset 0 -3px #258dff; }
+body:not(.home-page):has(.company-page,.company-detail) .header .menu-toggle { border-color:#ffffff66; }
+body:not(.home-page):has(.company-page,.company-detail) .header :is(a,button):focus-visible { outline-color:#8fc6ff; }
+.company-page,.company-detail { background:#061b31;color:#fff; }
+.company-hero,.company-integrated,.company-detail-hero { background:linear-gradient(155deg,#061b31,#073b70); }
+.company-approach { background:#082746;border-top-color:#ffffff30; }
+.company-story { background:#061b31; }
+.company-section-heading .eyebrow,.company-story .eyebrow,.company-approach li span,.company-detail-grid article>span,.company-detail-next .eyebrow { color:#8fc6ff; }
+.company-section-heading>p:last-child,.company-story-copy>p:not(.eyebrow),.company-solution-grid p,.company-detail-grid p,.company-approach li p,.company-detail-next p:last-child,.company-solutions-action span { color:#c5dced; }
+.company-solution-grid article,.company-detail-grid article,.company-detail-next { border:1px solid #ffffff30;background:#0b3158; }
+.company-solution-icon { background:#14558c;color:#d6ecff; }
+.company-approach li { border-top-color:#5ba9ff; }
+.company-detail-grid article,.company-solution-grid article { transition:border-color 240ms ease,box-shadow 240ms ease,transform 240ms ease; }
+@media(hover:hover) and (pointer:fine) {
+  .company-detail-grid article:hover,.company-solution-grid article:hover { border-color:#83c5ff;box-shadow:0 16px 32px #0002;transform:translateY(-3px); }
+}
+body:has(.user-effects-paused) .company-detail-grid article,body:has(.user-effects-paused) .company-solution-grid article { transition:none;transform:none; }
+body:not(.home-page) main:has(.company-page,.company-detail) .breadcrumb { color:#c5dced; }
+body:not(.home-page) main:has(.company-page,.company-detail) .breadcrumb [aria-current] { color:#fff; }
+body:not(.home-page) main:has(.company-page,.company-detail) .related-pages { border-top-color:#ffffff30; }
+body:not(.home-page) main:has(.company-page,.company-detail) .related-pages a { color:#b8dfff; }
+body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus-visible { outline-color:#8fc6ff; }
 @media(max-width:900px) {
   .company-hero-inner,.company-story-inner,.company-detail-hero-inner { grid-template-columns:1fr; }
   .company-hero-media { max-width:680px; }

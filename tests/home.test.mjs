@@ -152,11 +152,14 @@ test('página empresarial mantém fibra, suporte e reserva vídeo sem telefonia'
 
 test('soluções empresariais abrem páginas técnicas próprias',()=> {
   const html=business();
+  const technicalTerms={cloud:'RPO',ti:'escalonamento',seguranca:'autenticação multifator',conectividade:'latência'};
   for(const key of ['cloud','ti','seguranca','conectividade']) {
     assert.match(html,new RegExp(`href="/empresas-${key}\\.html"`));
     const detail=interiorPage(`/empresas-${key}.html`,businessDetail(key));
     assert.equal((detail.match(/<h1>/g)||[]).length,1);
     assert.match(detail,/ESCOPO TÉCNICO/);
+    assert.equal((detail.match(/<article><span>0[1-4]<\/span>/g)||[]).length,4);
+    assert.ok(detail.toLowerCase().includes(technicalTerms[key].toLowerCase()));
     assert.match(detail,/Solicitar avaliação técnica/);
     assert.match(messageFor('business', {cloud:'Cloud',ti:'Outsourcing de TI',seguranca:'Cibersegurança',conectividade:'Conectividade'}[key]),/avaliação técnica sobre/);
     assert.doesNotMatch(detail,/telefonia|R\$|Tier III|24x7/i);
