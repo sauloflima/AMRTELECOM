@@ -141,7 +141,9 @@ test('catálogo inclui empresa sem preço e com contato comercial em ambas as p�
 test('página empresarial mantém fibra, suporte e reserva vídeo sem telefonia',()=> {
   const html=business();
   assert.match(html,/amr-empresas-equipe\.jpg/);
+  for(const photo of ['fibra','ambiente','suporte']) assert.match(html,new RegExp(`amr-empresas-${photo}\\.jpg`));
   assert.match(html,/class="company-video-slot"/);
+  assert.match(html,/Da conversa à indicação, com clareza/);
   assert.match(html,/data-whatsapp="business"/);
   assert.doesNotMatch(html,/telefonia|R\$|<video|<iframe/i);
 });

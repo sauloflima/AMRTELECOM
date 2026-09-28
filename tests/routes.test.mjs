@@ -17,6 +17,7 @@ test('catálogo contém 12 páginas com caminhos e metadados exclusivos', () => 
 });
 
 test('menu aponta para páginas e identifica o destino atual', () => {
+  assert.deepEqual(routes.filter(route => route.primary).slice(0, 3).map(route => route.path), ['/', '/planos.html', '/empresas.html']);
   for (const route of routes.filter(route => route.primary)) {
     const html = header(route.path);
     assert.ok(html.includes(`href="${route.path}" aria-current="page"`));

@@ -18,6 +18,9 @@ export const mediaAssets = [...new Set([
   config.brand.logo, config.brand.logoLight, config.brand.favicon,
   ...heroAssets, ...homeAssets, supportAvatar, customerAvatar,
   '/assets/generated/amr-empresas-equipe.jpg',
+  '/assets/generated/amr-empresas-fibra.jpg',
+  '/assets/generated/amr-empresas-ambiente.jpg',
+  '/assets/generated/amr-empresas-suporte.jpg',
 ])];
 
 export async function assetRevision(root) {

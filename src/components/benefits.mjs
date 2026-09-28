@@ -8,9 +8,9 @@ export function wifi() {
 
 export function business() {
   const solutions = [
-    ['fiber', 'Internet em fibra óptica', 'Uma conexão para acompanhar a rotina do escritório, da loja ou da sua equipe. Consulte a disponibilidade para o seu endereço.'],
-    ['wifi', 'Conexão no ambiente', 'Converse com a equipe sobre o espaço, os equipamentos e a forma como as pessoas usam a rede no dia a dia.'],
-    ['headset', 'Suporte com gente de verdade', 'Quando precisar de orientação técnica, fale com a equipe da AMR pelo canal oficial de atendimento.'],
+    ['fiber', 'Internet em fibra óptica', 'Uma conexão para acompanhar a rotina do escritório, da loja ou da sua equipe. Consulte a disponibilidade para o seu endereço.', 'fibra', 'Técnico conectando uma fibra óptica em um escritório'],
+    ['wifi', 'Conexão no ambiente', 'Converse com a equipe sobre o espaço, os equipamentos e a forma como as pessoas usam a rede no dia a dia.', 'ambiente', 'Equipe de um pequeno negócio usando a internet no trabalho'],
+    ['headset', 'Suporte com gente de verdade', 'Quando precisar de orientação técnica, fale com a equipe da AMR pelo canal oficial de atendimento.', 'suporte', 'Profissional de suporte orientando uma cliente diante do computador'],
   ];
   return `<section class="company-page">
     <div class="company-hero"><div class="container company-hero-inner"><div>
@@ -18,9 +18,11 @@ export function business() {
       <p class="company-lead">Cada operação tem uma rotina. Conte à AMR como a sua empresa trabalha para avaliarmos a conexão disponível e a melhor forma de atender você.</p>
       <div class="company-actions">${action('Conversar sobre minha empresa','business','','button primary')}<a href="/cobertura.html">Consultar cobertura ${icon('arrow')}</a></div>
     </div><div class="company-hero-media"><img src="/assets/generated/amr-empresas-equipe.jpg" alt="Equipe de uma empresa trabalhando em conjunto com computadores" width="1586" height="992" fetchpriority="high" decoding="async"><span>AMR para empresas</span></div></div></div>
-    <div class="container company-solutions"><div class="company-section-heading"><p class="eyebrow">SOLUÇÕES PARA SUA ROTINA</p><h2>Uma conexão pensada para o trabalho acontecer.</h2><p>Internet e atendimento próximos da realidade do seu negócio, com opções avaliadas pela equipe.</p></div>
-      <div class="company-solution-grid">${solutions.map(([symbol, title, description]) => `<article><span class="company-solution-icon">${icon(symbol)}</span><h3>${title}</h3><p>${description}</p></article>`).join('')}</div>
+    <div class="container company-solutions"><div class="company-section-heading"><p class="eyebrow">PRODUTOS E SERVIÇOS</p><h2>Soluções para a rotina da sua empresa.</h2><p>Conectividade e atendimento próximos do seu negócio, com opções avaliadas pela equipe.</p></div>
+      <div class="company-solution-grid">${solutions.map(([symbol, title, description, photo, alt]) => `<article><img src="/assets/generated/amr-empresas-${photo}.jpg" alt="${alt}" width="1586" height="992" loading="lazy" decoding="async"><div class="company-solution-body"><span class="company-solution-icon">${icon(symbol)}</span><h3>${title}</h3><p>${description}</p></div></article>`).join('')}</div>
+      <div class="company-solutions-action">${action('Conversar sobre as soluções','business','','button primary')}<span>Disponibilidade e condições confirmadas pela equipe.</span></div>
     </div>
+    <div class="company-approach"><div class="container"><div class="company-section-heading"><p class="eyebrow">O JEITO AMR</p><h2>Da conversa à indicação, com clareza.</h2></div><ol><li><span>01</span><h3>Entendemos sua rotina</h3><p>Conte como sua equipe usa a internet no trabalho.</p></li><li><span>02</span><h3>Conferimos seu endereço</h3><p>A disponibilidade é avaliada para o local da empresa.</p></li><li><span>03</span><h3>Orientamos a escolha</h3><p>A equipe conversa sobre as opções e condições aplicáveis.</p></li></ol></div></div>
     <div class="company-story"><div class="container company-story-inner"><div class="company-story-copy"><p class="eyebrow">CONHEÇA A AMR</p><h2>Por trás da conexão, pessoas prontas para conversar.</h2><p>Vamos entender seu endereço, o perfil de uso e as necessidades da operação antes de apresentar uma opção para a sua empresa.</p>${action('Falar com a equipe','business','','button primary')}</div>
       <figure class="company-video-slot"><img src="/assets/generated/amr-empresa-card.jpg" alt="Prédio comercial iluminado com a marca AMR Telecom" width="1280" height="720" loading="lazy" decoding="async"><figcaption>Espaço reservado para o vídeo da AMR para empresas</figcaption></figure>
     </div></div>
