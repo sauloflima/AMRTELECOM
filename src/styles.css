@@ -46,6 +46,13 @@ body .amr-footer .footer-summary { font-size:.9375rem;max-width:560px; }
 .footer-channel-whatsapp small { color:#d5e3ef; }
 .footer-channel-copy strong { font-size:.9375rem;line-height:1.4;font-weight:600;letter-spacing:.01em;overflow-wrap:anywhere; }
 .footer-channel>.icon { width:16px;height:16px;justify-self:center;opacity:.75; }
+.footer-coverage { margin-top:16px;padding:18px;border:1px solid #6baaf855;border-radius:16px;background:#6baaf812; }
+.footer-coverage-heading { display:flex;align-items:center;gap:9px;color:#fff;font-size:1rem; }
+.footer-coverage-heading .icon { width:20px;height:20px;color:#80bcff; }
+.footer-coverage ul { display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 8px;padding:0;list-style:none; }
+.footer-coverage li { padding:7px 10px;border-radius:8px;background:#ffffff12;color:#fff;font-size:.9375rem;font-weight:600; }
+.footer-coverage>a { display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#c8e3ff;font-size:.8125rem; }
+.footer-coverage>a .icon { width:16px;height:16px; }
 .instagram-icon { background:radial-gradient(circle at 30% 105%,#feda75 0%,#fa7e1e 25%,#d62976 50%,#962fbf 75%,#4f5bd5 100%); }
 @media(min-width:1001px) { body .amr-footer .footer-columns { grid-template-columns:repeat(3,minmax(0,1fr)) minmax(260px,1.5fr); } }
 .footer-columns { display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:34px;padding-block:36px 40px; }
