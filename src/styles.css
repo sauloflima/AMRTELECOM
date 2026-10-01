@@ -2291,3 +2291,23 @@ body:not(.home-page) main .support-options>div:last-child { border-bottom:0; }
 /* Fotos com a mesma temperatura visual, preservando as cenas em vídeo. */
 .company-hero-media>img,.company-integrated-card>img:not(.company-cloud-logo),.company-story img,.company-detail-media img,.routine img { filter:saturate(.88) contrast(1.02); }
 .company-section-heading h2,.company-story h2 { font-weight:600;letter-spacing:-.035em; }
+
+/* Mesmos recursos no celular, com menos espaço vazio e controles confortáveis. */
+@media(max-width:800px) {
+  body .header nav { gap:0; }
+  body .header nav a { min-height:48px; }
+}
+@media(max-width:600px) {
+  .section { padding-block:44px; }
+  .button { max-width:100%;white-space:normal;text-align:center; }
+  input,select,textarea { font-size:1rem; }
+  label { font-size:.875rem; }
+  .coverage-layout { gap:24px; }
+  .coverage-layout>div>p:not(.eyebrow) { margin-top:16px; }
+  .coverage-info { margin-top:20px;padding-top:18px;gap:12px; }
+  .coverage-cities { margin-top:18px;padding:16px; }
+  .customer-layout { gap:18px; }
+  .customer-card-body { flex-direction:row;align-items:flex-start;text-align:left;gap:14px; }
+  .customer-card-body .customer-symbol { flex:0 0 56px;width:56px;height:56px; }
+  .customer-card .customer-access { min-height:50px; }
+}
