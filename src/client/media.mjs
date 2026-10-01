@@ -36,30 +36,20 @@ export function mountMedia() {
     const servicePhoto=connectedHero.querySelector('.service-photo');
     const serviceVideo=servicePhoto?.querySelector('[data-service-video]');
     const serviceSlide=servicePhoto?.closest('.carousel-slide');
-    const enterpriseMedia=connectedHero.querySelector('.enterprise-media');
-    const enterpriseVideo=enterpriseMedia?.querySelector('[data-enterprise-video]');
-    const enterpriseSlide=enterpriseMedia?.closest('.carousel-slide');
     const toggle=connectedHero.querySelector('.effects-toggle');
     const desktopPointer=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 901px)');
     const connection=navigator.connection;
     let userPaused=false;
     let inView=!('IntersectionObserver' in window);
     let serviceInView=!('IntersectionObserver' in window);
-    let enterpriseInView=!('IntersectionObserver' in window);
     let frame=0;
     const updateVideo=houseVideo ? createHeroVideo(houseVideo,art) : null;
     const updateServiceVideo=serviceVideo ? createHeroVideo(serviceVideo,servicePhoto) : null;
-    const updateEnterpriseVideo=enterpriseVideo ? createHeroVideo(enterpriseVideo,enterpriseMedia) : null;
     const syncHouseVideo=()=> {
       updateVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
     };
     const syncServiceVideo=()=> {
       updateServiceVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
-    };
-    const syncEnterpriseVideo=()=> {
-      const active=enterpriseSlide?.classList.contains('is-active');
-      updateEnterpriseVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:enterpriseInView,active});
-      if(!active && enterpriseVideo && enterpriseVideo.currentTime) enterpriseVideo.currentTime=0;
     };
     const reset=()=> {
       cancelAnimationFrame(frame);
@@ -76,7 +66,6 @@ export function mountMedia() {
       if(paused||!inView||!desktopPointer.matches)reset();
       syncHouseVideo();
       syncServiceVideo();
-      syncEnterpriseVideo();
     };
     toggle.addEventListener('click',()=>{userPaused=!userPaused;update();});
     art.addEventListener('pointermove',event=> {
@@ -103,10 +92,6 @@ export function mountMedia() {
     if(serviceVideo && serviceSlide) {
       new MutationObserver(syncServiceVideo).observe(serviceSlide,{attributes:true,attributeFilter:['class','aria-hidden']});
       if('IntersectionObserver' in window) new IntersectionObserver(([entry])=>{serviceInView=entry.isIntersecting;syncServiceVideo();},{threshold:0}).observe(servicePhoto);
-    }
-    if(enterpriseVideo && enterpriseSlide) {
-      new MutationObserver(syncEnterpriseVideo).observe(enterpriseSlide,{attributes:true,attributeFilter:['class','aria-hidden']});
-      if('IntersectionObserver' in window) new IntersectionObserver(([entry])=>{enterpriseInView=entry.isIntersecting;syncEnterpriseVideo();},{threshold:0}).observe(enterpriseMedia);
     }
     update();
   }

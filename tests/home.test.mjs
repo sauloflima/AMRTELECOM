@@ -84,10 +84,10 @@ test('primeiro slide usa vídeo da casa com poster e fallback compatível',()=>{
   assert.match(html,/class="hero-house-fallback"/);
 });
 
-test('slide empresarial usa vídeo com marca no fechamento e oferece consulta sem preços',()=>{
+test('slide empresarial usa prédio 3D e oferece consulta sem preços',()=>{
   const slide=hero().match(/<article class="carousel-slide hero-slide hero-slide-enterprise"[\s\S]*?<\/article>/)[0];
-  assert.match(slide,/amr-empresa-hero\.mp4/);
-  assert.match(slide,/amr-empresa-hero-poster\.jpg/);
+  assert.match(slide,/amr-empresa-hero-3d\.png/);
+  assert.doesNotMatch(slide,/<video|data-enterprise-video/);
   assert.match(slide,/data-whatsapp="business"/);
   assert.match(slide,/Conversar sobre minha empresa/);
   assert.match(slide,/Suporte técnico para empresas, com gente de verdade/);
