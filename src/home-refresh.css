@@ -650,3 +650,8 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
   .plan-compare>a:focus-visible { outline:3px solid #075fdb;outline-offset:-4px; }
   .plan-details summary { min-height:44px; }
 }
+
+/* Superfície leve nos pontos de orientação, mantendo as mídias sobre branco. */
+.business-layout-home { border-color:#d5e3ef;box-shadow:0 12px 36px #173f710a; }
+.business-copy,.support-paths>div { background:linear-gradient(145deg,#f0f6fccc,#fffffff2 65%); }
+.support-paths>div { border-color:#d5e3ef;box-shadow:0 6px 18px #173f7108; }

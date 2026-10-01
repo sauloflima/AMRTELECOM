@@ -2284,3 +2284,9 @@ body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus
 @keyframes amr-brand-transmit { 0%,12%,65%,100% { opacity:0; } 30% { opacity:.65; } }
 
 body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) { background:#ffffffeb;backdrop-filter:blur(12px); }
+
+/* Painéis de decisão: o acabamento claro aparece apenas onde organiza uma ação. */
+body:not(.home-page) main :is(#coverage-form,.wifi-factors,.support-options,.company-detail-grid article,.company-approach li),body:not(.home-page) main .contact-page .contact-panel { border:1px solid #d5e3ef;background:linear-gradient(145deg,#f0f6fccc,#fffffff2 65%);box-shadow:0 12px 36px #173f710a;backdrop-filter:blur(12px); }
+body:not(.home-page) main :is(.wifi-factors,.support-options) { padding:clamp(20px,3vw,32px);border-radius:24px; }
+body:not(.home-page) main .support-options>div:first-child { border-top:0; }
+body:not(.home-page) main .support-options>div:last-child { border-bottom:0; }
