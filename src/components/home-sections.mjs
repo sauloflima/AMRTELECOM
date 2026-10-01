@@ -65,5 +65,5 @@ export function homeRoutine() {
 export const homeProfiles = homeRoutine;
 
 export function coverageDock() {
-  return `<aside class="coverage-dock" aria-label="Consulta rápida de cobertura" hidden><div><strong>A conexão começa aqui.</strong><span>Consulte a disponibilidade no seu endereço.</span></div><a class="button primary" href="#quick-coverage-form" data-focus-coverage>Consultar cobertura ${icon('arrow')}</a></aside>`;
+  return '';
 }
