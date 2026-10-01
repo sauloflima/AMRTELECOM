@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHeroVideo } from '../src/lib/hero-video.mjs';
 import { hero } from '../src/components/hero.mjs';
+import { mountMedia } from '../src/client/media.mjs';
 
 const active = { paused:false, reduced:false, saveData:false, hidden:false, inView:true, active:true };
 function fixture() {
@@ -19,7 +20,7 @@ function fixture() {
     pause() { this.paused=true; },
     play() { this.plays++; return new Promise((yes,no)=>{resolve=()=>{this.paused=false;yes();};reject=no;}); }
   };
-  return { video,classes,retry,click:()=>retryClick(),update:createHeroVideo(video,art),emit:n=>listeners[n](),resolve:()=>resolve(),reject:(name='NotAllowedError')=>reject(Object.assign(new Error('Autoplay blocked'),{name})) };
+  return { video,art,classes,retry,click:()=>retryClick(),update:createHeroVideo(video,art),emit:n=>listeners[n](),resolve:()=>resolve(),reject:(name='NotAllowedError')=>reject(Object.assign(new Error('Autoplay blocked'),{name})) };
 }
 const flush = () => new Promise(resolve=>setImmediate(resolve));
 
@@ -76,5 +77,52 @@ test('falha de mídia conserva fallback e impede tentativas em loop',()=>{
     const f=fixture();f.update(active);
     f.emit(event);
     f.update(active);assert.ok(f.classes.has('video-failed'));assert.ok(f.video.paused);assert.equal(f.video.plays,1);assert.equal(f.retry.hidden,true);
+  }
+});
+
+test('cena empresarial respeita movimento reduzido, segura o final e reinicia ao voltar',async()=>{
+  const f=fixture();
+  let activeSlide=false, slideChanged, preferenceChanged;
+  const motion={matches:true,addEventListener:(_,fn)=>{preferenceChanged=fn;}};
+  const slide={classList:{contains:()=>activeSlide}};
+  f.art.querySelector=()=>f.video;
+  f.art.closest=()=>slide;
+  f.video.currentTime=0;f.video.ended=false;
+  const toggle={addEventListener(){},setAttribute(){}};
+  const house={addEventListener(){},style:{setProperty(){}}};
+  const root={querySelector:selector=>({'.hero-house':house,'.enterprise-media':f.art,'.effects-toggle':toggle}[selector]||null),classList:{toggle(){}}};
+  const overrides={
+    document:{hidden:false,querySelector:selector=>selector==='.home-hero'?root:null,addEventListener(){}},
+    window:{},navigator:{},cancelAnimationFrame(){},
+    matchMedia:query=>query.includes('prefers-reduced-motion')?motion:{matches:true,addEventListener(){}},
+    MutationObserver:class { constructor(fn){slideChanged=fn;} observe(){} }
+  };
+  const before=Object.fromEntries(Object.keys(overrides).map(key=>[key,Object.getOwnPropertyDescriptor(globalThis,key)]));
+  try {
+    for(const [key,value] of Object.entries(overrides))Object.defineProperty(globalThis,key,{value,configurable:true});
+    mountMedia();
+    assert.equal(f.video.plays,0);
+    activeSlide=true;slideChanged();
+    assert.equal(f.video.plays,0);
+    assert.ok(f.classes.has('video-static'));
+    motion.matches=false;preferenceChanged();
+    assert.equal(f.video.plays,1);
+    f.resolve();await flush();f.emit('playing');
+    f.video.currentTime=7.25;f.video.ended=true;f.video.paused=true;
+    f.emit('ended');preferenceChanged();
+    assert.equal(f.video.plays,1);
+    assert.ok(f.classes.has('video-ready'));
+    activeSlide=false;slideChanged();
+    activeSlide=true;f.video.ended=false;slideChanged();
+    assert.equal(f.video.currentTime,0);
+    assert.equal(f.video.plays,2);
+    f.resolve();await flush();
+    motion.matches=true;preferenceChanged();
+    assert.ok(f.video.paused);assert.ok(f.classes.has('video-static'));
+  } finally {
+    for(const [key,descriptor] of Object.entries(before)) {
+      if(descriptor)Object.defineProperty(globalThis,key,descriptor);
+      else delete globalThis[key];
+    }
   }
 });

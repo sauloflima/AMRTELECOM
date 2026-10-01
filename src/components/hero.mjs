@@ -8,8 +8,9 @@ export const heroAssets = [
   '/assets/videos/hero-amr-integrado-corrigido.mp4',
   '/assets/videos/atendimento-amr.mp4',
   '/assets/brand/logo-amr-relief.png',
-  '/assets/generated/amr-empresa-hero-3d.png',
-  '/assets/generated/amr-empresa-card.jpg'
+  '/assets/generated/amr-empresa-flow-poster.jpg',
+  '/assets/generated/amr-empresa-card.jpg',
+  '/assets/videos/amr-empresa-flow-20261001.mp4'
 ];
 
 function arrivingTitle(text, accent='') {
@@ -35,7 +36,7 @@ export function hero() {
         </article>
         <article class="carousel-slide hero-slide hero-slide-enterprise" id="amr-slide-2" role="group" aria-roledescription="slide" aria-label="2 de 3: Conexão para empresas" aria-hidden="true" inert>
           <div class="hero-copy"><p class="hero-kicker">AMR para empresas</p><h2 aria-label="Sua empresa conectada. Suporte por perto."><span aria-hidden="true">${arrivingTitle('Sua empresa conectada.','Suporte por perto.')}</span></h2><p class="hero-lead">Para lojas, escritórios e equipes, a AMR avalia a cobertura e entende a rotina da operação antes de apresentar uma solução. Você também conta com suporte técnico e atendimento humano.</p>${action('Conversar sobre minha empresa','business','','button primary hero-cta')}</div>
-          <div class="enterprise-stage"><div class="enterprise-media"><img src="${heroAssets[5]}" width="1672" height="941" loading="lazy" decoding="async" alt="Representação 3D de um edifício empresarial conectado por fibra óptica."></div><div class="enterprise-support">${icon('headset')}<p><strong>Suporte técnico para empresas, com gente de verdade.</strong><span>Orientação para sua equipe no canal oficial da AMR.</span></p></div></div>
+          <div class="enterprise-stage"><div class="enterprise-media"><img src="${heroAssets[5]}" width="1600" height="900" loading="lazy" decoding="async" alt="Representação 3D de um edifício empresarial conectado por fibra óptica."><video data-enterprise-video muted playsinline preload="none" poster="${heroAssets[5]}" width="1600" height="900" aria-hidden="true" tabindex="-1"><source src="${heroAssets[7]}" type="video/mp4"></video></div><div class="enterprise-support">${icon('headset')}<p><strong>Suporte técnico para empresas, com gente de verdade.</strong><span>Orientação para sua equipe no canal oficial da AMR.</span></p></div></div>
         </article>
         <article class="carousel-slide hero-slide hero-slide-service" id="amr-slide-3" role="group" aria-roledescription="slide" aria-label="3 de 3: Atendimento próximo" aria-hidden="true" inert>
           <div class="service-photo"><img src="${heroAssets[1]}" width="1536" height="1024" loading="lazy" decoding="async" alt="Profissional orienta um cliente durante um atendimento."><video data-service-video muted loop playsinline preload="none" poster="${heroAssets[1]}" width="960" height="646" aria-hidden="true" tabindex="-1"><source src="${heroAssets[3]}" type="video/mp4"></video><span class="service-wall-logo" aria-hidden="true"></span></div>

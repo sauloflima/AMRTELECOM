@@ -87,7 +87,13 @@
 .enterprise-stage { min-width:0;align-self:center; }
 .enterprise-media { position:relative;overflow:hidden;background:#fff;aspect-ratio:16/9; }
 .enterprise-media img { display:block;width:100%;height:100%;object-fit:contain; }
-.enterprise-support { display:flex;align-items:flex-start;gap:12px;margin:14px 0 0;padding-left:13px;border-left:2px solid var(--home-blue); }
+.enterprise-media video { position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 300ms ease; }
+.enterprise-media.video-ready video { opacity:1; }
+.enterprise-media.video-ready img { visibility:hidden; }
+.enterprise-media:is(.video-static,.video-failed) video { display:none; }
+.enterprise-media:is(.video-static,.video-failed) img { visibility:visible; }
+.enterprise-support { position:relative;display:flex;align-items:flex-start;gap:12px;margin:14px 0 0;padding:8px 0 8px 16px; }
+.enterprise-support:before { content:"";position:absolute;inset:0 auto 0 0;width:2px;background:linear-gradient(180deg,#acd5ff,var(--home-blue));transform-origin:top; }
 .enterprise-support>.icon { flex:0 0 25px;width:25px;height:25px;color:var(--home-blue); }
 .enterprise-support p { display:grid;gap:3px;margin:0!important;font-size:.8125rem;line-height:1.4; }
 .enterprise-support strong { color:var(--home-ink);font-weight:750; }
@@ -545,17 +551,30 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
   .hero-slide-enterprise.is-active .hero-lead { animation-delay:580ms; }
   .hero-slide-enterprise.is-active .hero-cta { animation-delay:700ms; }
   .hero-slide-enterprise.is-active .enterprise-stage { animation:amr-slide-enter 650ms 260ms ease-out both; }
+  .hero-slide-enterprise.is-active .enterprise-support { animation:amr-slide-enter 600ms 850ms ease-out both; }
+  .hero-slide-enterprise.is-active .enterprise-support:before { animation:amr-support-connect 900ms 950ms cubic-bezier(.22,.61,.36,1) both; }
+  .hero-slide-enterprise .enterprise-support>.icon { animation:none; }
+  .hero-slide-enterprise.is-active .enterprise-support>.icon { animation:amr-support-signal 2400ms 1800ms ease-in-out 2; }
+  .hero-slide-enterprise .hero-cta { position:relative;overflow:hidden; }
+  .hero-slide-enterprise .hero-cta:after { content:"";position:absolute;inset:0 auto 0 -40%;width:35%;pointer-events:none;background:linear-gradient(110deg,transparent,#0868df12,transparent);opacity:0; }
+  .hero-slide-enterprise.is-active .hero-cta:after { animation:amr-enterprise-invite 1300ms 6200ms ease-out both; }
   .hero-slide-service.is-active .hero-lead { animation-delay:620ms; }
   .hero-slide-service.is-active .hero-cta { animation-delay:740ms; }
   .user-effects-paused .arrival-letter { animation:none!important; }
   .home-hero.effects-paused *,.home-hero.effects-paused *:before,.home-hero.effects-paused *:after { animation-play-state:paused!important; }
-  .home-hero.user-effects-paused :is(.enterprise-stage,.hero-lead,.hero-cta) { animation:none!important; }
+  .home-hero.user-effects-paused :is(.enterprise-stage,.enterprise-stage *,.enterprise-support:before,.hero-lead,.hero-cta,.hero-cta:after) { animation:none!important; }
 
   .hero-slide-service.is-active .service-photo img { animation:amr-slide-fade 520ms ease-out both; }
 }
 @keyframes amr-slide-enter { from { opacity:.65;transform:translateY(7px); } to { opacity:1;transform:none; } }
 @keyframes amr-letter-arrive { from { opacity:0;transform:translateY(.28em); } to { opacity:1;transform:none; } }
 @keyframes amr-slide-fade { from { opacity:.72; } to { opacity:1; } }
+@keyframes amr-support-connect { from { transform:scaleY(0);opacity:0; } to { transform:scaleY(1);opacity:1; } }
+@keyframes amr-support-signal { 0%,100% { opacity:1;scale:1; } 50% { opacity:.7;scale:1.06; } }
+@keyframes amr-enterprise-invite { 0% { opacity:0;transform:translateX(0); } 20%,70% { opacity:1; } 100% { opacity:0;transform:translateX(420%); } }
+@media(prefers-reduced-motion:reduce) {
+  .hero-slide-enterprise *,.hero-slide-enterprise *:before,.hero-slide-enterprise *:after { animation:none!important;transition:none!important; }
+}
 @media all {
   .plan-details[open]>div { animation:amr-plan-details 180ms ease-out both;transform-origin:top; }
 }

@@ -36,20 +36,35 @@ export function mountMedia() {
     const servicePhoto=connectedHero.querySelector('.service-photo');
     const serviceVideo=servicePhoto?.querySelector('[data-service-video]');
     const serviceSlide=servicePhoto?.closest('.carousel-slide');
+    const enterpriseMedia=connectedHero.querySelector('.enterprise-media');
+    const enterpriseVideo=enterpriseMedia?.querySelector('[data-enterprise-video]');
+    const enterpriseSlide=enterpriseMedia?.closest('.carousel-slide');
+    const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
     const toggle=connectedHero.querySelector('.effects-toggle');
     const desktopPointer=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 901px)');
     const connection=navigator.connection;
     let userPaused=false;
     let inView=!('IntersectionObserver' in window);
     let serviceInView=!('IntersectionObserver' in window);
+    let enterpriseInView=!('IntersectionObserver' in window);
+    let enterpriseActive=false;
     let frame=0;
     const updateVideo=houseVideo ? createHeroVideo(houseVideo,art) : null;
     const updateServiceVideo=serviceVideo ? createHeroVideo(serviceVideo,servicePhoto) : null;
+    const updateEnterpriseVideo=enterpriseVideo ? createHeroVideo(enterpriseVideo,enterpriseMedia) : null;
     const syncHouseVideo=()=> {
       updateVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
     };
     const syncServiceVideo=()=> {
       updateServiceVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
+    };
+    const syncEnterpriseVideo=()=> {
+      if(!enterpriseVideo)return;
+      const active=enterpriseSlide.classList.contains('is-active');
+      // Uma passagem por cena: segura a marca no final e reinicia só na próxima visita.
+      if(active && !enterpriseActive)enterpriseVideo.currentTime=0;
+      enterpriseActive=active;
+      updateEnterpriseVideo({paused:userPaused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:enterpriseInView,active:active && !enterpriseVideo.ended});
     };
     const reset=()=> {
       cancelAnimationFrame(frame);
@@ -66,6 +81,7 @@ export function mountMedia() {
       if(paused||!inView||!desktopPointer.matches)reset();
       syncHouseVideo();
       syncServiceVideo();
+      syncEnterpriseVideo();
     };
     toggle.addEventListener('click',()=>{userPaused=!userPaused;update();});
     art.addEventListener('pointermove',event=> {
@@ -81,6 +97,7 @@ export function mountMedia() {
     });
     art.addEventListener('pointerleave',reset);
     desktopPointer.addEventListener('change',update);
+    reducedMotion.addEventListener('change',syncEnterpriseVideo);
     document.addEventListener('visibilitychange',update);
     connection?.addEventListener('change',update);
     if('IntersectionObserver' in window) {
@@ -92,6 +109,11 @@ export function mountMedia() {
     if(serviceVideo && serviceSlide) {
       new MutationObserver(syncServiceVideo).observe(serviceSlide,{attributes:true,attributeFilter:['class','aria-hidden']});
       if('IntersectionObserver' in window) new IntersectionObserver(([entry])=>{serviceInView=entry.isIntersecting;syncServiceVideo();},{threshold:0}).observe(servicePhoto);
+    }
+    if(enterpriseVideo && enterpriseSlide) {
+      enterpriseVideo.addEventListener('ended',syncEnterpriseVideo);
+      new MutationObserver(syncEnterpriseVideo).observe(enterpriseSlide,{attributes:true,attributeFilter:['class','aria-hidden']});
+      if('IntersectionObserver' in window)new IntersectionObserver(([entry])=>{enterpriseInView=entry.isIntersecting;syncEnterpriseVideo();},{threshold:0}).observe(enterpriseMedia);
     }
     update();
   }

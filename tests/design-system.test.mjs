@@ -56,7 +56,7 @@ test('hero mantém contraste e entradas apenas no slide ativo', () => {
   assert.match(home,/\.hero-slide-enterprise\.is-active \.enterprise-stage/);
   assert.match(home,/\.hero-slide-enterprise\.is-active \.arrival-letter/);
   assert.match(home,/\.hero-slide-service\.is-active \.arrival-letter/);
-  assert.doesNotMatch(home,/prefers-reduced-motion/);
+  assert.match(home,/@media\(prefers-reduced-motion:reduce\)\s*\{\s*\.hero-slide-enterprise/);
 });
 
 test('estados críticos de acessibilidade permanecem explícitos no CSS', () => {
