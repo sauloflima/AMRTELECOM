@@ -2010,8 +2010,8 @@ body .amr-footer .footer-contact .button.whatsapp-action:hover,
 body:not(.home-page) main .button.whatsapp-action:hover {
   background:#fff;border-color:#8ba6ba;color:#0b2942;
 }
-body .header.is-scrolled .header-cta.whatsapp-action,body:not(.home-page):has(.company-page,.company-detail) .header .header-cta.whatsapp-action,body .amr-footer .footer-contact .button.whatsapp-action { background:#ffffff14;border-color:#ffffff40;color:#fff; }
-body .header.is-scrolled .header-cta.whatsapp-action:hover,body:not(.home-page):has(.company-page,.company-detail) .header .header-cta.whatsapp-action:hover,body .amr-footer .footer-contact .button.whatsapp-action:hover { background:#ffffff22;border-color:#ffffff70;color:#fff; }
+body .header.is-scrolled .header-cta.whatsapp-action,body .amr-footer .footer-contact .button.whatsapp-action { background:#ffffff14;border-color:#ffffff40;color:#fff; }
+body .header.is-scrolled .header-cta.whatsapp-action:hover,body .amr-footer .footer-contact .button.whatsapp-action:hover { background:#ffffff22;border-color:#ffffff70;color:#fff; }
 body .header.is-scrolled .header-cta.whatsapp-action:active,body .amr-footer .footer-contact .button.whatsapp-action:active { background:#ffffff2a; }
 .whatsapp-action.button>.icon { order:-1;flex:none; }
 body:not(.home-page) main .whatsapp-action.text-link { color:#0b2942;letter-spacing:0; }
@@ -2020,7 +2020,7 @@ body:not(.home-page) main .support-link.whatsapp-action .icon { order:2;margin-l
 body .amr-footer .whatsapp-action.text-link { color:#fff; }
 .whatsapp-action>.icon { transform:none!important; }
 .whatsapp-action .icon-whatsapp { color:var(--whatsapp-green); }
-body .header.is-scrolled .whatsapp-action .icon-whatsapp,body:not(.home-page):has(.company-page,.company-detail) .header .whatsapp-action .icon-whatsapp,body .amr-footer .whatsapp-action .icon-whatsapp { color:#4be39a; }
+body .header.is-scrolled .whatsapp-action .icon-whatsapp,body .amr-footer .whatsapp-action .icon-whatsapp { color:#4be39a; }
 body .button.whatsapp-action,body .support-cta.whatsapp-action { box-shadow:0 4px 12px #071a2e14;transition:background-color 180ms ease,border-color 180ms ease,color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
 body .support-cta.whatsapp-action,body .footer-channel-whatsapp { transition:background-color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
 @media(hover:hover) and (pointer:fine) {
@@ -2234,13 +2234,6 @@ body:has(.user-effects-paused) .company-approach-icon { animation:none; }
 .company-video-slot figcaption { position:absolute;z-index:1;left:24px;right:24px;bottom:22px;color:#fff;font-size:.9375rem;font-weight:600;line-height:1.4; }
 /* A área empresarial usa fundo branco e mantém o azul da AMR nos detalhes. */
 body:not(.home-page) main:has(.company-page,.company-detail) { --text:#0b2942;--muted:#46627c;--border:#d5e3f0;--soft:#075fdb;background:#fff;color:#0b2942; }
-body:not(.home-page):has(.company-page,.company-detail) .header { background:var(--amr-navy);border-bottom-color:#ffffff14; }
-body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) .brand-dark { display:block; }
-body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) .brand-light { display:none; }
-body:not(.home-page):has(.company-page,.company-detail) .header nav a,body:not(.home-page):has(.company-page,.company-detail) .header .mobile-support,body:not(.home-page):has(.company-page,.company-detail) .header .menu-toggle { color:#fff; }
-body:not(.home-page):has(.company-page,.company-detail) .header nav a[aria-current="page"] { color:#fff;box-shadow:inset 0 -3px #258dff; }
-body:not(.home-page):has(.company-page,.company-detail) .header .menu-toggle { border-color:#ffffff66; }
-body:not(.home-page):has(.company-page,.company-detail) .header :is(a,button):focus-visible { outline-color:#8fc6ff; }
 .company-page,.company-detail { background:#fff;color:#0b2942; }
 .company-detail-grid article,.company-solution-grid article { transition:border-color 240ms ease,box-shadow 240ms ease,transform 240ms ease; }
 @media(hover:hover) and (pointer:fine) {
@@ -2281,8 +2274,6 @@ body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus
 .header .brand:has(.brand-light:not([hidden])) .brand-signal-light { display:block; }
 .header.is-scrolled .brand-signal-light { display:none!important; }
 .header.is-scrolled .brand-signal-dark { display:block;stroke-width:7; }
-body:not(.home-page):has(.company-page,.company-detail) .header .brand-signal-light { display:none; }
-body:not(.home-page):has(.company-page,.company-detail) .header .brand-signal-dark { display:block;stroke-width:7; }
 @media(prefers-reduced-motion:no-preference) {
   .header .brand-signal path { animation:amr-brand-transmit 3.4s ease-in-out infinite; }
   .header .brand-signal path:nth-child(2) { animation-delay:.24s; }
@@ -2290,3 +2281,5 @@ body:not(.home-page):has(.company-page,.company-detail) .header .brand-signal-da
   body:has(.user-effects-paused) .header .brand-signal path { animation:none; }
 }
 @keyframes amr-brand-transmit { 0%,12%,65%,100% { opacity:0; } 30% { opacity:.65; } }
+
+body:not(.home-page):has(.company-page,.company-detail) .header:not(.is-scrolled) { background:#ffffffeb;backdrop-filter:blur(12px); }
