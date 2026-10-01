@@ -53,6 +53,12 @@ body .amr-footer .footer-summary { font-size:.9375rem;max-width:560px; }
 .footer-coverage li { padding:7px 10px;border-radius:8px;background:#ffffff12;color:#fff;font-size:.9375rem;font-weight:600; }
 .footer-coverage>a { display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#c8e3ff;font-size:.8125rem; }
 .footer-coverage>a .icon { width:16px;height:16px; }
+.coverage-cities { max-width:440px;margin-top:24px;padding:22px;border-color:#c5d8e980;background:linear-gradient(135deg,#ffffffc9,#edf5fc80);box-shadow:0 8px 24px #163b5a08;backdrop-filter:blur(12px); }
+.coverage-cities .footer-coverage-heading { color:#0d2e46; }
+.coverage-cities .footer-coverage-heading .icon { color:#2869ad; }
+.coverage-cities li { border:1px solid #d7e5f0;background:#ffffffa6;color:#173e5c; }
+.coverage-cities p { margin:12px 0 0;color:#5e7589;font-size:.875rem;line-height:1.5; }
+.coverage-cities>a { color:#245b8c;font-weight:600; }
 .instagram-icon { background:radial-gradient(circle at 30% 105%,#feda75 0%,#fa7e1e 25%,#d62976 50%,#962fbf 75%,#4f5bd5 100%); }
 @media(min-width:1001px) { body .amr-footer .footer-columns { grid-template-columns:repeat(3,minmax(0,1fr)) minmax(260px,1.5fr); } }
 .footer-columns { display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:34px;padding-block:36px 40px; }

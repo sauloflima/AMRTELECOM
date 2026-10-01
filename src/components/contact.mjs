@@ -9,7 +9,7 @@ export function coverage() {
     <div><p class="eyebrow">CONSULTE A COBERTURA</p><h2>O primeiro passo<br>é o seu endereço.</h2>
       <p>Informe onde você precisa de internet. A equipe verifica a disponibilidade e explica as condições de instalação.</p>
       <div class="coverage-info">${icon('pin')}<p>Preencha o formulário e revise a mensagem antes de enviá-la pelo WhatsApp. A consulta não garante cobertura nem contratação.</p></div>
-      ${config.coverage.cities.length ? `<p>Cidades para consulta: ${config.coverage.cities.map(escape).join(', ')}.</p>` : ''}
+      ${config.coverage.cities.length ? `<div class="footer-coverage coverage-cities"><div class="footer-coverage-heading">${icon('pin')}<strong>Onde atendemos</strong></div><ul>${config.coverage.cities.map(city=>`<li>${escape(city)}</li>`).join('')}</ul><p>A equipe confirma a disponibilidade no seu endereço.</p><a href="#coverage-form">Consultar meu endereço ${icon('arrow')}</a></div>` : ''}
       ${config.coverage.neighborhoods.length ? `<p>Bairros para consulta: ${config.coverage.neighborhoods.map(escape).join(', ')}.</p>` : ''}
     </div>
     <form id="coverage-form" novalidate autocomplete="on" aria-labelledby="coverage-form-title">
