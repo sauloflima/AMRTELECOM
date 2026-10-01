@@ -2290,3 +2290,7 @@ body:not(.home-page) main :is(#coverage-form,.wifi-factors,.support-options,.com
 body:not(.home-page) main :is(.wifi-factors,.support-options) { padding:clamp(20px,3vw,32px);border-radius:24px; }
 body:not(.home-page) main .support-options>div:first-child { border-top:0; }
 body:not(.home-page) main .support-options>div:last-child { border-bottom:0; }
+
+/* Fotos com a mesma temperatura visual, preservando as cenas em vídeo. */
+.company-hero-media>img,.company-integrated-card>img:not(.company-cloud-logo),.company-story img,.company-detail-media img,.routine img { filter:saturate(.88) contrast(1.02); }
+.company-section-heading h2,.company-story h2 { font-weight:600;letter-spacing:-.035em; }

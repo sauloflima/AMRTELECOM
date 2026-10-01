@@ -589,10 +589,10 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
 .office-motion-toggle[hidden] { display:none; }
 .home-page .office-motion-toggle:focus-visible { outline-color:#9bd1ff;outline-offset:3px; }
 /* Explicação comercial compartilhada entre a home e o catálogo. */
-.plan-use { display:flex;align-items:flex-start;gap:10px;min-height:122px; }
+.plan-use { display:flex;align-items:flex-start;gap:10px;min-height:64px; }
 .plan-use>.icon { flex:0 0 26px;width:26px;height:26px;margin-top:2px;color:var(--home-blue); }
 .plan-use strong { display:block;color:var(--home-ink);font-size:1rem;line-height:1.35; }
-.plan-use p { margin:7px 0 0;font-size:.9375rem;line-height:1.5; }
+.plan-use p { margin:0;font-size:.9375rem;line-height:1.5; }
 .plan-details { scroll-margin-top:110px; }
 .plan-explanation-title { font-weight:700;color:var(--home-ink); }
 .plan-content .plan-examples { gap:12px;min-height:0;padding:12px 0;border-block:1px solid var(--home-line); }
@@ -612,12 +612,12 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
 .plan-enterprise .plan-details summary { padding-inline:2px;font-size:.8125rem; }
 .plan-card .plan-content>.button { align-self:center;width:max-content;max-width:100%;gap:7px;min-height:44px;padding:9px 14px;font-size:.8125rem; }
 @media(min-width:1100px) {
-  .plan-card { min-height:610px; }
+  .plan-card { min-height:535px; }
   .plan-speed { min-height:44px; }
   .plan-speed strong { font-size:3.2rem; }
   .plan-price { min-height:67px;padding:9px 12px; }
   .plan-price>strong { font-size:2.5rem; }
-  .plan-use { min-height:130px;gap:8px; }
+  .plan-use { min-height:64px;gap:8px; }
   .plan-use>.icon { flex-basis:22px;width:22px;height:22px; }
   .plan-use strong { font-size:.9375rem; }
   .plan-use p { font-size:.875rem; }
@@ -626,7 +626,7 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
 }
 @media(min-width:601px) and (max-width:1099px) {
   .plan-grid { grid-template-columns:repeat(2,minmax(0,1fr));max-width:850px;gap:22px; }
-  .plan-card { display:flex;min-height:610px; }
+  .plan-card { display:flex;min-height:535px; }
   .plan-media { height:96px;min-height:0; }
   .plan-content { padding:16px; }
 }
@@ -655,3 +655,14 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
 .business-layout-home { border-color:#d5e3ef;box-shadow:0 12px 36px #173f710a; }
 .business-copy,.support-paths>div { background:linear-gradient(145deg,#f0f6fccc,#fffffff2 65%); }
 .support-paths>div { border-color:#d5e3ef;box-shadow:0 6px 18px #173f7108; }
+
+/* Hierarquia editorial: peso reservado ao hero e aos valores. */
+.section-intro h2,.plans-intro :is(h1,h2),.routine-heading h2,.business-copy h2,.support-copy h2,.home-faq h2,.home-contact-band h2 { font-weight:600;font-size:clamp(1.9rem,2.8vw,2.65rem);line-height:1.15;letter-spacing:-.035em; }
+.section-kicker,.plan-label { font-weight:650; }
+.home-faq-list summary { font-weight:600; }
+.plan-media:after { background:linear-gradient(180deg,#0b294205,#0b29421a); }
+.plan-media img,.routine-card img,.human-media>img { filter:saturate(.88) contrast(1.02); }
+
+.plan-business-title { min-height:44px; }
+.plan-business-proposal { min-height:67px;margin-top:11px; }
+.plan-details summary,.plan-card .button { font-weight:650; }

@@ -11,7 +11,6 @@ export function mountSupportAssistant(root) {
   const dock = document.querySelector('.coverage-dock');
   let footerVisible = false;
   let ready = false;
-  let pendingPrompt = false;
   const setExpanded = expanded => {
     prompt.hidden = !expanded;
     avatar.setAttribute('aria-expanded', String(expanded));
@@ -27,13 +26,13 @@ export function mountSupportAssistant(root) {
     const top = document.querySelector('.header').getBoundingClientRect().bottom + 12;
     let lift = 0;
     const controls = [...document.querySelectorAll('main .button, main button, main input, main summary' +
-      (mobile.matches && prompt.hidden ? ', main p, main li, main h1, main h2, main h3, main .plan-compare a' : ''))];
+      (prompt.hidden ? ', main p, main li, main h1, main h2, main h3, main .plan-compare a' : ''))];
     const obstacles = controls.filter(control => !control.closest('[inert]')).map(control => control.getBoundingClientRect())
       .filter(rect => rect.width && rect.height && rect.left < box.right && rect.right > box.left)
       .sort((a, b) => b.top - a.top);
     for (const rect of obstacles) {
       if (rect.top >= box.bottom - lift || rect.bottom <= box.top - lift) continue;
-      if (mobile.matches && prompt.hidden) { root.hidden = true; return; }
+      if (prompt.hidden) { root.hidden = true; return; }
       const next = box.bottom - rect.top + 12;
       if (box.top - next < top) {
         if (mobile.matches) break;
@@ -53,13 +52,12 @@ export function mountSupportAssistant(root) {
     root.style.setProperty('--support-header-height', `${document.querySelector('.header').getBoundingClientRect().bottom}px`);
     const blocked = document.hidden || footerVisible || dialog?.open || menu?.getAttribute('aria-expanded') === 'true' || document.activeElement?.closest('form, input, textarea, select, [contenteditable="true"]');
     if (blocked && mobile.matches) setExpanded(false);
-    if (ready && pendingPrompt && !blocked) { setExpanded(true); pendingPrompt = false; }
     root.hidden = !ready || Boolean(blocked);
     position();
   };
   const close = () => {
     setExpanded(false);
-    root.querySelector('.support-avatar-link').focus({ preventScroll: true });
+    (mobile.matches ? root.querySelector('.support-avatar-link') : avatar).focus({ preventScroll: true });
     sync();
   };
   root.querySelector('.support-close').addEventListener('click', close);
@@ -87,7 +85,7 @@ export function mountSupportAssistant(root) {
   document.addEventListener('visibilitychange', sync);
   let frame = 0;
   addEventListener('scroll', () => {
-    if (mobile.matches) setExpanded(false);
+    setExpanded(false);
     if (!frame) frame = requestAnimationFrame(() => { frame = 0; sync(); });
   }, { passive: true });
   addEventListener('resize', sync);
@@ -97,10 +95,9 @@ export function mountSupportAssistant(root) {
   const start = () => {
     clearTimeout(timer);
     ready = false;
-    pendingPrompt = false;
     setExpanded(false);
     sync();
-    timer = setTimeout(() => { ready = true; pendingPrompt = true; sync(); }, SUPPORT_PROMPT_DELAY_MS);
+    timer = setTimeout(() => { ready = true; sync(); }, SUPPORT_PROMPT_DELAY_MS);
   };
   addEventListener('pageshow', event => { if (event.persisted) start(); });
   addEventListener('pagehide', () => { clearTimeout(timer); root.hidden = true; });

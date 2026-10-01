@@ -14,7 +14,8 @@ body:has(.coverage-dock:not([hidden])) .support-assistant { bottom:calc(var(--su
 .support-cta .icon { width:21px;height:21px;flex:none;color:var(--whatsapp-green); }
 .support-cta:hover { background:#fff;color:var(--amr-ink); }
 .support-avatar { position:relative;display:block;flex:0 0 var(--support-size);width:var(--support-size);height:var(--support-size);border:2px solid var(--amr-action);border-radius:50%;background:var(--amr-navy);box-shadow:0 0 0 3px #fff,var(--amr-elevation); }
-.support-avatar-toggle { display:none;padding:0; }
+.support-avatar-toggle { display:block;padding:0;cursor:pointer; }
+.support-avatar-link { display:none; }
 .support-cta-mobile { display:none; }
 .support-portrait { position:absolute;inset:0;overflow:hidden;border-radius:50%; }
 /* Recorte da imagem original: cabelo, rosto e headset, sobre o azul já presente. */
