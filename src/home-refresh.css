@@ -666,3 +666,8 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
 .plan-business-title { min-height:44px; }
 .plan-business-proposal { min-height:67px;margin-top:11px; }
 .plan-details summary,.plan-card .button { font-weight:650; }
+
+/* Seleção residencial mais enxuta, com alvo confortável no toque. */
+.plan-card .plan-content>.button.primary:not(.whatsapp-action) { min-height:36px;padding:6px 12px;gap:5px;line-height:1.2; }
+.plan-card .plan-content>.button.primary:not(.whatsapp-action) .icon { width:16px;height:16px; }
+@media(max-width:800px) { .plan-card .plan-content>.button.primary:not(.whatsapp-action) { min-height:44px; } }
