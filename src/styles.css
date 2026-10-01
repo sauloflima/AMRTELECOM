@@ -2272,3 +2272,21 @@ body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus
   .company-video-slot figcaption { left:16px;right:16px;bottom:16px;font-size:.8125rem; }
   .company-integrated-copy { right:20px;bottom:22px;left:20px; }
 }
+
+/* Somente as ondas da marca recebem o pulso de transmissão. */
+.brand-signal { display:none;pointer-events:none; }
+.header .brand { position:relative; }
+.header .brand-signal { position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#d7f3ff;stroke-width:5;stroke-linecap:round; }
+.header .brand-signal path { opacity:0; }
+.header .brand:has(.brand-light:not([hidden])) .brand-signal-light { display:block; }
+.header.is-scrolled .brand-signal-light { display:none!important; }
+.header.is-scrolled .brand-signal-dark { display:block;stroke-width:7; }
+body:not(.home-page):has(.company-page,.company-detail) .header .brand-signal-light { display:none; }
+body:not(.home-page):has(.company-page,.company-detail) .header .brand-signal-dark { display:block;stroke-width:7; }
+@media(prefers-reduced-motion:no-preference) {
+  .header .brand-signal path { animation:amr-brand-transmit 3.4s ease-in-out infinite; }
+  .header .brand-signal path:nth-child(2) { animation-delay:.24s; }
+  .header .brand-signal path:nth-child(3) { animation-delay:.48s; }
+  body:has(.user-effects-paused) .header .brand-signal path { animation:none; }
+}
+@keyframes amr-brand-transmit { 0%,12%,65%,100% { opacity:0; } 30% { opacity:.65; } }

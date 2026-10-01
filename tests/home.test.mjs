@@ -16,7 +16,7 @@ test('artes comerciais confirmadas alimentam contatos, localidades e destaque',(
   assert.deepEqual(config.coverage.cities,['Gravatá (PE)','Amaraji (PE)']);
   assert.equal(config.social.instagram,'https://www.instagram.com/amrtelecomltda/');
   assert.equal(config.mostChosenPlanId,'');
-  assert.ok(coverage().includes('Cidades para consulta: Gravatá (PE), Amaraji (PE).'));
+  assert.ok(coverage().includes('<li>Gravatá (PE)</li><li>Amaraji (PE)</li>'));
   assert.ok(footer().includes('>@amrtelecomltda</strong>'));
   assert.ok(footer().includes('(81) 99346-7014'));
   assert.ok(!plans().includes('Valor em confirmação'));

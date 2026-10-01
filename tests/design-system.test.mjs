@@ -64,7 +64,7 @@ test('estados críticos de acessibilidade permanecem explícitos no CSS', () => 
   assert.ok(home.includes('min-width:44px;min-height:44px'));
   assert.ok(home.includes('input[aria-invalid=true]'));
   assert.ok(shared.includes('.button.primary:disabled:hover'));
-  assert.doesNotMatch(shared,/prefers-reduced-motion/);
+  assert.match(shared,/@media\(prefers-reduced-motion:no-preference\)[\s\S]*amr-brand-transmit/);
   assert.match(home,/\.hero-house-video,.hero-house-fallback \{[^}]*object-fit:contain/);
   assert.doesNotMatch(home,/\.hero-house-video[^}]*object-fit:cover/);
   assert.ok(home.includes('.hero-house-video'));

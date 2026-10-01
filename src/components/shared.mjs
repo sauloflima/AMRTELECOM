@@ -50,7 +50,7 @@ export function action(label, kind = 'general', detail = '', cls = 'button prima
   return `<a class="${cls}${href ? ' whatsapp-action' : ''}" href="${escape(href || '/contato.html')}" data-whatsapp="${kind}" data-detail="${escape(detail)}"${href ? ' target="_blank" rel="noopener noreferrer"' : ''}>${href ? icon(symbol) + escape(label) : escape(label) + icon('arrow')}</a>`;
 }
 export function logo() {
-  return `<a class="brand" href="/" aria-label="AMR Telecom, início"><img class="brand-dark" src="${config.brand.logo}" alt="" width="160" height="80" fetchpriority="high"><img class="brand-light" src="${config.brand.logoLight}" alt="" width="160" height="76" fetchpriority="high"><span class="brand-fallback" hidden>AMR <small>TELECOM</small></span></a>`;
+  return `<a class="brand" href="/" aria-label="AMR Telecom, início"><img class="brand-dark" src="${config.brand.logo}" alt="" width="160" height="80" fetchpriority="high"><img class="brand-light" src="${config.brand.logoLight}" alt="" width="160" height="76" fetchpriority="high"><svg class="brand-signal brand-signal-light" viewBox="0 0 480 229" aria-hidden="true"><path d="M406 48 C425 53 434 68 430 83"/><path d="M409 29 C441 36 455 60 448 87"/><path d="M413 9 C457 18 478 52 464 95"/></svg><svg class="brand-signal brand-signal-dark" viewBox="0 0 640 320" aria-hidden="true"><path d="M532 91 C553 99 570 121 566 147"/><path d="M535 65 C574 72 603 115 588 153"/><path d="M538 38 C597 45 640 101 613 167"/></svg><span class="brand-fallback" hidden>AMR <small>TELECOM</small></span></a>`;
 }
 export function header(pathname = '/') {
   const contact = whatsappUrl(messageFor('general'));
