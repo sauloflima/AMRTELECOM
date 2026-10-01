@@ -6,7 +6,7 @@ export const heroAssets = [
   '/assets/generated/amr-casa-fibra-3d.png',
   '/assets/generated/amr-atendimento-bordado-20261001.jpg',
   '/assets/videos/hero-amr-integrado-corrigido.mp4',
-  '/assets/videos/atendimento-amr-bordado-20261001.mp4',
+  '/assets/videos/atendimento-amr-bordado-fixo-20261001.mp4',
   '/assets/brand/logo-amr-relief.png',
   '/assets/generated/amr-empresa-flow-poster.jpg',
   '/assets/generated/amr-empresa-card.jpg',
