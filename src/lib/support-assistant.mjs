@@ -11,6 +11,7 @@ export function mountSupportAssistant(root) {
   const dock = document.querySelector('.coverage-dock');
   let footerVisible = false;
   let ready = false;
+  let pendingPrompt = false;
   const setExpanded = expanded => {
     prompt.hidden = !expanded;
     avatar.setAttribute('aria-expanded', String(expanded));
@@ -52,6 +53,7 @@ export function mountSupportAssistant(root) {
     root.style.setProperty('--support-header-height', `${document.querySelector('.header').getBoundingClientRect().bottom}px`);
     const blocked = document.hidden || footerVisible || dialog?.open || menu?.getAttribute('aria-expanded') === 'true' || document.activeElement?.closest('form, input, textarea, select, [contenteditable="true"]');
     if (blocked && mobile.matches) setExpanded(false);
+    if (ready && pendingPrompt && !blocked) { setExpanded(true); pendingPrompt = false; }
     root.hidden = !ready || Boolean(blocked);
     position();
   };
@@ -95,9 +97,10 @@ export function mountSupportAssistant(root) {
   const start = () => {
     clearTimeout(timer);
     ready = false;
+    pendingPrompt = false;
     setExpanded(false);
     sync();
-    timer = setTimeout(() => { ready = true; sync(); }, SUPPORT_PROMPT_DELAY_MS);
+    timer = setTimeout(() => { ready = true; pendingPrompt = true; sync(); }, SUPPORT_PROMPT_DELAY_MS);
   };
   addEventListener('pageshow', event => { if (event.persisted) start(); });
   addEventListener('pagehide', () => { clearTimeout(timer); root.hidden = true; });
