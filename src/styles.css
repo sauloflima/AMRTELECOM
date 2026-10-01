@@ -2230,9 +2230,7 @@ body:has(.user-effects-paused) .company-approach-icon { animation:none; }
 .company-story-inner { display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:clamp(30px,5vw,74px); }
 .company-story-copy .button { margin-top:30px; }
 .company-video-slot { position:relative;overflow:hidden;aspect-ratio:16/9;margin:0;border:1px solid #c5d8e8;border-radius:22px;background:#071a2e;box-shadow:0 18px 45px #0c34521c; }
-.company-video-slot img { display:block;width:100%;height:100%;object-fit:cover; }
-.company-video-slot:after { content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#061b31b8);pointer-events:none; }
-.company-video-slot figcaption { position:absolute;z-index:1;left:24px;right:24px;bottom:22px;color:#fff;font-size:.9375rem;font-weight:600;line-height:1.4; }
+.company-video-slot video { display:block;width:100%;height:100%;object-fit:cover; }
 /* A área empresarial usa fundo branco e mantém o azul da AMR nos detalhes. */
 body:not(.home-page) main:has(.company-page,.company-detail) { --text:#0b2942;--muted:#46627c;--border:#d5e3f0;--soft:#075fdb;background:#fff;color:#0b2942; }
 .company-page,.company-detail { background:#fff;color:#0b2942; }
@@ -2263,7 +2261,6 @@ body:not(.home-page) main:has(.company-page,.company-detail) :is(a,button):focus
   .company-actions .button { width:100%; }
   .company-hero-media span { left:15px;bottom:15px; }
   .company-section-heading h2,.company-story h2 { font-size:clamp(2rem,8vw,2.6rem); }
-  .company-video-slot figcaption { left:16px;right:16px;bottom:16px;font-size:.8125rem; }
   .company-integrated-copy { right:20px;bottom:22px;left:20px; }
 }
 

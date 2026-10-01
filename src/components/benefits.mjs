@@ -78,7 +78,7 @@ export function business() {
       <li><div class="company-approach-step"><span class="company-approach-icon">${icon('check')}</span><span class="company-approach-label">Proposta</span></div><h3>Um escopo claro para decidir</h3><p>Apresentamos a solução recomendada com serviços incluídos, implantação, suporte, responsabilidades e condições, conforme viabilidade.</p></li>
     </ol></div></div>
     <div class="company-story"><div class="container company-story-inner"><div class="company-story-copy"><p class="eyebrow">CONHEÇA A AMR</p><h2>Por trás da conexão, pessoas prontas para conversar.</h2><p>Vamos entender seu endereço, o perfil de uso e as necessidades da operação antes de apresentar uma opção para a sua empresa.</p>${action('Falar com a equipe','business','','button primary')}</div>
-      <figure class="company-video-slot"><img src="/assets/generated/amr-empresa-card.jpg" alt="Prédio comercial iluminado com a marca AMR Telecom" width="1280" height="720" loading="lazy" decoding="async"><figcaption>Espaço reservado para o vídeo da AMR para empresas</figcaption></figure>
+      <figure class="company-video-slot"><video controls playsinline preload="none" poster="/assets/generated/amr-empresa-card.jpg" width="1280" height="720" aria-label="Vídeo do prédio empresarial com a marca AMR Telecom"><source src="/assets/videos/amr-empresa-hero.mp4" type="video/mp4"></video></figure>
     </div></div>
   </section>`;
 }

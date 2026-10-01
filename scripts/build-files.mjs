@@ -17,6 +17,7 @@ export const stylesheets = ['styles.css', 'home-refresh.css', 'support-assistant
 export const mediaAssets = [...new Set([
   config.brand.logo, config.brand.logoLight, config.brand.favicon,
   ...heroAssets, ...homeAssets, supportAvatar, customerAvatar,
+  '/assets/videos/amr-empresa-hero.mp4',
   '/assets/generated/amr-empresas-equipe.jpg',
   '/assets/generated/amr-empresas-fibra.jpg',
   '/assets/generated/amr-empresas-ambiente.jpg',

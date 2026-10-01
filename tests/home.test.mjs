@@ -142,14 +142,16 @@ test('catálogo inclui empresa sem preço e com contato comercial em ambas as p�
   }
 });
 
-test('página empresarial mantém fibra, suporte e reserva vídeo sem telefonia',()=> {
+test('página empresarial mantém fibra, suporte e vídeo anterior com reprodução manual',()=> {
   const html=business();
   assert.match(html,/amr-empresas-equipe\.jpg/);
   for(const photo of ['fibra','ambiente','suporte']) assert.match(html,new RegExp(`amr-empresas-${photo}\\.jpg`));
   assert.match(html,/class="company-video-slot"/);
   assert.match(html,/Do diagnóstico à proposta técnica/);
   assert.match(html,/data-whatsapp="business"/);
-  assert.doesNotMatch(html,/telefonia|R\$|<video|<iframe/i);
+  assert.match(html,/<video controls playsinline preload="none"/);
+  assert.match(html,/src="\/assets\/videos\/amr-empresa-hero\.mp4"/);
+  assert.doesNotMatch(html,/telefonia|R\$|<iframe|Espaço reservado|autoplay/i);
 });
 
 test('soluções empresariais abrem páginas técnicas próprias',()=> {
