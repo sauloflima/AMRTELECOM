@@ -2173,6 +2173,7 @@ body .customer-section .customer-card .customer-access:disabled { background:#e8
 .company-solutions-action { display:flex;align-items:center;flex-wrap:wrap;gap:14px 22px;margin-top:34px; }
 .company-solutions-action span { color:#46627c;font-size:.875rem; }
 .company-integrated { padding:clamp(42px,5vw,68px) 0 clamp(62px,7vw,100px);border-top:1px solid #e2eaf1;background:#fff;color:#0b2942; }
+.company-integrated-panel { padding:clamp(20px,3vw,40px);border:1px solid #d5e3ef;border-radius:28px;background:linear-gradient(145deg,#f0f6fccc,#fffffff2 65%);box-shadow:0 12px 36px #173f710a;backdrop-filter:blur(12px); }
 .company-integrated .eyebrow { color:#075fdb; }
 .company-integrated .company-section-heading>p:last-child { color:#46627c; }
 .company-integrated-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px; }
