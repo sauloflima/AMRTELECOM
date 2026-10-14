@@ -7,7 +7,7 @@ const browser = await chromium.launch({ headless:true });
 const evidence = process.env.AMR_MOBILE_EVIDENCE || 'output/playwright/mobile';
 const samples = [], errors = [];
 await mkdir(evidence, { recursive:true });
-const videoSlides = [0, 2, 3];
+const videoSlides = [1, 2, 3];
 const mediaSelectors = ['.hero-house', '.enterprise-media', '.service-photo'];
 const pauseEffects = page => page.locator('.effects-toggle').dispatchEvent('click');
 async function newPage(width=390, height=844, options={}) {
@@ -36,7 +36,7 @@ try {
     await page.locator('.carousel-rotation').click();
     await page.waitForTimeout(600);
     await snapshot(page, `${width}x${height}-home`);
-    await page.locator('[data-slide="1"]').dispatchEvent('click');
+    assert.equal(await page.locator('[data-carousel]').getAttribute('data-active-slide'), '1');
     await page.locator('.city-card img').evaluate(img => img.decode());
     assert.equal(await page.locator('.hero-slide-city').getAttribute('aria-hidden'), 'false');
     assert.equal(await page.locator('.city-card').count(), 2);

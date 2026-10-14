@@ -39,17 +39,18 @@ test('quatro slides, um H1 e conteúdo inativo protegido antes do JavaScript', (
   assert.ok(!html.includes('<b aria-hidden="true">'));
   assert.equal((html.match(/class="carousel-dots"/g) || []).length, 1);
 });
-test('Casa abre; um slide reúne Gravatá e Amaraji sem promessas', () => {
+test('Cidades abre; um slide reúne Gravatá e Amaraji sem promessas', () => {
   const html = hero();
   const slides = html.match(/<article class="carousel-slide[\s\S]*?<\/article>/g);
-  assert.match(slides[0], /hero-slide-home is-active/);
-  const city = slides[1];
+  const city = slides[0];
+  assert.match(city, /hero-slide-city is-active/);
+  assert.match(slides[1], /hero-slide-home/);
   assert.match(city, /data-delay="8000"/);
-  assert.match(city, /<h2>Conectando <span>Gravatá e Amaraji\.<\/span><\/h2>/);
+  assert.match(city, /<h1 id="hero-title">Conectando <span>Gravatá e Amaraji\.<\/span><\/h1>/);
   assert.match(city, /Internet por fibra óptica e atendimento próximo\. Consulte a disponibilidade no seu endereço\./);
   assert.equal((city.match(/Consultar cobertura/g) || []).length, 1);
   assert.match(city, /href="#quick-coverage-form" data-focus-coverage>Consultar cobertura/);
-  assert.doesNotMatch(city, /R\$|todos os bairros|100% da cidade|logo-amr|fetchpriority/);
+  assert.doesNotMatch(city, /R\$|todos os bairros|100% da cidade|logo-amr/);
   // Nomes das igrejas só depois de confirmados com as paróquias.
   assert.doesNotMatch(city, /Sant.Ana|São José|Conceição/);
   const [gravata, amaraji] = city.match(/<figure class="city-card">[\s\S]*?<\/figure>/g);

@@ -26,21 +26,20 @@ export const heroAssets = [
   '/assets/videos/amr-empresa-flow-20261001.mp4',
   ...cities.filter(city => city.ready).flatMap(city => [city.photo(800), city.photo(1600)])
 ];
-// Casa abre enquanto as fotos das cidades não forem aprovadas; depois, as cidades podem ir para o início.
-const slideNames = ['Casa','Cidades','Empresas','Atendimento'];
+const slideNames = ['Cidades','Casa','Empresas','Atendimento'];
 const slideAttrs = (index, label) => `id="amr-slide-${index+1}" role="group" aria-roledescription="slide" aria-label="${index+1} de ${slideNames.length}: ${label}"${index ? ' aria-hidden="true" inert' : ''}`;
 
 // Sem foto autorizada, a cidade aparece como um bloco neutro com o ícone de localização; nunca com a foto de outra cidade.
 function cityCard(city) {
   const media = city.ready
-    ? `<img src="${city.photo(1600)}" srcset="${city.photo(800)} 800w, ${city.photo(1600)} 1600w" sizes="(max-width:600px) 92vw, 26vw" width="1600" height="1000" loading="lazy" decoding="async" alt="Igreja matriz de ${city.name}, Pernambuco.">`
+    ? `<img src="${city.photo(1600)}" srcset="${city.photo(800)} 800w, ${city.photo(1600)} 1600w" sizes="(max-width:600px) 92vw, 26vw" width="1600" height="1000" ${city.id === 'gravata' ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" alt="Igreja matriz de ${city.name}, Pernambuco.">`
     : `<span class="city-place" aria-hidden="true">${icon('pin')}</span>`;
   return `<figure class="city-card"><span class="city-media">${media}</span><figcaption>${icon('pin')}<strong>${city.name}, PE</strong></figcaption></figure>`;
 }
 
 function citiesSlide(index) {
-  return `<article class="carousel-slide hero-slide hero-slide-city" data-delay="8000" ${slideAttrs(index, 'Gravatá e Amaraji')}>
-          <div class="hero-copy"><p class="hero-kicker">Fibra óptica em Pernambuco</p><h2>Conectando <span>Gravatá e Amaraji.</span></h2><p class="hero-lead">Internet por fibra óptica e atendimento próximo. Consulte a disponibilidade no seu endereço.</p><a class="button primary hero-cta" href="#quick-coverage-form" data-focus-coverage>Consultar cobertura ${icon('arrow')}</a></div>
+  return `<article class="carousel-slide hero-slide hero-slide-city${index === 0 ? ' is-active' : ''}" data-delay="8000" ${slideAttrs(index, 'Gravatá e Amaraji')}>
+          <div class="hero-copy"><p class="hero-kicker">Fibra óptica em Pernambuco</p><h1 id="hero-title">Conectando <span>Gravatá e Amaraji.</span></h1><p class="hero-lead">Internet por fibra óptica e atendimento próximo. Consulte a disponibilidade no seu endereço.</p><a class="button primary hero-cta" href="#quick-coverage-form" data-focus-coverage>Consultar cobertura ${icon('arrow')}</a></div>
           <div class="city-pair">${cities.map(cityCard).join('')}</div>
         </article>`;
 }
@@ -56,17 +55,17 @@ export function hero() {
     <div class="hero-frame" data-carousel role="region" aria-roledescription="carrossel" aria-label="Destaques da AMR Telecom">
       <button class="carousel-rotation" type="button" hidden>Pausar carrossel</button>
       <div class="carousel-track">
-        <article class="carousel-slide hero-slide hero-slide-home is-active" ${slideAttrs(0, 'Fibra para a casa')}>
+        ${citiesSlide(0)}
+        <article class="carousel-slide hero-slide hero-slide-home" ${slideAttrs(1, 'Fibra para a casa')}>
           <div class="hero-copy">
             <p class="hero-kicker">Conexão que faz parte da casa</p>
-            <h1 id="hero-title">Fibra para a casa <span>viver tudo.</span></h1>
+            <h2>Fibra para a casa <span>viver tudo.</span></h2>
             <p class="hero-lead">Mais estabilidade para trabalhar, estudar, assistir e jogar com quem importa.</p>
             <a class="button primary hero-cta" href="#quick-coverage-form" data-focus-coverage>Consultar cobertura ${icon('arrow')}</a>
             <ul class="hero-proof"><li>${icon('fiber')} 100% fibra óptica</li><li>${icon('pin')} Atendimento local</li><li>${icon('headset')} Suporte humanizado</li></ul>
           </div>
-          <div class="hero-house connected-art"><div class="house-parallax"><video class="hero-house-video" data-hero-house-video muted loop playsinline preload="none" poster="${heroAssets[0]}" width="1920" height="1080" aria-hidden="true" tabindex="-1"><source src="${heroAssets[2]}" type="video/mp4"></video><img class="hero-house-fallback" src="${heroAssets[0]}" width="1254" height="1254" fetchpriority="high" decoding="async" alt=""></div></div>
+          <div class="hero-house connected-art"><div class="house-parallax"><video class="hero-house-video" data-hero-house-video muted loop playsinline preload="none" poster="${heroAssets[0]}" width="1920" height="1080" aria-hidden="true" tabindex="-1"><source src="${heroAssets[2]}" type="video/mp4"></video><img class="hero-house-fallback" src="${heroAssets[0]}" width="1254" height="1254" loading="lazy" decoding="async" alt=""></div></div>
         </article>
-        ${citiesSlide(1)}
         <article class="carousel-slide hero-slide hero-slide-enterprise" ${slideAttrs(2, 'Conexão para empresas')}>
           <div class="hero-copy"><p class="hero-kicker">AMR para empresas</p><h2 aria-label="Sua empresa conectada. Suporte por perto."><span aria-hidden="true">${arrivingTitle('Sua empresa conectada.','Suporte por perto.')}</span></h2><p class="hero-lead">Para lojas, escritórios e equipes, a AMR avalia a cobertura e entende a rotina da operação antes de apresentar uma solução. Você também conta com suporte técnico e atendimento humano.</p>${action('Conversar sobre minha empresa','business','','button primary hero-cta')}</div>
           <div class="enterprise-stage"><div class="enterprise-media"><img src="${heroAssets[5]}" width="1600" height="900" loading="lazy" decoding="async" alt="Representação 3D de um edifício empresarial conectado por fibra óptica."><video data-enterprise-video muted playsinline preload="none" poster="${heroAssets[5]}" width="1600" height="900" aria-hidden="true" tabindex="-1"><source src="${heroAssets[7]}" type="video/mp4"></video></div><div class="enterprise-support">${icon('headset')}<p><strong>Suporte técnico para empresas, com gente de verdade.</strong><span>Orientação para sua equipe no canal oficial da AMR.</span></p></div></div>

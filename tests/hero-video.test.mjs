@@ -29,8 +29,9 @@ test('HTML do hero aponta para o MP4 da casa e poster sem autoplay nativo',()=>{
   assert.match(html,/<video class="hero-house-video"[^>]*muted loop playsinline preload="none"/);
   assert.match(html,/<source src="\/assets\/videos\/hero-amr-integrado-corrigido\.mp4" type="video\/mp4">/);
   assert.doesNotMatch(html,/<source data-src=/);
-  // Casa abre o carrossel: só a imagem dela tem prioridade de rede.
-  assert.match(html,/class="hero-house-fallback"[^>]*fetchpriority="high"/);
+  // Cidades abre o carrossel: a foto de Gravatá recebe prioridade de rede.
+  assert.match(html,/igreja-matriz-gravata-1600\.webp"[^>]*fetchpriority="high"/);
+  assert.match(html,/class="hero-house-fallback"[^>]*loading="lazy"/);
   assert.equal((html.match(/fetchpriority="high"/g)||[]).length,1);
 });
 

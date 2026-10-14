@@ -573,13 +573,13 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
 .city-card figcaption .icon { width:15px;height:15px;color:var(--home-blue); }
 .city-card figcaption strong { font-weight:750; }
 @media all {
-  .hero-slide-city.is-active :is(.hero-kicker,h2,.hero-lead,.hero-cta) { animation:amr-slide-enter 560ms cubic-bezier(.22,.61,.36,1) both; }
-  .hero-slide-city.is-active h2 { animation-delay:80ms; }
+  .hero-slide-city.is-active :is(.hero-kicker,h1,.hero-lead,.hero-cta) { animation:amr-slide-enter 560ms cubic-bezier(.22,.61,.36,1) both; }
+  .hero-slide-city.is-active h1 { animation-delay:80ms; }
   .hero-slide-city.is-active .hero-lead { animation-delay:300ms; }
   .hero-slide-city.is-active .hero-cta { animation-delay:440ms; }
   .hero-slide-city.is-active .city-card { animation:amr-city-card 520ms 160ms cubic-bezier(.22,.61,.36,1) both; }
   .hero-slide-city.is-active .city-card + .city-card { animation-delay:280ms; }
-  .home-hero.user-effects-paused .hero-slide-city :is(.hero-kicker,h2,.hero-lead,.hero-cta,.city-card) { animation:none!important; }
+  .home-hero.user-effects-paused .hero-slide-city :is(.hero-kicker,h1,.hero-lead,.hero-cta,.city-card) { animation:none!important; }
 }
 @keyframes amr-city-card { from { opacity:0;transform:translateY(10px); } to { opacity:1;transform:none; } }
 @media(prefers-reduced-motion:reduce) {

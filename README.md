@@ -64,7 +64,7 @@ Recompile após editar a configuração. A indexação só é habilitada quando 
 
 ## Vídeo e materiais
 
-O carrossel tem quatro slides: Casa, Gravatá e Amaraji, Empresas e Atendimento. O slide de cidades usa a foto creditada de Gravatá e um espaço reservado para Amaraji, enquanto falta uma foto autorizada. Os créditos ficam em Termos de Uso, com acesso pelo rodapé.
+O carrossel tem quatro slides: Gravatá e Amaraji, Casa, Empresas e Atendimento. O primeiro slide usa a foto creditada de Gravatá e um espaço reservado para Amaraji, enquanto falta uma foto autorizada. Os créditos ficam em Termos de Uso, com acesso pelo rodapé.
 
 Veja [ASSET_AUDIT.md](docs/historico/ASSET_AUDIT.md) para a auditoria individual das mídias originais. O vídeo original `AMR Telecom.mp4` contém textos promocionais, alegações não aprovadas e telefone ilustrativo; permanece preservado em `public/assets/videos`, mas não entra no build. As oito artes de `references` serviram somente como referência.
 
@@ -72,9 +72,9 @@ As aplicações atuais da marca usam `logo-amr-light-transparent.png` no cabeça
 
 Os posters transparentes `amr-casa-fibra-3d.webp` e `amr-pessoa-celular-parada.webp` substituem PNGs mais pesados no build. A conversão preserva dimensões e transparência; os arquivos originais permanecem em `public/`.
 
-O build inclui quatro vídeos MP4: `hero-amr-integrado-corrigido.mp4` para a casa no primeiro slide, `amr-empresa-hero.mp4` para o prédio comercial no segundo, `atendimento-amr.mp4` para o atendimento no terceiro e `amr-empresas.mp4` para o escritório na seção empresarial. O vídeo do segundo slide tem aproximadamente 10 segundos, 1280 × 720 px, sem áudio, com a marca AMR integrada ao final; usa `amr-empresa-hero-poster.jpg` como imagem de reserva. As bordas desse vídeo se misturam suavemente ao fundo do slide. Os vídeos carregam sob demanda e pausam conforme a visibilidade, a preferência por movimento reduzido e a economia de dados. Os originais fora da lista selecionada não entram no build.
+O build inclui os vídeos `hero-amr-integrado-corrigido.mp4` para Casa, `amr-empresa-flow-20261001.mp4` para Empresas, `atendimento-amr-bordado-tecido-20261001.mp4` para Atendimento e `amr-empresa-hero.mp4` para a seção empresarial. Os vídeos carregam sob demanda e pausam conforme a visibilidade, a preferência por movimento reduzido e a economia de dados. Os originais fora da lista selecionada não entram no build.
 
-O carrossel avança automaticamente a cada 10 segundos e oferece controles de navegação e pausa. Nos planos, “Detalhes do plano” abre uma explicação por vez, inclusive no catálogo da página inicial; a opção empresarial apresenta soluções e contato, sem mensalidade anunciada.
+O carrossel oferece controles de navegação e pausa; o primeiro slide avança após 8 segundos e os demais após 10 segundos. Nos planos, “Detalhes do plano” abre uma explicação por vez, inclusive no catálogo da página inicial; a opção empresarial apresenta soluções e contato, sem mensalidade anunciada.
 
 ## Estrutura
 
