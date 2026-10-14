@@ -1,14 +1,10 @@
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
-import path from 'node:path';
 import { config } from '../src/config.mjs';
 import { routes } from '../src/routes.mjs';
 import { hostingHeaders } from './security.mjs';
+import { chromium, origin, reportFailure } from './browser-test.mjs';
 
-const origin = process.env.AMR_ORIGIN || 'http://127.0.0.1:4173';
-const require = createRequire(path.join(process.env.AMR_PLAYWRIGHT_ROOT || process.cwd(), 'package.json'));
-const { chromium } = require('playwright');
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const browser = await chromium.launch({ headless: true });
 
 try {
   const context = await browser.newContext();
@@ -108,7 +104,10 @@ try {
     assert.equal(await page.locator('script:not([src]), [onclick], [onload], [onerror], iframe').count(), 0);
     for (const link of await page.locator('a[target="_blank"]').all()) assert.match(await link.getAttribute('rel'), /noopener noreferrer/);
   }
-  console.log('Aprovado: 12 páginas, headers, CSP de scripts/estilos/formulários, cargas XSS como texto, plano por allowlist, limites, armazenamento vazio, iframe, traversal, arquivos privados e menu sem JavaScript.');
+  console.log(`Aprovado: ${routes.length} páginas, headers locais, CSP de scripts/estilos/formulários, cargas XSS como texto, plano por allowlist, limites, armazenamento vazio, iframe, traversal, arquivos privados e menu sem JavaScript.`);
+} catch (error) {
+  await reportFailure(browser, error).catch(() => {});
+  throw error;
 } finally {
   await browser.close();
 }

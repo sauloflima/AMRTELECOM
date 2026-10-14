@@ -27,7 +27,7 @@ for (const route of routes) {
   }
   assert.match(await response.text(), /<meta name="robots" content="index, follow"/);
 }
-console.log('HTTPS e cabeçalhos verificados nas 12 URLs publicadas.');
+console.log(`HTTPS e cabeçalhos verificados nas ${routes.length} URLs publicadas.`);
 if (process.argv.includes('--require-hsts')) {
   const response = await fetch(origin + '/', { signal: AbortSignal.timeout(10000) });
   assert.match(response.headers.get('strict-transport-security') || '', /(?:^|;)\s*max-age=[1-9]\d*/i);

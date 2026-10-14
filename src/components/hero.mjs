@@ -3,7 +3,7 @@ import { config } from '../config.mjs';
 import { whatsappUrl } from '../lib/whatsapp.mjs';
 
 export const heroAssets = [
-  '/assets/generated/amr-casa-fibra-3d.png',
+  '/assets/generated/amr-casa-fibra-3d.webp',
   '/assets/generated/amr-atendimento-bordado-20261001.jpg',
   '/assets/videos/hero-amr-integrado-corrigido.mp4',
   '/assets/videos/atendimento-amr-bordado-tecido-20261001.mp4',

@@ -18,6 +18,6 @@ export const pagesBase = '/AMRTELECOM';
 
 // Só adapta caminhos absolutos locais em HTML/CSS/JS; repetir não duplica a base.
 export function withPagesBase(content) {
-  return content.replace(/(["'`])\/(?!\/)/g, (match, quote, index, source) =>
+  return content.replace(/(["'`])\/(?![\/>])/g, (match, quote, index, source) =>
     source.startsWith(`${pagesBase}/`, index + 1) ? match : `${quote}${pagesBase}/`);
 }

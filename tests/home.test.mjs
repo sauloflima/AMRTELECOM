@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { testimonials, homeProfiles, homeBusiness, homeSupport, homeFaq, pendingStories } from '../src/components/home-sections.mjs';
+import { testimonials, homeRoutine, homeBusiness, homeSupport, homeFaq, pendingStories } from '../src/components/home-sections.mjs';
 import { plans } from '../src/components/plans.mjs';
 import { config } from '../src/config.mjs';
 import { hero } from '../src/components/hero.mjs';
@@ -60,7 +60,7 @@ test('planos preservam preços, detalhes nativos e contato direto',()=>{
 });
 
 test('rotina e empresas usam mídias próprias e não usam referência Nio',()=>{
-  const html=homeProfiles()+homeBusiness();
+  const html=homeRoutine()+homeBusiness();
   assert.match(html,/\broutine-grid\b/);
   assert.match(html,/amr-perfil-familia\.jpg/);
   assert.match(html,/amr-perfil-trabalho\.jpg/);
@@ -79,7 +79,7 @@ test('rotina e empresas usam mídias próprias e não usam referência Nio',()=>
 test('primeiro slide usa vídeo da casa com poster e fallback compatível',()=>{
   const html=hero();
   assert.match(html,/class="hero-house-video"[^>]*muted loop playsinline preload="none"/);
-  assert.match(html,/poster="\/assets\/generated\/amr-casa-fibra-3d\.png"/);
+  assert.match(html,/poster="\/assets\/generated\/amr-casa-fibra-3d\.webp"/);
   assert.match(html,/hero-amr-integrado-corrigido\.mp4/);
   assert.match(html,/class="hero-house-fallback"/);
 });

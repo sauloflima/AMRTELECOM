@@ -1,13 +1,12 @@
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
 import path from 'node:path';
-import os from 'node:os';
+import { mkdir } from 'node:fs/promises';
 import { routes } from '../src/routes.mjs';
+import { chromium, origin, reportFailure } from './browser-test.mjs';
 
-const require = createRequire(path.join(process.env.AMR_PLAYWRIGHT_ROOT || process.cwd(), 'package.json'));
-const { chromium } = require('playwright');
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
-const origin = process.env.AMR_ORIGIN || 'http://127.0.0.1:4173';
+const browser = await chromium.launch({ headless: true });
+const evidence = process.env.AMR_BROWSER_EVIDENCE || 'output/playwright';
+await mkdir(evidence, { recursive: true });
 const widths = [320, 375, 390, 768, 1024, 1440];
 const errors = [];
 const links = new Set();
@@ -31,9 +30,9 @@ try {
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width, `${route.path}: ${width}px`);
     }
     if (route.path === '/planos.html') {
-      await page.screenshot({ path: path.join(os.tmpdir(), 'amr-pages-desktop.png') });
+      await page.screenshot({ path: path.join(evidence, 'amr-pages-desktop.png') });
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.screenshot({ path: path.join(os.tmpdir(), 'amr-pages-mobile.png') });
+      await page.screenshot({ path: path.join(evidence, 'amr-pages-mobile.png') });
       await page.setViewportSize({ width: 1440, height: 950 });
     }
     for (const href of await page.locator('a[href]').evaluateAll(items => items.map(item => item.getAttribute('href')))) {
@@ -61,23 +60,22 @@ try {
 
   for (const href of links) {
     assert.ok(!href.startsWith('/#'), `Âncora antiga: ${href}`);
-    const response = await page.request.get(origin + href);
+    const response = await page.request.get(new URL(href, origin + '/').href);
     assert.equal(response.status(), 200, href);
   }
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(origin);
+  await page.goto(origin + '/');
   assert.equal(await page.locator('.header .brand-light').evaluate(img => getComputedStyle(img).display), 'block');
   assert.ok(await page.locator('.header .brand-light').evaluate(img => img.naturalWidth > 0));
   assert.equal(await page.locator('.amr-footer .brand-light').evaluate(img => getComputedStyle(img).display), 'none');
   await page.evaluate(() => scrollTo(0, 200));
   await page.waitForFunction(() => document.querySelector('.header').classList.contains('is-scrolled'));
   assert.equal(await page.locator('.header .brand-dark').evaluate(img => getComputedStyle(img).display), 'block');
-  await page.locator('.routine-section').scrollIntoViewIfNeeded();
-  await page.waitForFunction(() => !document.querySelector('.coverage-dock').hidden);
   assert.equal(await page.locator('.mobile-whatsapp').count(), 0);
-  await page.locator('.plan-grid').scrollIntoViewIfNeeded();
-  await page.waitForFunction(() => document.querySelector('.coverage-dock').hidden);
+  await page.evaluate(() => scrollTo(0, 0));
+  await page.locator('.hero-cta[data-focus-coverage]').click();
+  assert.equal(await page.locator('#quick-cep').evaluate(el => el === document.activeElement), true);
   await page.evaluate(() => scrollTo(0, 0));
   await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();
   await page.locator('#navigation').getByRole('link', { name: 'Planos', exact: true }).click();
@@ -87,7 +85,7 @@ try {
   await page.reload();
   assert.equal(await page.locator('.plan-card').count(), 4);
   await page.goBack();
-  assert.equal(new URL(page.url()).pathname, '/');
+  assert.equal(new URL(page.url()).pathname, new URL(origin + '/').pathname);
 
   await page.goto(origin + '/perguntas.html');
   for (const details of await page.locator('details').all()) {
@@ -102,6 +100,9 @@ try {
   assert.equal(await page.evaluate(() => document.activeElement.className), 'skip-link');
   assert.deepEqual(errors, []);
   console.log(`Aprovado: ${links.size} destinos internos; ${contactButtons} botões de contato; menu, recarregamento, Voltar e accordion. Nenhum erro no console.`);
+} catch (error) {
+  await reportFailure(browser, error).catch(() => {});
+  throw error;
 } finally {
   await browser.close();
 }

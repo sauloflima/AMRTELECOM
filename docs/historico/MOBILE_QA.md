@@ -25,14 +25,14 @@ Conteúdo comercial, preços residenciais, formulário, URLs e mídias preservad
 
 ## Capturas
 
-[Galeria comparativa](mobile-qa/index.html)
+[Galeria comparativa](../../mobile-qa/index.html)
 
 | Referência | Resultado |
 | --- | --- |
-| [Mobile antes, card automático](mobile-qa/before/390-support.png) | [Mobile recolhido](mobile-qa/after/390-support-closed.png) · [Mobile aberto por toque](mobile-qa/after/390-support-open.png) |
-| [Desktop antes](mobile-qa/before/1440-support.png) | [Desktop depois, aberto](mobile-qa/after/1440-support-open.png) · [Recolhido](mobile-qa/after/1440-support-closed.png) |
-| [Empresarial antes](mobile-qa/before/390-slide-2.png) | [Empresarial depois](mobile-qa/after/390x844-slide-2-b.png) |
-| Pouca altura | [Atendimento em 390 × 400](mobile-qa/support/short-390x400.png) |
+| [Mobile antes, card automático](../../mobile-qa/before/390-support.png) | [Mobile recolhido](../../mobile-qa/after/390-support-closed.png) · [Mobile aberto por toque](../../mobile-qa/after/390-support-open.png) |
+| [Desktop antes](../../mobile-qa/before/1440-support.png) | [Desktop depois, aberto](../../mobile-qa/after/1440-support-open.png) · [Recolhido](../../mobile-qa/after/1440-support-closed.png) |
+| [Empresarial antes](../../mobile-qa/before/390-slide-2.png) | [Empresarial depois](../../mobile-qa/after/390x844-slide-2-b.png) |
+| Pouca altura | [Atendimento em 390 × 400](../../mobile-qa/support/short-390x400.png) |
 
 As capturas preservam os frames reais; quadros diferentes do mesmo vídeo não representam mudança de asset.
 
@@ -48,9 +48,9 @@ Chrome 153.0.8010.53, sem congelar relógio ou animações nos testes de mídia.
 
 Os tempos das animações CSS de entrada também avançaram enquanto o texto estava visível, inclusive em 390 × 400. Após “Pausar efeitos”, nenhum efeito do hero ficou em estado `running`. Ao sair da tela, os vídeos e ícones pararam. O quarto vídeo, na seção empresarial, também foi verificado com seu controle próprio.
 
-[Todos os tempos e estados](mobile-qa/after/animation-measurements.json). [Log de mídia](mobile-qa/motion.log) · [log do atendimento](mobile-qa/support.log). [Frames da casa](mobile-qa/after/390x844-slide-1-a.png) · [frame seguinte](mobile-qa/after/390x844-slide-1-b.png).
+[Todos os tempos e estados](../../mobile-qa/after/animation-measurements.json). [Log de mídia](../../mobile-qa/motion.log) · [log do atendimento](../../mobile-qa/support.log). [Frames da casa](../../mobile-qa/after/390x844-slide-1-a.png) · [frame seguinte](../../mobile-qa/after/390x844-slide-1-b.png).
 
-Safari 27.2 no macOS foi conferido pela interface nativa: três slides, reprodução, pausa e retomada. Duas capturas da região do vídeo da casa durante a pausa tiveram SSIM 1,000000 (região idêntica); após a retomada, 0,710415. As regiões dos vídeos empresarial e de atendimento também mudaram entre as capturas. Esses valores documentam mudança de frames, não são uma nota de qualidade. [Registro e regiões comparadas](mobile-qa/after/safari-pixel-measurements.json).
+Safari 27.2 no macOS foi conferido pela interface nativa: três slides, reprodução, pausa e retomada. Duas capturas da região do vídeo da casa durante a pausa tiveram SSIM 1,000000 (região idêntica); após a retomada, 0,710415. As regiões dos vídeos empresarial e de atendimento também mudaram entre as capturas. Esses valores documentam mudança de frames, não são uma nota de qualidade. [Registro e regiões comparadas](../../mobile-qa/after/safari-pixel-measurements.json).
 
 ## Resultado dos testes
 
@@ -77,7 +77,7 @@ Sem rolagem horizontal ou erros inesperados de JavaScript/console nos cenários 
 - `scripts/check-mobile-browser.mjs`: nova verificação de mídia e movimento no navegador.
 - `README.md`, `SUPPORT_ASSISTANT.md`, este relatório e `mobile-qa/`: documentação e evidências.
 
-`src/lib/carousel.mjs` foi inspecionado e testado; não precisou de alteração. [Diff desta tarefa](mobile-qa/changes.patch).
+`src/lib/carousel.mjs` foi inspecionado e testado; não precisou de alteração. [Diff desta tarefa](../../mobile-qa/changes.patch).
 
 ## Reprodução e limites
 

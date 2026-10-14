@@ -1,5 +1,99 @@
 # Auditoria de segurança — AMR Telecom
 
+## Revalidação e correções locais de 13/10/2026
+
+Estado inspecionado: branch `codex/seguranca-arquitetura`, HEAD `dfd5c4e392a59636988ebe595519eb7776ca3d46`. No início havia somente `marketing/` e `output/` não rastreados; foram preservados. As correções são locais e não tiveram commit, push, deploy, alteração de DNS, mudança de hospedagem ou contato com terceiros. Os dados comerciais, CSS, templates e mídias foram preservados; `src/config.mjs` teve somente o comentário histórico de TLS atualizado, com a revisão de cache recalculada pelo build.
+
+**Veredito da publicação definitiva: NOT RELEASE READY.** Domínio/destino, referências de aprovação comercial, privacidade e termos continuam pendentes. O Pages serve uma demonstração pública sem indexação e sem os headers personalizados exigidos. Testes locais não homologam a produção nem o portal.
+
+### Respostas públicas observadas
+
+Evidência selecionada e sem cookies: [security-evidence-2026-10-13.json](../security-evidence-2026-10-13.json). Medição em **13/10/2026 às 15:49–15:50, America/Recife** (18:49–18:50 UTC), com GET público, validação TLS padrão, sem credenciais ou bypass. O JSON guarda URLs, status, headers selecionados, metas públicas e identificação/validade do certificado; não guarda corpo do login, Set-Cookie, cookies ou estado de sessão.
+
+| Controle / URL | Evidência atual | Limite |
+|---|---|---|
+| `http://sauloflima.github.io/AMRTELECOM/` | HTTP 301, Location para o mesmo caminho HTTPS | Não representa o domínio definitivo |
+| 16 páginas de `https://sauloflima.github.io/AMRTELECOM/` | HTTP 200, HSTS `max-age=31556952`, meta CSP restrita e meta `noindex, nofollow` em todas | Sem os sete headers de `hostingHeaders` |
+| CSP HTTP / anti-enquadramento no Pages | CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP e CORP ausentes nas respostas | Meta CSP não implementa `frame-ancestors`; não se repetiu o teste de iframe público de setembro |
+| `https://www.amrfibra.com.br/central/` | TLS validado; 302 para `login.hhvm`; login público final HTTP 200 por HTTPS | Nenhuma conta, autenticação ou segurança interna testada |
+| Certificado do portal | CN `amrfibra.com.br`; SAN inclui `amrfibra.com.br` e `www.amrfibra.com.br`; Let's Encrypt YR2; válido de 27/09/2026 14:54:47 UTC até 26/12/2026 14:54:46 UTC | Renovação automática não foi verificada |
+
+SEC-001 está **RESOLVIDO quanto ao TLS público observado**, com a falha anterior preservada abaixo. SEC-002 continua **PENDÊNCIA EXTERNA** na entrega pública. O Apache observado no portal pertence a outro serviço: não identifica o destino definitivo do artefato AMR.
+
+### Correções e fronteiras de publicação
+
+| Lacuna confirmada | Correção implementada | Evidência / fonte |
+|---|---|---|
+| Documentos afirmavam `prepublish:check` no workflow, mas o YAML não o executava | README e arquitetura descrevem demonstração e gate definitivo separados; o relato anterior de SEC-003 foi qualificado | `pages.yml`, `release-readiness.yml`, README e ARCHITECTURE |
+| Demonstração poderia herdar indexação após aprovação da configuração final | `build --demo` força noindex, Disallow e sitemap vazio; `check:dist -- --demo` exige os três | `scripts/build.mjs:26`, `scripts/check-publication.mjs:51` |
+| CI não testava navegador e dependia de instalação externa mutável | Playwright 1.64.0 exato no lockfile; Chromium correspondente instalado explicitamente; runner reaproveita os cinco scripts | `package.json`, lockfile, `scripts/check-browser.mjs` |
+| Scripts não exercitavam a base do artefato Pages e continham expectativas antigas | Prévia `--preview --pages`, URLs completas e expectativas do assistente atual; nenhum componente visual foi alterado | `scripts/dev.mjs`, `check-*-browser.mjs` |
+| Falhas de navegador não bloqueavam a entrega nem tinham relatórios de CI | Testes antes do upload; deploy depende de build; timeout por script/job; logs, JSON, capturas e diagnóstico com retenção de sete dias | `pages.yml`, `browser-test.mjs`, `check-browser.mjs` |
+| Artefato precisava comprovar fronteira de publicação | Allowlist antes/depois, teste de arquivo extra fictício rejeitado e requests a arquivos privados/traversal; meta CSP deve coincidir com a fonte central | `check-publication.mjs`, `check-browser.mjs`, `check-security-browser.mjs` |
+| Gate definitivo precisava ser preparado sem liberar publicação | Workflow manual com `if: ${{ false }}`, `prepublish:check` e testes; sem permissões de deploy e sem job de publicação | `.github/workflows/release-readiness.yml` |
+
+O workflow de demonstração retém a automação já existente em `main` e passa a validar PRs sem deploy. Nada foi acionado remotamente. O gate definitivo não pode ser ativado por preenchimento sintético de aprovações; sua ativação e qualquer novo deploy dependem da autorização específica de Saulo e de registros reais da AMR.
+
+### Política e capacidade da hospedagem
+
+`scripts/security.mjs` permanece a fonte de CSP e `hostingHeaders`. Não houve relaxamento da política, liberação de scripts/estilos inline, troca de contatos ou ativação de HSTS/subdomínios/preload. A meta contém somente as diretivas compatíveis; `frame-ancestors 'none'` aparece exclusivamente no valor do header HTTP. A prévia entrega esses headers para testar o comportamento local.
+
+O único destino identificado para o site é GitHub Pages, que não suporta configuração de headers personalizados. Além das respostas reais, foi consultada a [resposta de mantenedor do GitHub](https://github.com/orgs/community/discussions/54257). A limitação de `frame-ancestors` na meta está na [documentação MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors). Não se criou `_headers`, `.htaccess`, configuração de proxy, DNS ou arquivo de outro provedor que esse destino não aplique. Os valores completos podem ser extraídos diretamente do módulo para revisão, conforme o README.
+
+As decisões externas são manter essa limitação na demonstração, aprovar uma camada de entrega que permita headers em domínio próprio ou aprovar hospedagem estática compatível. Nenhuma infraestrutura foi escolhida. Após decisão e autorização, preparar somente a configuração daquele destino, validar HTTPS e enforcement e executar `check:hosting` com requisitos reais. HSTS amplo permanece dependente da verificação dos domínios envolvidos.
+
+### Segredos, dependências e escopo de evidência
+
+A varredura atual por padrões de chaves privadas e tokens conhecidos examinou 68 arquivos textuais rastreados e não encontrou candidatos; `check:dist` também examina o artefato. Isso não é prova de ausência absoluta. Não se reauditaram históricos Git, arquivos não rastreados, arquivos compactados ou mídia binária; os números da auditoria de setembro abaixo são históricos. A inspeção de `src/` não encontrou sinks HTML/código, postMessage ou leitura/gravação de storage pelos padrões pesquisados. Nenhum segredo foi acrescentado pelo diff.
+
+`npm audit --audit-level=low` reportou zero vulnerabilidades na árvore atual. Iconoir 7.11.0 e sua integridade permaneceram iguais; Playwright e playwright-core 1.64.0 foram adicionados somente para testes. A nova Action `upload-artifact` v4 está fixada em `ea165f8d65b6e75b540449e92b4886f43607fa02`, consultado na API pública oficial; os outros pins e a separação de privilégios foram preservados. Auditoria de dependências não cobre tudo que uma Action, o navegador ou a infraestrutura executa.
+
+### Verificação, responsáveis e próxima liberação
+
+Implementador e auto-revisor: Codex nesta conversa. Decisão de publicação/infraestrutura: Saulo; dados e aprovações: AMR; segurança interna do portal: seu operador. As medições são inspeção direta, mas esta auto-revisão **não equivale a aceite independente**. Não houve revisor independente, pipeline hospedada, homologação em aparelho físico ou verificação de configurações privadas de GitHub/fornecedores.
+
+O README traz comandos de reprodução e procedimento de entrega/reversão. A demonstração conserva noindex e deve guardar artefato aprovado, SHA-256, relatórios e última versão recuperável antes de publicação autorizada. Restaurar versão anterior em checkout isolado preserva o trabalho local. O comando operacional da hospedagem definitiva só pode ser completado depois da escolha do destino.
+
+Resultados finais, em macOS ARM64, Node 24.19.0 e Playwright/Chromium fixados em 1.64.0/156.0.8078.4:
+
+| Verificação | Resultado |
+|---|---|
+| `npm ci --ignore-scripts` e `npm audit --audit-level=low` | Instalação reproduzida; zero vulnerabilidades reportadas |
+| `npm test` | 61/61 aprovados |
+| `npm run build` e `npm run check:dist` | 16 páginas, 57 arquivos exatos, noindex por quatro pendências |
+| Suíte completa no build na raiz | Cinco scripts aprovados; runner encerrou em 71,25s |
+| `build --demo`, `prepare-pages`, `check:dist -- --demo` e suíte completa | Cinco scripts aprovados no mesmo artefato `/AMRTELECOM/`; runner encerrou em 70,324s |
+| Fluxos críticos | Home, 16 páginas em seis larguras, 23 destinos internos, 56 contatos, menu mobile, reload/Voltar, FAQ por teclado, formulário fictício, WhatsApp interceptado, modal 390×400 e rejeição de arquivos privados |
+| Falhas e proteção local | Módulo/script bloqueado, sem JS, XSS como texto, limites, CSP inline/form-action, iframe, traversal, arquivos privados HTTP e arquivo extra fictício rejeitado pelo checker |
+| Regressões de mídia/assistente | Vídeos/pausa/recuperação, economia de dados, mídia ausente; atraso real de 11s e oito viewports do assistente, fechamento por teclado, menu/modal/foco; limites anteriores indicados abaixo |
+| `npm run prepublish:check` | Falha esperada nas quatro pendências, sem preencher aprovação |
+| YAML, `node --check`, `git diff --check` | Sintaxe e whitespace aprovados; Actions não executadas remotamente |
+| Preservação | Configuração importada idêntica ao HEAD; nenhum diff em CSS, templates, controladores ou mídia; apenas comentário TLS de config alterado |
+
+Relatórios: [build na raiz](../../output/playwright/2026-10-13T19-08-06-129Z-38067/summary.json), [artefato Pages](../../output/playwright/2026-10-13T19-10-04-118Z-38573/summary.json) e [SHA-256 dos 57 arquivos testados](../../output/playwright/2026-10-13T19-10-04-118Z-38573/dist.sha256). Evidências permanecem fora de `dist/`. As execuções intermediárias que falharam ao adaptar os testes também produziram logs/capturas e encerraram o runner com código 1; a suíte final não usou bypass de CSP ou TLS.
+
+`check-hosting.mjs` **não foi executado** contra destino definitivo: `siteUrl` está vazio e as aprovações/revisões continuam pendentes. Não houve substituição por URL da demonstração nem bypass dos gates. Não se executou Lighthouse, homologação visual completa, matriz de browsers ou auditoria interna de fornecedores; testes funcionais em Chromium não equivalem a esses aceites.
+
+| Dimensão da liberação definitiva | Situação |
+|---|---|
+| Implementação local e fluxos críticos exercitados | PASS como evidência técnica local |
+| Headers HTTP na demonstração / adequação do destino definitivo | FAIL no Pages para a política completa; destino final NOT VERIFIABLE |
+| Aprovações comerciais/legais e domínio | FAIL por pendências reais |
+| CI em Ubuntu/Node 22 no GitHub | NOT VERIFIABLE nesta sessão; configuração preparada, sem acionamento |
+| Portal | PASS para TLS público na data; autenticação/segurança interna NOT VERIFIABLE |
+| Aceite independente, dispositivos e acessibilidade completa | NOT VERIFIABLE; auto-revisão e emulação não substituem homologação |
+
+### Limites observados na interface preservada
+
+- **BUG CONFIRMADO anterior a estas correções:** em 1024×950, o clique no fechamento do assistente pode falhar porque o foco reposiciona o convite entre pointerdown e click; a instrumentação observou foco em `.support-close` e click em `body`, com o convite ainda aberto. O fechamento por Enter passou. O teste atual do assistente verifica teclado, sem afirmar que homologou esse clique. Nenhum controlador ou CSS do assistente foi alterado nesta tarefa de segurança/CI.
+- **COMPORTAMENTO HERDADO:** a preferência do sistema por movimento reduzido não pausa todos os vídeos/efeitos atuais. O teste de mídia existente confirma reprodução na cena da casa nesse modo; o vídeo empresarial respeita a preferência e a pausa manual funciona. Não se alterou esse comportamento nesta tarefa. A suíte não equivale a aprovação de acessibilidade ou conformidade integral com a preferência registrada em AGENTS.md.
+
+Esses limites foram encontrados ao reaproveitar os testes; não foram eliminados alterando a CSP ou a interface. Exigem revisão funcional específica antes de homologação completa, além das pendências de produção acima.
+
+## Registro histórico da auditoria de 26/09/2026
+
+O texto abaixo conserva as evidências e contagens daquela data. Afirmações de estado e pendências foram superadas quando indicado na revalidação acima; não descrevem automaticamente a árvore nem a hospedagem atual.
+
 Data: 26/09/2026 (America/Recife). Base inspecionada: commit `75fbf18`, com árvore de trabalho limpa no início. Auditoria do código, correções locais, testes de regressão e segunda revisão na mesma sessão. Nenhum commit, push, deploy, alteração de DNS ou mensagem para terceiros foi realizado.
 
 ## Resumo executivo
@@ -68,7 +162,7 @@ Cookies, `localStorage`, `sessionStorage`, `document.referrer`, mensagens `postM
 | SEC-005 | Informativa / P3 | Cadeia de build e privilégios | `.github/workflows/pages.yml:6` | CORRIGIDO no código |
 | SEC-006 | Informativa / P4 | Verificação incompleta de headers | `scripts/check-hosting.mjs:14` | CORRIGIDO no código |
 
-### SEC-001 — certificado inválido no portal do cliente
+### SEC-001 — incidente de TLS do portal em 26/09/2026
 
 **Problema e evidência:** o endereço oficial configurado, `https://www.amrfibra.com.br/central/`, falhou na validação HTTPS por incompatibilidade do hostname. A inspeção apenas do certificado apresentado com SNI mostrou `CN=cabox.com.br`, SAN `DNS:cabox.com.br`, emitido em 23/04/2026 e vencido em **22/07/2026 às 01:52:20 UTC**. Portanto, há tanto domínio incompatível quanto expiração. Não foi feito login nem acessado conteúdo HTTP com validação TLS desativada.
 
@@ -76,7 +170,7 @@ Cookies, `localStorage`, `sessionStorage`, `document.referrer`, mensagens `postM
 
 **Correção necessária:** a hospedagem deve corrigir o virtual host/SNI e instalar uma cadeia válida e vigente para `www.amrfibra.com.br`, com renovação automática. Confirmar resolução DNS e apontamento do domínio caso levem ao virtual host errado. Repetir a validação sem exceções TLS e verificar o funcionamento do portal antes do lançamento. O link oficial foi preservado; não foi substituído por HTTP ou outro domínio presumido.
 
-**Status:** PENDENTE, depende do provedor do portal. Não corrigível neste frontend.
+**Status em 26/09/2026:** PENDENTE no provedor. **Revalidado em 13/10/2026:** certificado público válido; incidente de TLS resolvido na medição atual. Autenticação e segurança interna permanecem não verificadas.
 
 ### SEC-002 — proteção local não está nos headers públicos
 
@@ -96,7 +190,7 @@ Cookies, `localStorage`, `sessionStorage`, `document.referrer`, mensagens `postM
 
 **Correção:** o build exige `npm run prepublish:check` antes da adaptação e do upload, e o deploy depende do sucesso desse job. O comando foi executado e bloqueou as quatro pendências esperadas. Nenhuma aprovação foi inventada ou preenchida automaticamente.
 
-**Status:** CORRIGIDO no workflow local. Completar domínio e revisões continua pendente; esse bloqueio não retira o site anterior do ar. A execução no GitHub não foi disparada nesta auditoria.
+**Correção relatada em 26/09/2026:** não estava presente no YAML inspecionado em 13/10/2026. O processo atual está corrigido por separação: demonstração com noindex/testes; gate definitivo separado, manual, desativado e sem deploy. Completar domínio e revisões continua pendente. Nenhum workflow remoto foi disparado.
 
 ### SEC-004 — reduzir a CSP sem alterar a apresentação
 
@@ -323,11 +417,11 @@ Foram usados conceitos do [OWASP ASVS](https://owasp.org/projects/asvs?tab=main)
 
 O uso de propriedades CSS pelo módulo confiável, sem liberar atributos inline, segue o comportamento documentado em [MDN: style-src-attr](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/style-src-attr). Os pins e a limitação de privilégios seguem a orientação de [uso seguro de GitHub Actions](https://docs.github.com/en/actions/reference/security/secure-use). A distinção entre HTTPS e acesso público no Pages está documentada em [GitHub: HTTPS no Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https). As conclusões sobre os headers ausentes e o certificado são medições diretas desta sessão.
 
-## STATUS DE SEGURANÇA DO PROJETO
+## STATUS HISTÓRICO EM 26/09/2026
 
 - [ ] BLOQUEADO PARA PRODUÇÃO
 - [x] REQUER CORREÇÕES ANTES DO DEPLOY
 - [ ] APTO PARA HOMOLOGAÇÃO
 - [ ] APTO PARA PRODUÇÃO COM RISCOS DOCUMENTADOS
 
-Justificativa: o código corrigido e suas regressões passaram, mas o portal oficial segue com TLS inválido, a hospedagem pública não aplica os headers exigidos e a liberação comercial/legal está incompleta. A conclusão se limita ao escopo e às evidências acima; o projeto não foi declarado invulnerável.
+Justificativa registrada naquela data: o código corrigido e suas regressões passaram, mas o portal estava com TLS inválido, a hospedagem pública não aplicava os headers exigidos e a liberação comercial/legal estava incompleta. O TLS público foi revalidado como válido em 13/10/2026; as outras pendências atuais constam no início deste documento. A conclusão se limita ao escopo e às evidências acima; o projeto não foi declarado invulnerável.

@@ -1,6 +1,6 @@
 # AMR Telecom: auditoria visual e refinamento
 
-Auditoria feita no site em execução no Chrome, com capturas integrais das 12 páginas em 1440 e 390 px. As páginas principais também foram conferidas em 320, 768 e 1024 px. As capturas ficam em [`visual-audit-20260925/`](visual-audit-20260925/); nas comparações abaixo, **antes** está à esquerda e **depois** à direita.
+Auditoria feita no site em execução no Chrome, com capturas integrais das 12 páginas em 1440 e 390 px. As páginas principais também foram conferidas em 320, 768 e 1024 px. As capturas ficam em [`visual-audit-20260925/`](../../visual-audit-20260925); nas comparações abaixo, **antes** está à esquerda e **depois** à direita.
 
 ## Problemas encontrados e decisões
 
@@ -23,10 +23,10 @@ O azul e o azul-marinho da AMR, a tipografia do sistema e a escala de containers
 
 ## Comparações
 
-- [Início, 1440 px](visual-audit-20260925/compare-inicio-1440.png): marca, consulta e início dos planos.
-- [Planos, 390 px](visual-audit-20260925/compare-planos-390.png): logotipo, preço e cartão.
-- [Cobertura, 768 px](visual-audit-20260925/compare-cobertura-768.png): cabeçalho e formulário.
-- [Contato, 390 px](visual-audit-20260925/compare-contato-390.png): identidade e caminhos de atendimento.
+- [Início, 1440 px](../../visual-audit-20260925/compare-inicio-1440.png): marca, consulta e início dos planos.
+- [Planos, 390 px](../../visual-audit-20260925/compare-planos-390.png): logotipo, preço e cartão.
+- [Cobertura, 768 px](../../visual-audit-20260925/compare-cobertura-768.png): cabeçalho e formulário.
+- [Contato, 390 px](../../visual-audit-20260925/compare-contato-390.png): identidade e caminhos de atendimento.
 
 As capturas integrais `before-*.png` e `after-*.png` cobrem as 12 páginas em desktop e celular. Os arquivos de métricas registram largura, altura e H1; `after-metrics.json` também verifica imagens quebradas.
 

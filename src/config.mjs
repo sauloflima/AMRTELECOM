@@ -3,7 +3,7 @@
 export const config = {
   brand: { name: 'AMR Telecom', slogan: 'Conectando você ao que importa', logo: '/assets/brand/logo-amr-relief.png', logoLight: '/assets/brand/logo-amr-light-transparent.png', favicon: '/assets/brand/favicon-amr.png' },
   siteUrl: '', // Preencher com o domínio HTTPS definitivo para gerar sitemap e canonical.
-  customerPortalUrl: 'https://www.amrfibra.com.br/central/', // Endereço oficial fornecido; certificado HTTPS precisa ser renovado.
+  customerPortalUrl: 'https://www.amrfibra.com.br/central/', // TLS válido em 13/10/2026 até 26/12/2026; falha de setembro em SECURITY_AUDIT.md. Login não testado.
   commercialConfirmed: true,
   // Referências dos registros de aprovação da AMR; não preencher sem revisão real.
   publicationApprovals: { commercial: '', privacy: '', terms: '' },

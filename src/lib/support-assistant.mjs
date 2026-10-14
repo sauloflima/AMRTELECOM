@@ -8,7 +8,6 @@ export function mountSupportAssistant(root) {
   const menu = document.querySelector('.menu-toggle');
   const dialog = document.querySelector('#contact-dialog');
   const footer = document.querySelector('footer');
-  const dock = document.querySelector('.coverage-dock');
   let footerVisible = false;
   let ready = false;
   let pendingPrompt = false;
@@ -73,10 +72,6 @@ export function mountSupportAssistant(root) {
     footerVisible = entry.isIntersecting;
     sync();
   }).observe(footer);
-  if (dock) new ResizeObserver(() => {
-    root.style.setProperty('--support-dock-height', `${dock.getBoundingClientRect().height}px`);
-    sync();
-  }).observe(dock);
   const observer = new MutationObserver(sync);
   if (menu) observer.observe(menu, { attributes: true, attributeFilter: ['aria-expanded'] });
   if (dialog) observer.observe(dialog, { attributes: true, attributeFilter: ['open'] });

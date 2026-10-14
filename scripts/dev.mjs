@@ -5,15 +5,19 @@ import { stat } from 'node:fs/promises';
 import { createReadStream, watch } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { hostingHeaders } from './security.mjs';
+import { pagesBase } from './publication.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dist=path.join(root,'dist');
 const preview=process.argv.includes('--preview');
+const base=preview && process.argv.includes('--pages') ? pagesBase : '';
 if(!preview)execFileSync(process.execPath,[path.join(root,'scripts/build.mjs')],{stdio:'inherit'});
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.mp4':'video/mp4','.webm':'video/webm','.xml':'application/xml; charset=utf-8','.txt':'text/plain; charset=utf-8'};
 const server=http.createServer(async(req,res)=> {
   try{
     const url=new URL(req.url,'http://localhost');
-    const relative=decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname);
+    if(base && !url.pathname.startsWith(base+'/')){res.writeHead(404);res.end('Página não encontrada.');return;}
+    const pathname=url.pathname.slice(base.length);
+    const relative=decodeURIComponent(pathname==='/'?'/index.html':pathname);
     const file=path.resolve(dist,'.'+relative);
     if(!file.startsWith(dist+path.sep)){res.writeHead(403);res.end('Acesso negado');return;}
     const info=await stat(file);
@@ -26,5 +30,5 @@ const server=http.createServer(async(req,res)=> {
 });
 const port=Number(process.env.PORT || 4173);
 const host=process.env.HOST || '127.0.0.1';
-server.listen(port,host,()=>console.log(`AMR Telecom: http://${host}:${port}`));
+server.listen(port,host,()=>console.log(`AMR Telecom: http://${host}:${server.address().port}${base}/`));
 if(!preview){let timer;watch(path.join(root,'src'),{recursive:true},()=>{clearTimeout(timer);timer=setTimeout(()=>{try{execFileSync(process.execPath,[path.join(root,'scripts/build.mjs')],{stdio:'inherit'});}catch{console.error('Falha no build. Corrija o arquivo indicado e salve novamente.');}},150);});}

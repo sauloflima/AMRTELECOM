@@ -1,6 +1,8 @@
-name: Publish AMR Telecom
+name: AMR demonstration on GitHub Pages
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 permissions:
@@ -11,6 +13,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -22,15 +25,31 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm audit --audit-level=low
       - run: npm test
-      - run: npm run build
+      - name: Install pinned Chromium and system dependencies
+        run: npx --no-install playwright install --with-deps chromium
+      - run: npm run build -- --demo
       - run: node scripts/prepare-pages.mjs
-      - run: npm run check:dist
+      - name: Check demonstration artifact and noindex
+        run: npm run check:dist -- --demo
+      - name: Test the Pages artifact in the browser
+        run: npm run test:browser
+      - name: Upload browser diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: browser-diagnostics
+          path: output/playwright/
+          if-no-files-found: ignore
+          retention-days: 7
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        if: github.event_name != 'pull_request'
         with:
           path: dist
   deploy:
     needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       pages: write
       id-token: write

@@ -1715,49 +1715,6 @@ label {
 .related-pages .icon {
   width:19px;
 }
-.page-directory {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:0 40px;
-  margin-top:35px;
-}
-.page-directory a {
-  display:flex;
-  align-items:center;
-  gap:15px;
-  min-height:88px;
-  padding-block:18px;
-  border-bottom:1px solid var(--border);
-}
-.page-directory a:hover {
-  color:var(--soft);
-}
-.page-directory .icon {
-  color:var(--soft);
-  width:22px;
-}
-.page-directory .icon:last-child {
-  width:18px;
-  margin-left:auto;
-}
-.directory-groups {
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:48px;
-  margin-top:36px
-}
-.directory-groups h3 {
-  font-size:1rem;
-  color:var(--muted);
-  letter-spacing:0
-}
-.directory-groups .page-directory {
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  margin-top:16px
-}
-.directory-groups>div:last-child .page-directory {
-  grid-template-columns:1fr
-}
 .contact-layout {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -1826,22 +1783,16 @@ label {
 }
 @media(max-width:800px) {
   .inner-page { padding-top:76px; }
-  .page-directory { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .contact-layout { grid-template-columns:1fr;gap:40px; }
   .footer-top { grid-template-columns:1fr 1fr; }
   .footer-links { grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr)); }
-  .directory-groups { grid-template-columns:1fr;gap:32px; }
-  .directory-groups>div:last-child .page-directory { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 @media(max-width:600px) {
   .inner-page>.section { padding-block:30px 45px; }
   .breadcrumb { padding-block:25px;font-size:.8125rem; }
-  .page-directory { grid-template-columns:1fr;margin-top:24px; }
-  .page-directory a { min-height:72px; }
   .contact-panel { padding:27px; }
   .footer-top { grid-template-columns:1fr;gap:35px; }
   .footer-links { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .directory-groups .page-directory,.directory-groups>div:last-child .page-directory { grid-template-columns:1fr; }
   .hero { min-height:0; }
   .hero-content { padding-top:46px;padding-bottom:32px; }
   .hero-trust { margin-top:24px; }

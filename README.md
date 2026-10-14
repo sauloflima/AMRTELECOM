@@ -4,7 +4,7 @@ Site institucional estático, responsivo e em português brasileiro. HTML gerado
 
 ## Páginas independentes
 
-O site tem 12 páginas reais, com navegação por URL. A página inicial reúne um carrossel de três cenas (casa, empresas e atendimento), consulta rápida por CEP, três planos residenciais, uma opção empresarial sob consulta e acesso à Área do cliente. As demais páginas continuam independentes.
+O site tem 16 páginas reais, com navegação por URL. A página inicial reúne um carrossel de três cenas (casa, empresas e atendimento), consulta rápida por CEP, três planos residenciais, uma opção empresarial sob consulta e acesso à Área do cliente. As demais páginas continuam independentes.
 
 | Página | Endereço |
 | --- | --- |
@@ -14,6 +14,10 @@ O site tem 12 páginas reais, com navegação por URL. A página inicial reúne 
 | Soluções para sua rotina | `/solucoes.html` |
 | Wi-Fi | `/wifi.html` |
 | Internet para empresas | `/empresas.html` |
+| Cloud | `/empresas-cloud.html` |
+| Outsourcing de TI | `/empresas-ti.html` |
+| Cibersegurança | `/empresas-seguranca.html` |
+| Conectividade | `/empresas-conectividade.html` |
 | Consulta de cobertura | `/cobertura.html` |
 | Suporte | `/suporte.html` |
 | Perguntas frequentes | `/perguntas.html` |
@@ -54,15 +58,17 @@ Todos os dados comerciais ficam em `src/config.mjs`:
 - `social`: URLs HTTPS dos perfis oficiais.
 - `messages`: mensagens de planos, cobertura, Wi-Fi, empresas, suporte e contato geral.
 - `siteUrl`: domínio HTTPS definitivo. Vazio enquanto não confirmado.
-- `customerPortalUrl`: link oficial `https://www.amrfibra.com.br/central/`. O certificado apresentado em 26/09/2026 está vencido e não corresponde ao domínio; a hospedagem do portal precisa corrigir o HTTPS antes do lançamento.
+- `customerPortalUrl`: link oficial `https://www.amrfibra.com.br/central/`. Em 26/09/2026 houve certificado vencido e hostname incompatível. Em 13/10/2026, o HTTPS foi revalidado sem bypass, com certificado válido até 26/12/2026 e página pública de login HTTP 200. Login autenticado e segurança interna não foram testados.
 
 Recompile após editar a configuração. A indexação só é habilitada quando há domínio HTTPS válido, `commercialConfirmed`, referências das três aprovações e textos legais sem o marcador `PENDENTE DE REVISÃO`. Enquanto houver pendências, `robots.txt` e meta robots bloqueiam a indexação e `sitemap.xml` fica vazio. Uma referência preenchida não comprova, por si só, que a AMR realmente aprovou o conteúdo.
 
 ## Vídeo e materiais
 
-Veja `ASSET_AUDIT.md` para a auditoria individual das 11 mídias originais. O vídeo original `AMR Telecom.mp4` contém textos promocionais, alegações não aprovadas e telefone ilustrativo; permanece preservado em `public/assets/videos`, mas não entra no build. As oito artes de `references` serviram somente como referência.
+Veja [ASSET_AUDIT.md](docs/historico/ASSET_AUDIT.md) para a auditoria individual das mídias originais. O vídeo original `AMR Telecom.mp4` contém textos promocionais, alegações não aprovadas e telefone ilustrativo; permanece preservado em `public/assets/videos`, mas não entra no build. As oito artes de `references` serviram somente como referência.
 
 As aplicações atuais da marca usam `logo-amr-light-transparent.png` no cabeçalho claro e `logo-amr-relief.png` nas demais superfícies previstas pela configuração; o favicon é `favicon-amr.png`. Os arquivos de origem e derivados anteriores foram preservados. Uma fonte vetorial oficial continua recomendada para futuras aplicações.
+
+Os posters transparentes `amr-casa-fibra-3d.webp` e `amr-pessoa-celular-parada.webp` substituem PNGs mais pesados no build. A conversão preserva dimensões e transparência; os arquivos originais permanecem em `public/`.
 
 O build inclui quatro vídeos MP4: `hero-amr-integrado-corrigido.mp4` para a casa no primeiro slide, `amr-empresa-hero.mp4` para o prédio comercial no segundo, `atendimento-amr.mp4` para o atendimento no terceiro e `amr-empresas.mp4` para o escritório na seção empresarial. O vídeo do segundo slide tem aproximadamente 10 segundos, 1280 × 720 px, sem áudio, com a marca AMR integrada ao final; usa `amr-empresa-hero-poster.jpg` como imagem de reserva. As bordas desse vídeo se misturam suavemente ao fundo do slide. Os vídeos carregam sob demanda e pausam conforme a visibilidade, a preferência por movimento reduzido e a economia de dados. Os originais fora da lista selecionada não entram no build.
 
@@ -73,7 +79,7 @@ O carrossel avança automaticamente a cada 10 segundos e oferece controles de na
 ```text
 src/
   config.mjs                Dados editáveis
-  routes.mjs                Catálogo das 12 páginas e metadados
+  routes.mjs                Catálogo das páginas e metadados
   client.mjs                Composição dos comportamentos do navegador
   client/                   Navegação, contato e mídia/movimento
   styles.css                Base compartilhada e páginas internas
@@ -103,13 +109,13 @@ public/assets/              Originais preservados e derivados selecionados
 dist/                       Saída estática
 ```
 
-`src/home.css` e `src/editorial.css` são rascunhos históricos: o build não os referencia nem os copia para `dist`.
+`src/home.css` e `src/editorial.css` são fontes antigas: o build não as referencia nem as copia para `dist`. Relatórios e registros datados ficam em [`docs/historico/`](docs/historico/); README e ARCHITECTURE são a documentação operacional atual.
 
 [ARCHITECTURE.md](ARCHITECTURE.md) descreve as fronteiras, o runtime, a publicação e como acrescentar páginas, componentes e comportamentos.
 
 ## Pendências antes de publicar
 
-O WhatsApp, os preços e benefícios residenciais desta versão e as cidades Gravatá e Amaraji já estão configurados. Antes de publicar, confirmar os demais contatos, endereço, horários, bairros, domínio, condições de instalação e equipamentos, registrar as aprovações comerciais e legais e corrigir o certificado HTTPS do portal oficial da Área do cliente. Cobertura e condições específicas continuam sujeitas à consulta. A solução empresarial não exibe preço: a equipe avalia a necessidade e apresenta uma proposta. O selo “Para uso intenso” destaca editorialmente 700 Mega; não foi usada a alegação “Mais escolhido” sem dados que a comprovem.
+O WhatsApp, os preços e benefícios residenciais desta versão e as cidades Gravatá e Amaraji já estão configurados. Antes de publicar, confirmar os demais contatos, endereço, horários, bairros, domínio, condições de instalação e equipamentos, registrar as aprovações comerciais e legais e revalidar o HTTPS do portal oficial da Área do cliente próximo da entrega. Cobertura e condições específicas continuam sujeitas à consulta. A solução empresarial não exibe preço: a equipe avalia a necessidade e apresenta uma proposta. O selo “Para uso intenso” destaca editorialmente 700 Mega; não foi usada a alegação “Mais escolhido” sem dados que a comprovem.
 
 As páginas de privacidade e termos descrevem a versão atual e precisam de revisão e complementação com os dados da empresa antes da publicação. A versão anterior está pública no GitHub Pages. As correções desta auditoria são locais; nenhuma mensagem foi enviada a terceiros nem um novo deploy foi realizado.
 
@@ -119,28 +125,63 @@ Os campos e o botão são habilitados somente depois que o tratamento de envio e
 
 ## Atendimento humano flutuante
 
-O componente `WhatsAppAssistant` aguarda 11 segundos. Até 800 px, mostra somente o avatar de 52 px; um toque abre o card, e fechar, rolar ou interagir fora dele o recolhe. O avatar mantém a posição e cede espaço quando conflita com controles essenciais. No desktop, o convite automático e o link do avatar para WhatsApp foram preservados. O widget não depende de sessionStorage; os formulários continuam sem armazenar campos. O número vem de `contact.whatsapp` e a mensagem de `messages.assistant`. O antigo atalho móvel foi substituído; a barra de cobertura foi preservada. Veja [SUPPORT_ASSISTANT.md](SUPPORT_ASSISTANT.md) para comportamento, arquivos e validação. O teste de navegador é `scripts/check-support-browser.mjs`, com `AMR_PLAYWRIGHT_ROOT` apontando ao Playwright já disponível.
+O componente `WhatsAppAssistant` atual aguarda 11 segundos e mostra um convite compacto “Posso ajudar?”. Até 800 px, usa avatar de 52 px com link para WhatsApp; acima disso, o botão do avatar controla o convite. Fechar, rolar ou interagir fora recolhe o convite; o widget cede espaço aos controles essenciais. Não depende de sessionStorage e não armazena campos. O número vem de `contact.whatsapp` e a mensagem de `messages.assistant`. O componente atual não gera a antiga barra de cobertura. [SUPPORT_ASSISTANT.md](docs/historico/SUPPORT_ASSISTANT.md) registra etapas anteriores; a implementação e as limitações observadas atualmente estão na auditoria. `scripts/check-support-browser.mjs` usa Playwright fixado no lockfile e verifica o fechamento por teclado. `npm run test:browser` executa a suíte completa e guarda as capturas fora de `dist/`.
 
-## Publicação segura
+## Demonstração e publicação definitiva
 
-Publique somente o conteúdo de `dist/`. Não configure a raiz do repositório nem `public/` como diretório público: ali há originais, históricos e um backup que não pertencem ao site. `src/config.mjs` é copiado para o navegador; não coloque senhas ou chaves nele. Rode `npm run check:dist` para validar a lista exata de arquivos gerados e `npm run prepublish:check` antes de preparar qualquer deploy. O segundo comando deve falhar enquanto as pendências acima existirem.
+Publique somente `dist/`. A raiz do repositório e `public/` contêm originais, históricos e backups. `src/config.mjs` vai ao navegador: nunca inclua senhas, chaves ou referências confidenciais. `check:dist` mantém a allowlist exata e procura padrões de credenciais conhecidas; isso não comprova ausência absoluta de segredos.
 
-O workflow atual publica pelo GitHub Pages, que respondeu sem os headers de proteção configurados na prévia local. Configure os valores de `hostingHeaders` em `scripts/security.mjs` no servidor/CDN que servir a produção: CSP com `frame-ancestors 'none'`, proteção MIME, referrer, permissões, COOP e CORP. A meta CSP não substitui headers como `frame-ancestors`. A política não permite `unsafe-inline` nem `unsafe-eval` e bloqueia frames, conexões e envios nativos dos formulários; os links para WhatsApp continuam funcionando. O único `<style>` de fallback sem JavaScript tem hash calculado a partir de seu conteúdo, e as animações definem suas propriedades pelo JavaScript local. A configuração completa e as pendências estão em [SECURITY_AUDIT.md](SECURITY_AUDIT.md).
+A demonstração autorizada está em [GitHub Pages](https://sauloflima.github.io/AMRTELECOM/). O workflow `pages.yml` roda em push para `main`, PR para `main` e acionamento manual. Executa instalação pelo lockfile sem lifecycle scripts, auditoria npm, testes Node, instalação explícita do Chromium, build de demonstração, preparação da base `/AMRTELECOM/`, `check:dist -- --demo` e os cinco scripts de navegador. Só então envia o mesmo `dist/` ao Pages. Uma falha impede o upload e o deploy dependente; PRs nunca fazem deploy. Os jobs têm limites de 20 minutos para build/testes e 10 para deploy. Actions estão fixadas por commit e só deploy recebe Pages/OIDC; checkout não persiste credenciais.
 
-Após configurar a hospedagem, execute `npm run check:hosting` para testar as 12 respostas reais via HTTPS. Os cabeçalhos de `npm run preview` não comprovam a configuração de produção. Verifique também que HTTP redireciona para HTTPS e que todo o domínio funciona por HTTPS antes de habilitar HSTS. Depois de configurar HSTS, execute `node scripts/check-hosting.mjs --require-hsts`. Não habilite `includeSubDomains` ou `preload` sem confirmar cada subdomínio.
+A demonstração conserva meta `noindex, nofollow`, `Disallow: /` e sitemap vazio, inclusive se a configuração definitiva vier a ser aprovada. `noindex` não restringe acesso. O workflow de demonstração **não executa `prepublish:check`**: esse gate verifica domínio e aprovações comerciais/legais da publicação definitiva.
 
-O workflow separa build e deploy, fixa as Actions por commit, instala com `npm ci --ignore-scripts`, audita dependências e exige `npm run prepublish:check` antes de enviar o artefato. Enquanto faltarem domínio e aprovações, o deploy ficará bloqueado. O GitHub Pages já publicado não é alterado por esse bloqueio. `noindex` não restringe acesso ao site.
+O gate separado está em `.github/workflows/release-readiness.yml`, somente manual e com `if: ${{ false }}`. Está desativado e não contém job de deploy. Depois da decisão de destino e das aprovações reais, sua ativação precisa ser revisada e autorizada; preencher referências não é prova de aprovação. O gate executará `prepublish:check` e a mesma suíte no build sem base do Pages. Hoje `prepublish:check` deve falhar nas quatro pendências de domínio, comercial, privacidade e termos. Nenhuma aprovação foi preenchida.
 
-Antes da publicação, defina `siteUrl` com o domínio HTTPS definitivo e revise os textos de privacidade e termos com a identificação e o canal oficial da empresa. Enquanto o domínio estiver vazio, o build mantém `noindex` e `Disallow: /` de propósito.
+## Segurança efetivamente entregue
+
+Em 13/10/2026, as 16 URLs do Pages responderam HTTP 200 por HTTPS, com meta CSP e noindex. HTTP redirecionou com 301 para HTTPS; HSTS veio com `max-age=31556952`. Os sete headers de `hostingHeaders` estavam ausentes. A prévia local aplica esses valores; seus testes não comprovam proteção pública.
+
+`scripts/security.mjs` é a fonte da política: CSP restrita sem `unsafe-inline` ou `unsafe-eval`, hash do CSS de fallback, proteção MIME, referrer, permissões, COOP e CORP. A meta CSP não aceita `frame-ancestors`; esse controle e `X-Frame-Options` exigem headers HTTP. O Pages não oferece configuração de headers personalizados; `_headers` e `.htaccess` não resolvem esse destino. A limitação está confirmada pelas respostas observadas e pela [resposta de mantenedor na comunidade GitHub](https://github.com/orgs/community/discussions/54257). Veja também [MDN: frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors).
+
+Não há configuração de servidor alternativo neste projeto. As opções para decisão são manter o Pages como demonstração com a limitação registrada, aprovar uma camada de entrega com controle de headers em domínio próprio ou aprovar uma hospedagem estática compatível. Domínio, operador, custo, publicação e reversão precisam ser definidos antes de gerar a configuração específica. Não presumir que o Apache do portal é a hospedagem deste site.
+
+Para extrair os valores vigentes para revisão, sem produzir configuração fictícia:
+
+```sh
+node --input-type=module -e "import { hostingHeaders } from './scripts/security.mjs'; console.log(JSON.stringify(hostingHeaders, null, 2))"
+```
+
+Somente quando `siteUrl`, aprovações e destino forem reais, configurar os headers nesse destino e executar `npm run check:hosting` contra suas 16 URLs HTTPS. Esse checker permanece bloqueado pelos requisitos de publicação e não deve ser contornado para auditar a demonstração. Confirmar redirecionamento HTTP e HTTPS em todo o domínio antes de configurar HSTS; depois executar `node scripts/check-hosting.mjs --require-hsts`. Não habilitar `includeSubDomains` ou `preload` sem verificar os subdomínios. [SECURITY_AUDIT.md](docs/historico/SECURITY_AUDIT.md) registra evidências atuais e o histórico datado.
+
+## Procedimento de entrega e reversão para revisão
+
+1. Registrar revisão/configuração candidata e Git atual, preservando mudanças locais. Para a demonstração, executar os comandos abaixo; para a definitiva, executar `npm run prepublish:check`, `npm run check:dist` e `npm run test:browser`, sem `prepare-pages` salvo base explicitamente aprovada.
+2. Guardar o artefato aprovado fora de `dist/`, um manifesto SHA-256 e os relatórios, além da última versão pública recuperável. O build recria `dist/`; não colocar backups nessa pasta. Confirmar que o conteúdo testado é o mesmo entregue e que o upload continua limitado à allowlist.
+3. Revisar diff, resultados, configuração de headers compatível com o destino e pendências. Solicitar autorização específica de publicação antes de commit, push, acionamento de workflow ou upload. Nenhuma dessas ações ocorreu nesta tarefa.
+4. Após publicação autorizada, conferir HTTPS, headers, indexação e os fluxos públicos. Na definitiva, usar também `check:hosting`; não declarar homologação pelo build.
+5. Para reverter, republicar o último artefato aprovado preservado, ou reconstruí-lo em checkout isolado da revisão anterior com seu lockfile e configuração. No Pages, a mesma pipeline testará esse artefato antes do deploy. Repetir os checks públicos após reversão; não usar reset/clean sobre o trabalho local. Na definitiva, o comando operacional de restauração depende do destino ainda não escolhido.
+
+```sh
+npm ci --ignore-scripts
+npm audit --audit-level=low
+npm test
+npx --no-install playwright install chromium
+npm run build -- --demo
+node scripts/prepare-pages.mjs
+npm run check:dist -- --demo
+npm run test:browser
+```
+
+No Linux/CI a instalação explícita é `npx --no-install playwright install --with-deps chromium`. O runner inicia e encerra uma prévia própria em porta livre, detecta a base pelo artefato e não o recompila. Os testes têm limite de 180 segundos por script. Logs, resumo JSON, capturas de falha e evidências de mídia/atendimento ficam em uma pasta única sob `output/playwright/`, fora do artefato; o CI retém diagnósticos por sete dias. Somente dados fictícios entram nos testes e o WhatsApp é interceptado, sem envio. Não se exportam cookies ou estado autenticado.
 
 ## Validação
 
-O estado visual mais recente e a validação do segundo slide estão em [design-qa.md](design-qa.md). [REDESIGN_HOME.md](REDESIGN_HOME.md), [REDESIGN_HERO.md](REDESIGN_HERO.md), [AUDITORIA_PREMIUM.md](AUDITORIA_PREMIUM.md) e [VALIDACAO.md](VALIDACAO.md) registram etapas anteriores. Assets e proveniência estão em [ASSETS_HOME.md](ASSETS_HOME.md). `testimonials` e `mostChosenPlanId` devem receber somente dados reais confirmados; sem depoimentos aprovados, a seção permanece oculta.
+O estado visual mais recente e a validação do segundo slide estão em [design-qa.md](docs/historico/design-qa.md). [REDESIGN_HOME.md](docs/historico/REDESIGN_HOME.md), [REDESIGN_HERO.md](docs/historico/REDESIGN_HERO.md), [AUDITORIA_PREMIUM.md](docs/historico/AUDITORIA_PREMIUM.md) e [VALIDACAO.md](docs/historico/VALIDACAO.md) registram etapas anteriores. Assets e proveniência estão em [ASSETS_HOME.md](docs/historico/ASSETS_HOME.md). `testimonials` e `mostChosenPlanId` devem receber somente dados reais confirmados; sem depoimentos aprovados, a seção permanece oculta.
 
-Selecionar um plano residencial abre a consulta de cobertura com `?plano=ID` e preserva a opção na mensagem preparada. Apenas IDs existentes no catálogo são aceitos. A opção empresarial leva ao contato para uma avaliação sem preço anunciado. Na revisão de integridade do build, `npm test` aprovou 56 testes, `npm run build` gerou as 12 páginas e `npm run check:dist` aprovou os 44 arquivos selecionados. A revisão visual anterior cobriu 1440 e 390 px, sem rolagem horizontal ou erros no console. Core Web Vitals não foram medidos.
+Selecionar um plano residencial abre a consulta de cobertura com `?plano=ID` e preserva a opção na mensagem preparada. Apenas IDs existentes no catálogo são aceitos. A opção empresarial leva ao contato para uma avaliação sem preço anunciado. Na revisão de 14/10/2026, `npm test` aprovou 61 testes, `npm run build` gerou 16 páginas e `npm run check:dist` aprovou 56 arquivos selecionados. A revisão visual anterior cobriu 1440 e 390 px, sem rolagem horizontal ou erros no console. Core Web Vitals não foram medidos.
 
-As verificações opcionais `scripts/check-pages-browser.mjs` e `scripts/check-form-browser.mjs` usam Playwright já disponível no ambiente, indicado por `AMR_PLAYWRIGHT_ROOT`. Execute com o servidor local ativo. Elas não instalam dependências.
+Playwright 1.64.0 é dependência de desenvolvimento com versão exata e integridade no lockfile. `npm run test:browser` reaproveita os cinco `check-*-browser.mjs`; também testa CSP em enforcement local, XSS tratado como texto, falha de módulos, menu sem JS, modal pequeno e rejeição de arquivos privados. Para executar scripts isolados, iniciar a prévia e definir `AMR_ORIGIN` com a base completa. Para `dist/` preparado para Pages, usar `npm run preview -- --pages`; para o build na raiz, usar `npm run preview`. `AMR_PLAYWRIGHT_ROOT` permanece como alternativa local explícita; o CI usa a dependência instalada pelo lockfile.
 
 ## Correção mobile de 26/09/2026
 
-Diagnóstico, arquivos alterados, capturas comparativas e resultados estão em [MOBILE_QA.md](MOBILE_QA.md) e [galeria visual](mobile-qa/index.html). `scripts/check-mobile-browser.mjs` verifica os três slides, avanço real dos vídeos, entrada, pausa e retomada, movimento reduzido, economia de dados, bloqueio de autoplay e falha de MP4, usando o mesmo `AMR_PLAYWRIGHT_ROOT` dos demais testes de navegador. Nenhuma dependência foi adicionada.
+Diagnóstico, arquivos alterados, capturas comparativas e resultados estão em [MOBILE_QA.md](docs/historico/MOBILE_QA.md) e [galeria visual](mobile-qa/index.html). `scripts/check-mobile-browser.mjs` verifica os três slides, avanço real dos vídeos, entrada, pausa e retomada, movimento reduzido, economia de dados, bloqueio de autoplay e falha de MP4, usando a mesma dependência dos demais testes de navegador. Esse registro é histórico; a integração ao CI em 13/10/2026 adicionou somente Playwright às dependências de desenvolvimento.

@@ -53,10 +53,10 @@ export function mountMedia() {
     const updateServiceVideo=serviceVideo ? createHeroVideo(serviceVideo,servicePhoto) : null;
     const updateEnterpriseVideo=enterpriseVideo ? createHeroVideo(enterpriseVideo,enterpriseMedia) : null;
     const syncHouseVideo=()=> {
-      updateVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
+      updateVideo?.({paused:userPaused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
     };
     const syncServiceVideo=()=> {
-      updateServiceVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
+      updateServiceVideo?.({paused:userPaused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
     };
     const syncEnterpriseVideo=()=> {
       if(!enterpriseVideo)return;
@@ -72,10 +72,10 @@ export function mountMedia() {
       art.style.setProperty('--house-y','0px');
     };
     const update=()=> {
-      const paused=userPaused||document.hidden||Boolean(connection?.saveData);
+      const paused=userPaused||reducedMotion.matches||document.hidden||Boolean(connection?.saveData);
       connectedHero.classList.toggle('effects-paused',paused);
       connectedHero.classList.toggle('user-effects-paused',userPaused);
-      toggle.hidden=false;
+      toggle.hidden=reducedMotion.matches;
       toggle.textContent=userPaused?'Ativar efeitos':'Pausar efeitos';
       toggle.setAttribute('aria-pressed',String(userPaused));
       if(paused||!inView||!desktopPointer.matches)reset();
@@ -85,7 +85,7 @@ export function mountMedia() {
     };
     toggle.addEventListener('click',()=>{userPaused=!userPaused;update();});
     art.addEventListener('pointermove',event=> {
-      if(userPaused||connection?.saveData||document.hidden||!desktopPointer.matches||!inView)return;
+      if(userPaused||reducedMotion.matches||connection?.saveData||document.hidden||!desktopPointer.matches||!inView)return;
       cancelAnimationFrame(frame);
       const box=art.getBoundingClientRect();
       const x=((event.clientX-box.left)/box.width-.5)*10;
@@ -97,7 +97,7 @@ export function mountMedia() {
     });
     art.addEventListener('pointerleave',reset);
     desktopPointer.addEventListener('change',update);
-    reducedMotion.addEventListener('change',syncEnterpriseVideo);
+    reducedMotion.addEventListener('change',update);
     document.addEventListener('visibilitychange',update);
     connection?.addEventListener('change',update);
     if('IntersectionObserver' in window) {
@@ -125,18 +125,20 @@ export function mountMedia() {
     const officeVideo=office.querySelector('[data-business-video]');
     const control=office.querySelector('.office-motion-toggle');
     const connection=navigator.connection;
+    const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
     let visible=!('IntersectionObserver' in window);
     let paused=false;
     const updateVideo=officeVideo ? createHeroVideo(officeVideo,office) : null;
     const sync=()=> {
-      updateVideo?.({paused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:visible,active:true});
-      office.classList.toggle('office-motion-active',visible && !paused && !connection?.saveData && !document.hidden);
-      control.hidden=false;
+      updateVideo?.({paused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:visible,active:true});
+      office.classList.toggle('office-motion-active',visible && !paused && !reducedMotion.matches && !connection?.saveData && !document.hidden);
+      control.hidden=reducedMotion.matches;
       control.textContent=paused?'Ativar animação':'Pausar animação';
       control.setAttribute('aria-pressed',String(paused));
     };
     control.addEventListener('click',()=>{paused=!paused;sync();});
     document.addEventListener('visibilitychange',sync);
+    reducedMotion.addEventListener('change',sync);
     connection?.addEventListener('change',sync);
     if('IntersectionObserver' in window) new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync();},{threshold:.15}).observe(office);
     sync();

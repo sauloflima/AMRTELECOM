@@ -24,6 +24,7 @@ test('preparação do Pages é idempotente e preserva URLs externas, hashes e im
   assert.ok(prepared.includes('href="/AMRTELECOM/"'));
   assert.ok(prepared.includes('/AMRTELECOM/planos.html?plano=500#explicar-500'));
   assert.ok(prepared.includes("url('/AMRTELECOM/assets/logo.png')"));
+  assert.equal(withPagesBase('<path d="x"/>'), '<path d="x"/>');
   for (const url of ['https://wa.me/5581993467014', '//cdn.example/image.png', '#conteudo', './lib/whatsapp.mjs']) assert.ok(prepared.includes(url));
   assert.equal(withPagesBase(prepared), prepared);
   assert.equal(withPagesBase('`/AMRTELECOM/planos.html#explicar-${id}`'), '`/AMRTELECOM/planos.html#explicar-${id}`');

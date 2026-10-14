@@ -10,12 +10,12 @@ Foram abertas a referência `public/assets/references/site de referencia para la
 
 A referência demonstra boa proximidade entre mensagem, ação e catálogo. A AMR preserva sua composição original, casa 3D, fotografias, azul-marinho e azul elétrico. Nenhum material ou conteúdo da referência será incorporado ao site.
 
-1. Hero desktop: boa presença da casa, mas formulário mais estreito e distante da mensagem. [Captura](css-review/01-antes-desktop.png).
-2. Planos: velocidade e preço em blocos empilhados, cartões com 868 px de altura no desktop. [Captura](css-review/02-antes-planos.png).
-3. iPhone: hero com 878 px; formulário começa a 962 px do topo. CTA fixo ajuda, mas ocupa parte da imagem. Indicadores com largura de 40 px. [Captura](css-review/03-antes-iphone.png).
-4. Benefícios: títulos legíveis, porém cabeçalho com grande intervalo entre etiqueta e título. [Captura](css-review/04-antes-beneficios.png).
-5. Empresas e rotina: imagem empresarial expressiva; etiquetas brancas de rotina passam sobre áreas variáveis das fotos. [Captura](css-review/05-antes-rotina.png).
-6. Rodapé: todos os links presentes; excesso de altura na faixa de marca e espaços pouco uniformes. [Captura](css-review/06-antes-rodape.png).
+1. Hero desktop: boa presença da casa, mas formulário mais estreito e distante da mensagem. [Captura](../../css-review/01-antes-desktop.png).
+2. Planos: velocidade e preço em blocos empilhados, cartões com 868 px de altura no desktop. [Captura](../../css-review/02-antes-planos.png).
+3. iPhone: hero com 878 px; formulário começa a 962 px do topo. CTA fixo ajuda, mas ocupa parte da imagem. Indicadores com largura de 40 px. [Captura](../../css-review/03-antes-iphone.png).
+4. Benefícios: títulos legíveis, porém cabeçalho com grande intervalo entre etiqueta e título. [Captura](../../css-review/04-antes-beneficios.png).
+5. Empresas e rotina: imagem empresarial expressiva; etiquetas brancas de rotina passam sobre áreas variáveis das fotos. [Captura](../../css-review/05-antes-rotina.png).
+6. Rodapé: todos os links presentes; excesso de altura na faixa de marca e espaços pouco uniformes. [Captura](../../css-review/06-antes-rodape.png).
 
 ## Problemas e correções recomendadas
 
@@ -79,15 +79,15 @@ Relatório criado antes das correções. Itens 01 a 10, de prioridade alta e mé
 
 As imagens foram inspecionadas com a referência, avaliando escala e densidade sem reproduzir sua identidade. A captura fornecida antiga permaneceu intacta.
 
-![Hero desktop após a revisão](css-review/07-depois-desktop.png)
+![Hero desktop após a revisão](../../css-review/07-depois-desktop.png)
 
-![Hero no iPhone 13 Pro](css-review/08-depois-iphone.png)
+![Hero no iPhone 13 Pro](../../css-review/08-depois-iphone.png)
 
-![Validação acessível do formulário](css-review/09-formulario-iphone.png)
+![Validação acessível do formulário](../../css-review/09-formulario-iphone.png)
 
-![Plano no iPhone 13 Pro](css-review/10-planos-iphone.png)
+![Plano no iPhone 13 Pro](../../css-review/10-planos-iphone.png)
 
-Demais evidências: [planos desktop](css-review/11-planos-desktop.png), [empresas desktop](css-review/12-empresas-desktop.png), [rotina e rodapé desktop](css-review/13-rodape-desktop.png), [benefícios mobile](css-review/14-beneficios-iphone.png), [empresas mobile](css-review/15-empresas-iphone.png) e [rodapé mobile](css-review/16-rodape-iphone.png).
+Demais evidências: [planos desktop](../../css-review/11-planos-desktop.png), [empresas desktop](../../css-review/12-empresas-desktop.png), [rotina e rodapé desktop](../../css-review/13-rodape-desktop.png), [benefícios mobile](../../css-review/14-beneficios-iphone.png), [empresas mobile](../../css-review/15-empresas-iphone.png) e [rodapé mobile](../../css-review/16-rodape-iphone.png).
 
 ### Arquivos
 

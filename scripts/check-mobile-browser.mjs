@@ -1,13 +1,10 @@
 // Navegador real com viewport/toque emulados; não substitui um aparelho iOS.
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-const require = createRequire(path.join(process.env.AMR_PLAYWRIGHT_ROOT || process.cwd(), 'package.json'));
-const { chromium } = require('playwright');
-const browser = await chromium.launch({ channel:'chrome', headless:true });
-const origin = process.env.AMR_ORIGIN || 'http://127.0.0.1:4173';
-const evidence = process.env.AMR_MOBILE_EVIDENCE || 'mobile-qa/after';
+import { chromium, origin, reportFailure } from './browser-test.mjs';
+const browser = await chromium.launch({ headless:true });
+const evidence = process.env.AMR_MOBILE_EVIDENCE || 'output/playwright/mobile';
 const samples = [], errors = [];
 await mkdir(evidence, { recursive:true });
 const mediaSelectors = ['.hero-house', '.enterprise-media', '.service-photo'];
@@ -34,7 +31,7 @@ try {
   for (const [width,height] of [[360,640],[390,844],[430,932],[768,1024],[1440,950],[390,400]]) {
     const page = await newPage(width,height);
     page.on('console', message => { if (message.type()==='error') errors.push(message.text()); });
-    await page.goto(origin);
+    await page.goto(origin + '/');
     await page.locator('.carousel-rotation').click();
     await page.waitForTimeout(600);
     await snapshot(page, `${width}x${height}-home`);
@@ -100,17 +97,22 @@ try {
       const connection=Object.assign(new EventTarget(),{saveData:true});
       Object.defineProperty(navigator,'connection',{value:connection});
     });
-    await page.goto(origin);
+    await page.goto(origin + '/');
     if(mode==='reduced') {
       assert.equal(await page.locator('.carousel-rotation').isVisible(),true);
-      await visibleVideo(page,0);
-      assert.equal(await page.locator('.hero-proof .icon').first().evaluate(el=>getComputedStyle(el).animationName==='none'),false);
+      assert.equal(await page.locator('.effects-toggle').isVisible(),false);
+      for (const selector of ['[data-hero-house-video]','[data-enterprise-video]','[data-service-video]']) {
+        assert.equal(await page.locator(selector).evaluate(video=>video.paused),true,`${selector}: vídeo parado com movimento reduzido`);
+      }
+      for (const selector of ['.hero-house','.enterprise-media','.service-photo']) {
+        assert.equal(await page.locator(selector).evaluate(el=>el.classList.contains('video-static')),true,`${selector}: poster preservado`);
+      }
       await page.locator('[data-office-motion]').scrollIntoViewIfNeeded();
-      await page.waitForFunction(()=>document.querySelector('[data-office-motion]').classList.contains('office-motion-active'));
-      await page.locator('.office-motion-toggle').click();
+      assert.equal(await page.locator('[data-office-motion]').evaluate(el=>el.classList.contains('office-motion-active')),false);
+      assert.equal(await page.locator('.office-motion-toggle').isVisible(),false);
       assert.equal(await page.locator('.office-phone-user').evaluate(el=>getComputedStyle(el).animationName),'none');
       await snapshot(page,mode);
-      await page.close();console.log('Aprovado: movimento reduzido não bloqueia animações; pausa manual funciona.');
+      await page.close();console.log('Aprovado: movimento reduzido mantém posters e pausa efeitos animados.');
       continue;
     }
     for(let index=0;index<3;index++) {
@@ -143,7 +145,7 @@ try {
       return window.allowVideo ? play.call(this) : Promise.reject(new DOMException('Bloqueio simulado','NotAllowedError'));
     };
   });
-  await page.goto(origin);
+  await page.goto(origin + '/');
   await page.locator('.carousel-rotation').click();
   for(let index=0;index<3;index++) {
     await page.evaluate(()=>{window.allowVideo=false;});
@@ -175,7 +177,7 @@ try {
 
   const failed=await newPage();
   await failed.route('**/*.mp4', route=>route.fulfill({status:404,body:''}));
-  await failed.goto(origin);
+  await failed.goto(origin + '/');
   await failed.locator('.carousel-rotation').click();
   for(let index=0;index<3;index++) {
     await failed.locator(`[data-slide="${index}"]`).dispatchEvent('click');
@@ -188,4 +190,7 @@ try {
   assert.deepEqual(errors,[]);
   await writeFile(path.join(evidence,'animation-measurements.json'),JSON.stringify({browser:await browser.version(),samples,errors},null,2));
   console.log('Aprovado: falha simulada de mídia. Nenhum erro inesperado de JavaScript ou console.');
+} catch (error) {
+  await reportFailure(browser, error).catch(() => {});
+  throw error;
 } finally { await browser.close(); }

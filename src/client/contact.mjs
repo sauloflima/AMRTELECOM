@@ -11,7 +11,13 @@ export function mountContact() {
     link.addEventListener('click',event=>{if(!url){event.preventDefault();showPending();}});
   });
   mountCoverageForm(document.querySelector('#coverage-form'), showPending);
-  mountQuickCoverageForm(document.querySelector('#quick-coverage-form'), showPending);
+  const quickForm=document.querySelector('#quick-coverage-form');
+  mountQuickCoverageForm(quickForm, showPending);
+  if(quickForm) document.querySelectorAll('[data-focus-coverage]').forEach(link=>link.addEventListener('click',event=>{
+    event.preventDefault();
+    quickForm.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'center'});
+    quickForm.elements.namedItem('cep').focus({preventScroll:true});
+  }));
 }
 
 function mountCoverageForm(form, showPending) {
@@ -120,42 +126,4 @@ function mountQuickCoverageForm(quickForm, showPending) {
   });
   quickForm.querySelectorAll('input,button[type="submit"]').forEach(control=>control.disabled=false);
   quickForm.querySelector('#quick-load-message').hidden=true;
-}
-
-export function mountCoverageDock() {
-  const quickForm=document.querySelector('#quick-coverage-form');
-  const menu=document.querySelector('.menu-toggle');
-  const dialog=document.querySelector('#contact-dialog');
-  const dock=document.querySelector('.coverage-dock');
-  if(dock && quickForm && 'IntersectionObserver' in window) {
-    let formVisible=true;
-    let heroVisible=true;
-    let plansVisible=false;
-    let footerVisible=false;
-    const heroPanel=document.querySelector('.hero-frame');
-    const plansGrid=document.querySelector('.plan-grid');
-    const syncDock=()=>{
-      const dialogOpen=Boolean(document.querySelector('dialog[open]'));
-      dock.hidden=heroVisible||formVisible||plansVisible||footerVisible||dialogOpen||menu.getAttribute('aria-expanded')==='true'||Boolean(document.activeElement?.closest('form'));
-    };
-    const observer=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{if(entry.target===quickForm)formVisible=entry.isIntersecting;else if(entry.target===heroPanel)heroVisible=entry.isIntersecting;else if(entry.target===plansGrid)plansVisible=entry.isIntersecting;else footerVisible=entry.isIntersecting;});
-      syncDock();
-    },{threshold:0,rootMargin:'-76px 0px 0px'});
-    observer.observe(quickForm);
-    if(heroPanel) observer.observe(heroPanel);
-    else heroVisible=false;
-    if(plansGrid) observer.observe(plansGrid);
-    observer.observe(document.querySelector('footer'));
-    document.addEventListener('focusin',syncDock);
-    document.addEventListener('focusout',()=>requestAnimationFrame(syncDock));
-    new MutationObserver(syncDock).observe(dialog,{attributes:true,attributeFilter:['open']});
-    new MutationObserver(syncDock).observe(menu,{attributes:true,attributeFilter:['aria-expanded']});
-    document.querySelectorAll('[data-focus-coverage]').forEach(link=>link.addEventListener('click',event=>{
-      event.preventDefault();
-      dock.hidden=true;
-      quickForm.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'center'});
-      quickForm.elements.namedItem('cep').focus({preventScroll:true});
-    }));
-  }
 }

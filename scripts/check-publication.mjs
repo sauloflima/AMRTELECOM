@@ -7,6 +7,7 @@ import { routes } from '../src/routes.mjs';
 import { privacy, terms } from '../src/legal.mjs';
 import { browserModules, stylesheets, mediaAssets, assetRevision, versionImports } from './build-files.mjs';
 import { publicationIssues, pagesBase, withPagesBase } from './publication.mjs';
+import { contentSecurityPolicy } from './security.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -47,17 +48,19 @@ for (const file of browserModules) {
   assert.doesNotMatch(published, /^\s*import\s+[^;]*?\sfrom\s+['"]\.[^'"?]+['"]/gm, `Import sem revisão: ${file}`);
 }
 const issues = publicationIssues(config, privacy, terms);
+const demo = process.argv.includes('--demo');
 for (const name of routes.map(route => route.file)) {
   const html = await readFile(path.join(dist, name), 'utf8');
-  assert.match(html, /<meta http-equiv="Content-Security-Policy"/);
+  assert.ok(html.includes(`<meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}">`), `Meta CSP diferente da política central: ${name}`);
   assert.ok(html.includes(`${pagesPrepared ? pagesBase : ''}/src/client.mjs?v=${revision}`), `Entrada JS desatualizada: ${name}`);
   for (const file of ['styles.css', 'support-assistant.css', ...(['index.html', 'planos.html'].includes(name) ? ['home-refresh.css'] : [])]) {
     assert.ok(html.includes(`${pagesPrepared ? pagesBase : ''}/${file}?v=${revision}`), `CSS sem revisão: ${name}: ${file}`);
   }
-  assert.match(html, issues.length ? /<meta name="robots" content="noindex, nofollow"/ : /<meta name="robots" content="index, follow"/);
+  assert.match(html, demo || issues.length ? /<meta name="robots" content="noindex, nofollow"/ : /<meta name="robots" content="index, follow"/);
 }
 const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8');
-assert.match(robots, issues.length ? /^Disallow: \/$/m : /^Allow: \/$/m);
+assert.match(robots, demo || issues.length ? /^Disallow: \/$/m : /^Allow: \/$/m);
+if (demo) assert.doesNotMatch(await readFile(path.join(dist, 'sitemap.xml'), 'utf8'), /<loc>/, 'Demonstração deve manter sitemap vazio.');
 for (const name of actual.filter(file => /\.(html|css|mjs|txt|xml)$/.test(file))) {
   const content = await readFile(path.join(dist, name), 'utf8');
   assert.doesNotMatch(content, /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|\b(?:sk_live_[a-zA-Z0-9]{16,}|gh[pousr]_[a-zA-Z0-9]{20,}|AKIA[0-9A-Z]{16})\b/, `Possível credencial em ${name}`);
