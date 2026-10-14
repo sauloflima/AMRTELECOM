@@ -1,4 +1,4 @@
-// Cada cena fica tempo suficiente para ler o texto e concluir os vídeos de 8s.
+// Cada cena fica tempo suficiente para ler o texto e concluir os vídeos de 8s; data-delay encurta slides só de texto e foto.
 export const ROTATION_DELAY = 10000;
 export function canRotate(state) {
   return !state.paused && !state.focused && !state.hidden && state.visible;
@@ -20,7 +20,7 @@ export function mountCarousel(root, environment = window) {
     rotation.hidden = false;
     rotation.textContent = state.paused ? 'Ativar carrossel' : 'Pausar carrossel';
     root.dataset.rotation = canRotate(state) ? 'playing' : 'paused';
-    if (canRotate(state)) timer = environment.setTimeout(() => show(index + 1, false), ROTATION_DELAY);
+    if (canRotate(state)) timer = environment.setTimeout(() => show(index + 1, false), Number(slides[index].dataset.delay) || ROTATION_DELAY);
   }
   function show(next, manual = true) {
     index = (next + slides.length) % slides.length;
@@ -31,6 +31,8 @@ export function mountCarousel(root, environment = window) {
       if (i === index) dots[i].setAttribute('aria-current', 'true');
       else dots[i].removeAttribute('aria-current');
     });
+    // Slides empilhados ficam "na tela" para o lazy load; a foto só é pedida quando o slide aparece.
+    slides[index].classList.toggle('is-seen', true);
     if (manual) status.textContent = slides[index].getAttribute('aria-label');
     root.dataset.activeSlide = String(index + 1);
     schedule();

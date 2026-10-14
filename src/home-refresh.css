@@ -42,7 +42,7 @@
 .home-page .button.outline { border:1px solid #8ba6ba;background:#fff;color:var(--home-navy); }
 .home-page .text-link,.plans-catalog .text-link { display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:.9375rem;font-weight:750; }
 .home-page :is(a,button,input,summary):focus-visible,.plans-catalog :is(a,button,input,summary):focus-visible { outline:3px solid var(--home-focus);outline-offset:4px; }
-.home-page .hero-frame :is(a,button):focus-visible { outline-color:#80bcff; }
+.home-page .hero-frame:has(.hero-slide-service.is-active) :is(a,button):focus-visible { outline-color:#80bcff; }
 .home-page .home-contact-band :is(a,button):focus-visible { outline-color:var(--home-focus); }
 .section-kicker,.hero-kicker { margin:0 0 10px;color:var(--home-blue-dark)!important;font-size:.875rem;font-weight:800;letter-spacing:.02em; }
 .section-intro { display:flex;flex-direction:column;align-items:center;gap:9px;margin:0 auto 28px;text-align:center; }
@@ -53,8 +53,9 @@
 .home-hero.hero { min-height:0;padding:0;border:0;background:#fff;overflow:visible; }
 .hero-frame { position:relative;isolation:isolate;width:min(1500px,calc(100% - 24px));min-height:528px;margin:0 auto;padding-top:var(--amr-header);overflow:clip;border-radius:0 0 28px 28px;background:#fff;color:var(--home-ink); }
 .carousel-track { display:grid;min-height:528px;touch-action:pan-y; }
-.carousel-slide { grid-area:1/1;visibility:hidden;opacity:0;pointer-events:none;transition:opacity 380ms ease,visibility 380ms; }
-.carousel-slide.is-active { visibility:visible;opacity:1;pointer-events:auto; }
+/* O slide que sai some rápido e o que entra chega depois, sem títulos sobrepostos no meio da troca. */
+.carousel-slide { grid-area:1/1;visibility:hidden;opacity:0;pointer-events:none;transition:opacity 260ms ease,visibility 260ms; }
+.carousel-slide.is-active { visibility:visible;opacity:1;pointer-events:auto;transition:opacity 560ms 120ms ease,visibility 0s; }
 .hero-slide { position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(450px,.98fr);align-items:center;min-height:528px;padding:31px max(68px,calc((100% - 1220px)/2)) 72px;overflow:hidden; }
 .hero-slide-home { background:#fff; }
 .hero-copy { position:relative;z-index:3;max-width:620px; }
@@ -445,9 +446,11 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
   .service-photo:after { inset:0;background:linear-gradient(0deg,var(--home-navy) 8%,rgba(7,26,46,.96) 35%,rgba(7,26,46,.48) 58%,transparent 90%); }
   .service-photo img,.service-photo video { object-position:45% center; }
   .hero-slide-service .hero-copy { margin-top:auto;padding:150px 20px 76px; }
-  .carousel-controls { bottom:15px;gap:6px; }
-  .carousel-arrow { min-width:44px;min-height:44px; }
-  .carousel-dots button { min-width:44px;min-height:44px; }
+  /* Faixa à direita reservada ao avatar fixo do atendimento (margem 16px + avatar 52px + folga 8px, ver support-assistant.css). */
+  .carousel-controls { left:14px;right:calc(max(16px,env(safe-area-inset-right,0px)) + 60px);bottom:15px;gap:0;justify-content:center;transform:none; }
+  .carousel-arrow { flex:0 0 44px;min-width:44px;min-height:44px; }
+  .carousel-dots { flex:0 1 220px;min-width:0; }
+  .carousel-dots button { flex:1 1 0;min-width:28px;min-height:44px; }
   .carousel-rotation,.effects-toggle { display:inline-flex!important;align-items:center;justify-content:center;top:calc(var(--amr-header) + 3px);min-height:44px;padding:0 8px; }
   .carousel-rotation { right:120px; }
   .effects-toggle { right:12px; }
@@ -556,6 +559,43 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
   .home-hero.user-effects-paused :is(.enterprise-stage,.enterprise-stage *,.enterprise-support:before,.hero-lead,.hero-cta,.hero-cta:after) { animation:none!important; }
 
   .hero-slide-service.is-active .service-photo img { animation:amr-slide-fade 520ms ease-out both; }
+}
+/* Cidades atendidas: as igrejas matriz são referência local, sem marca da AMR sobre a fachada. */
+.hero-slide-city { grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);column-gap:56px;background:#fff; }
+.city-pair { display:grid;grid-template-columns:1fr 1fr;gap:24px;align-self:center;min-width:0; }
+.city-card { min-width:0;margin:0; }
+.city-media { position:relative;display:block;aspect-ratio:16/10;overflow:hidden;border-radius:18px;background:#eef4fa;box-shadow:0 18px 40px -26px rgba(7,42,72,.42); }
+.city-media img { position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover; }
+.hero-slide-city:not(.is-active,.is-seen) .city-media img { display:none; }
+.city-place { position:absolute;inset:0;display:grid;place-items:center;border:1px solid #dbe6f1;border-radius:inherit;background:radial-gradient(circle at 50% 50%,#fff 0 22%,transparent 23%),linear-gradient(160deg,#f5f9fd,#e5eef9);color:var(--home-blue); }
+.city-place .icon { width:30px;height:30px; }
+.city-card figcaption { display:flex;flex-wrap:wrap;align-items:center;gap:2px 7px;margin-top:12px;color:var(--home-ink);font-size:.875rem;line-height:1.35; }
+.city-card figcaption .icon { width:15px;height:15px;color:var(--home-blue); }
+.city-card figcaption strong { font-weight:750; }
+@media all {
+  .hero-slide-city.is-active :is(.hero-kicker,h2,.hero-lead,.hero-cta) { animation:amr-slide-enter 560ms cubic-bezier(.22,.61,.36,1) both; }
+  .hero-slide-city.is-active h2 { animation-delay:80ms; }
+  .hero-slide-city.is-active .hero-lead { animation-delay:300ms; }
+  .hero-slide-city.is-active .hero-cta { animation-delay:440ms; }
+  .hero-slide-city.is-active .city-card { animation:amr-city-card 520ms 160ms cubic-bezier(.22,.61,.36,1) both; }
+  .hero-slide-city.is-active .city-card + .city-card { animation-delay:280ms; }
+  .home-hero.user-effects-paused .hero-slide-city :is(.hero-kicker,h2,.hero-lead,.hero-cta,.city-card) { animation:none!important; }
+}
+@keyframes amr-city-card { from { opacity:0;transform:translateY(10px); } to { opacity:1;transform:none; } }
+@media(prefers-reduced-motion:reduce) {
+  .hero-slide-city *,.hero-slide-city *:before,.hero-slide-city *:after { animation:none!important;transition:none!important; }
+}
+@media(max-width:900px) {
+  .hero-slide-city { column-gap:28px; }
+  .city-pair { gap:16px; }
+}
+@media(max-width:600px) {
+  .hero-slide-city .hero-cta { margin-top:15px; }
+  /* Blocos empilhados em linhas compactas: a altura do slide não passa a dos demais. */
+  .city-pair { grid-template-columns:1fr;gap:12px;align-self:stretch;margin-top:22px; }
+  .city-card { display:grid;grid-template-columns:minmax(0,56%) minmax(0,1fr);align-items:center;gap:14px; }
+  .city-media { border-radius:14px; }
+  .city-card figcaption { margin-top:0; }
 }
 @keyframes amr-slide-enter { from { opacity:.65;transform:translateY(7px); } to { opacity:1;transform:none; } }
 @keyframes amr-letter-arrive { from { opacity:0;transform:translateY(.28em); } to { opacity:1;transform:none; } }

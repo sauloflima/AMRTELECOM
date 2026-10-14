@@ -7,6 +7,7 @@ const browser = await chromium.launch({ headless:true });
 const evidence = process.env.AMR_MOBILE_EVIDENCE || 'output/playwright/mobile';
 const samples = [], errors = [];
 await mkdir(evidence, { recursive:true });
+const videoSlides = [0, 2, 3];
 const mediaSelectors = ['.hero-house', '.enterprise-media', '.service-photo'];
 const pauseEffects = page => page.locator('.effects-toggle').dispatchEvent('click');
 async function newPage(width=390, height=844, options={}) {
@@ -35,8 +36,15 @@ try {
     await page.locator('.carousel-rotation').click();
     await page.waitForTimeout(600);
     await snapshot(page, `${width}x${height}-home`);
+    await page.locator('[data-slide="1"]').dispatchEvent('click');
+    await page.locator('.city-card img').evaluate(img => img.decode());
+    assert.equal(await page.locator('.hero-slide-city').getAttribute('aria-hidden'), 'false');
+    assert.equal(await page.locator('.city-card').count(), 2);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width);
+    await page.waitForTimeout(800);
+    await snapshot(page, `${width}x${height}-cidades`);
     for(let index=0;index<3;index++) {
-      await page.locator(`[data-slide="${index}"]`).dispatchEvent('click');
+      await page.locator(`[data-slide="${videoSlides[index]}"]`).dispatchEvent('click');
       await page.evaluate(() => scrollTo({top:0,behavior:'instant'}));
       await page.waitForTimeout(80);
       const letter=page.locator('.carousel-slide.is-active .arrival-letter').first();
@@ -87,7 +95,7 @@ try {
     await page.locator('.office-motion-toggle').click();
     await page.waitForFunction(()=>document.querySelector('[data-office-motion]').classList.contains('office-motion-active'));
     await page.close();
-    console.log(`Aprovado: ${width}x${height}, três slides, vídeos, entrada, pausa/retomada, mídia fora da tela e efeitos da ilustração.`);
+    console.log(`Aprovado: ${width}x${height}, quatro slides, vídeos, entrada, pausa/retomada, mídia fora da tela e efeitos da ilustração.`);
   }
 
   // Preferências iniciais e alteradas durante a reprodução.
@@ -116,7 +124,7 @@ try {
       continue;
     }
     for(let index=0;index<3;index++) {
-      await page.locator(`[data-slide="${index}"]`).dispatchEvent('click');
+      await page.locator(`[data-slide="${videoSlides[index]}"]`).dispatchEvent('click');
       await page.locator(mediaSelectors[index]).scrollIntoViewIfNeeded();
       await page.waitForTimeout(150);
       const media=page.locator(mediaSelectors[index]);
@@ -149,7 +157,7 @@ try {
   await page.locator('.carousel-rotation').click();
   for(let index=0;index<3;index++) {
     await page.evaluate(()=>{window.allowVideo=false;});
-    await page.locator(`[data-slide="${index}"]`).dispatchEvent('click');
+    await page.locator(`[data-slide="${videoSlides[index]}"]`).dispatchEvent('click');
     await page.locator(mediaSelectors[index]).scrollIntoViewIfNeeded();
     const retry=page.locator(`${mediaSelectors[index]} .video-play`);
     await retry.waitFor({state:'visible'});
@@ -180,7 +188,7 @@ try {
   await failed.goto(origin + '/');
   await failed.locator('.carousel-rotation').click();
   for(let index=0;index<3;index++) {
-    await failed.locator(`[data-slide="${index}"]`).dispatchEvent('click');
+    await failed.locator(`[data-slide="${videoSlides[index]}"]`).dispatchEvent('click');
     const media=failed.locator(mediaSelectors[index]);
     await media.scrollIntoViewIfNeeded();
     await failed.waitForFunction(selector=>document.querySelector(selector).classList.contains('video-failed'),mediaSelectors[index]);

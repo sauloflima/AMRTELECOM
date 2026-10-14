@@ -60,7 +60,7 @@ Os templates retornam HTML no build, sem depender de `window` ou `document`. A d
 
 ## Testes
 
-Execute `npm test`, `npm run build` e `npm run check:dist`. Em 14/10/2026 são 61 testes Node e 56 arquivos permitidos: 16 HTML, três CSS, nove módulos, 26 mídias e dois arquivos de indexação. O catálogo e a allowlist são as fontes dessas contagens.
+Execute `npm test`, `npm run build` e `npm run check:dist`. Em 14/10/2026 são 63 testes Node e 58 arquivos permitidos: 16 HTML, três CSS, nove módulos, 28 mídias e dois arquivos de indexação. O catálogo e a allowlist são as fontes dessas contagens.
 
 `npm run test:browser` executa os cinco scripts existentes contra o último artefato, sem recompilar. Inicia uma prévia exclusiva em porta livre e detecta se `dist/` usa `/AMRTELECOM/`. `dev.mjs --preview --pages` serve o artefato preparado nessa base; mantém limites de diretório, respostas de mídia e headers locais. O runner verifica a allowlist antes/depois e comprova a rejeição de um arquivo extra fictício, removido em `finally`.
 

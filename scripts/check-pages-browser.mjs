@@ -74,7 +74,7 @@ try {
   assert.equal(await page.locator('.header .brand-dark').evaluate(img => getComputedStyle(img).display), 'block');
   assert.equal(await page.locator('.mobile-whatsapp').count(), 0);
   await page.evaluate(() => scrollTo(0, 0));
-  await page.locator('.hero-cta[data-focus-coverage]').click();
+  await page.locator('.hero-cta[data-focus-coverage]').first().click();
   assert.equal(await page.locator('#quick-cep').evaluate(el => el === document.activeElement), true);
   await page.evaluate(() => scrollTo(0, 0));
   await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();

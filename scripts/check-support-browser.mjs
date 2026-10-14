@@ -125,7 +125,7 @@ try {
       await widget.waitFor({ state: 'visible' });
       if (mode === 'paused') assert.equal(await widget.evaluate(el => getComputedStyle(el).animationName), 'none');
       if (mode === 'reduced') {
-        await page.locator('[data-slide="1"]').dispatchEvent('click');
+        await page.locator('[data-slide="2"]').dispatchEvent('click');
         assert.equal(await page.locator('.enterprise-media video').evaluate(video => video.paused), true);
         assert.equal(await page.locator('.enterprise-media').evaluate(el => el.classList.contains('video-static')), true);
       }

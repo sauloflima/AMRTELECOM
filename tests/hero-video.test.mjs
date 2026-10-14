@@ -29,7 +29,9 @@ test('HTML do hero aponta para o MP4 da casa e poster sem autoplay nativo',()=>{
   assert.match(html,/<video class="hero-house-video"[^>]*muted loop playsinline preload="none"/);
   assert.match(html,/<source src="\/assets\/videos\/hero-amr-integrado-corrigido\.mp4" type="video\/mp4">/);
   assert.doesNotMatch(html,/<source data-src=/);
-  assert.match(html,/fetchpriority="high"/);
+  // Casa abre o carrossel: só a imagem dela tem prioridade de rede.
+  assert.match(html,/class="hero-house-fallback"[^>]*fetchpriority="high"/);
+  assert.equal((html.match(/fetchpriority="high"/g)||[]).length,1);
 });
 
 test('movimento reduzido, economia, pausa, aba oculta e slide invisível impedem reprodução',()=>{
