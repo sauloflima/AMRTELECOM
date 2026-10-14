@@ -82,7 +82,7 @@ try {
       assert.equal(new URL(page.url()).search, '');
       assert.deepEqual(navigations, mode === 'normal' ? [`${origin}/cobertura.html`, `${origin}/`] : [`${origin}/cobertura.html`]);
       assert.equal(await page.evaluate(() => localStorage.length), 0);
-      assert.deepEqual(await page.evaluate(() => Object.keys(sessionStorage).filter(key => key !== 'amrSupportPromptShown')), []);
+      assert.equal(await page.evaluate(() => sessionStorage.length), 0);
       console.log(`Aprovado: ${mode}; nenhum envio de dados pela URL.`);
     } finally {
       await context.close();

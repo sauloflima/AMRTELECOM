@@ -73,11 +73,10 @@ try {
   await page.evaluate(() => scrollTo(0, 200));
   await page.waitForFunction(() => document.querySelector('.header').classList.contains('is-scrolled'));
   assert.equal(await page.locator('.header .brand-dark').evaluate(img => getComputedStyle(img).display), 'block');
-  await page.locator('.routine-section').scrollIntoViewIfNeeded();
-  await page.waitForFunction(() => !document.querySelector('.coverage-dock').hidden);
   assert.equal(await page.locator('.mobile-whatsapp').count(), 0);
-  await page.locator('.plan-grid').scrollIntoViewIfNeeded();
-  await page.waitForFunction(() => document.querySelector('.coverage-dock').hidden);
+  await page.evaluate(() => scrollTo(0, 0));
+  await page.locator('.carousel-slide.is-active [data-focus-coverage]').click();
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'quick-cep', 'Chamada principal leva ao campo de CEP');
   await page.evaluate(() => scrollTo(0, 0));
   await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();
   await page.locator('#navigation').getByRole('link', { name: 'Planos', exact: true }).click();

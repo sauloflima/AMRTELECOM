@@ -12,8 +12,10 @@ export function mountPageMotion() {
     }));
     document.querySelectorAll('.icon, .hero-copy, .enterprise-stage, .service-photo').forEach(element => observer.observe(element));
   }
-  const syncMotion = () => document.body.classList.toggle('motion-suspended', document.hidden || Boolean(navigator.connection?.saveData));
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const syncMotion = () => document.body.classList.toggle('motion-suspended', document.hidden || reducedMotion.matches || Boolean(navigator.connection?.saveData));
   document.addEventListener('visibilitychange', syncMotion);
+  reducedMotion.addEventListener('change', syncMotion);
   navigator.connection?.addEventListener('change', syncMotion);
   syncMotion();
   const customerSection=document.querySelector('.customer-section');
@@ -53,10 +55,10 @@ export function mountMedia() {
     const updateServiceVideo=serviceVideo ? createHeroVideo(serviceVideo,servicePhoto) : null;
     const updateEnterpriseVideo=enterpriseVideo ? createHeroVideo(enterpriseVideo,enterpriseMedia) : null;
     const syncHouseVideo=()=> {
-      updateVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
+      updateVideo?.({paused:userPaused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView,active:houseVideoSlide?.classList.contains('is-active')});
     };
     const syncServiceVideo=()=> {
-      updateServiceVideo?.({paused:userPaused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
+      updateServiceVideo?.({paused:userPaused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:serviceInView,active:serviceSlide?.classList.contains('is-active')});
     };
     const syncEnterpriseVideo=()=> {
       if(!enterpriseVideo)return;
@@ -97,7 +99,7 @@ export function mountMedia() {
     });
     art.addEventListener('pointerleave',reset);
     desktopPointer.addEventListener('change',update);
-    reducedMotion.addEventListener('change',syncEnterpriseVideo);
+    reducedMotion.addEventListener('change',update);
     document.addEventListener('visibilitychange',update);
     connection?.addEventListener('change',update);
     if('IntersectionObserver' in window) {
@@ -125,12 +127,13 @@ export function mountMedia() {
     const officeVideo=office.querySelector('[data-business-video]');
     const control=office.querySelector('.office-motion-toggle');
     const connection=navigator.connection;
+    const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
     let visible=!('IntersectionObserver' in window);
     let paused=false;
     const updateVideo=officeVideo ? createHeroVideo(officeVideo,office) : null;
     const sync=()=> {
-      updateVideo?.({paused,reduced:false,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:visible,active:true});
-      office.classList.toggle('office-motion-active',visible && !paused && !connection?.saveData && !document.hidden);
+      updateVideo?.({paused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:visible,active:true});
+      office.classList.toggle('office-motion-active',visible && !paused && !reducedMotion.matches && !connection?.saveData && !document.hidden);
       control.hidden=false;
       control.textContent=paused?'Ativar animação':'Pausar animação';
       control.setAttribute('aria-pressed',String(paused));
@@ -138,6 +141,7 @@ export function mountMedia() {
     control.addEventListener('click',()=>{paused=!paused;sync();});
     document.addEventListener('visibilitychange',sync);
     connection?.addEventListener('change',sync);
+    reducedMotion.addEventListener('change',sync);
     if('IntersectionObserver' in window) new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync();},{threshold:.15}).observe(office);
     sync();
   }

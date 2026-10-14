@@ -5,7 +5,7 @@ import { config } from '../src/config.mjs';
 import { header, footer, escape } from '../src/components/shared.mjs';
 import { hero } from '../src/components/hero.mjs';
 import { plans } from '../src/components/plans.mjs';
-import { testimonials, homeBusiness, homeRoutine, homeSupport, homeFaq, pendingStories, homeContactBand, coverageDock } from '../src/components/home-sections.mjs';
+import { testimonials, homeBusiness, homeRoutine, homeSupport, homeFaq, pendingStories, homeContactBand } from '../src/components/home-sections.mjs';
 import { routines, wifi, business, businessDetail } from '../src/components/benefits.mjs';
 import { WhatsAppAssistant } from '../src/components/support-assistant.mjs';
 import { customerArea } from '../src/components/customer.mjs';
@@ -32,7 +32,7 @@ function page(content, route='/') {
   return `<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#020B18"><title>${escape(title)}</title><meta name="description" content="${description}"><meta name="robots" content="${indexable ? 'index, follow':'noindex, nofollow'}"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${description}"><meta property="og:type" content="website"><meta property="og:locale" content="pt_BR">${origin ? `<link rel="canonical" href="${origin}${route}">` : ''}<link rel="icon" type="image/png" href="${config.brand.favicon}"><link rel="stylesheet" href="/styles.css?v=${revision}">${visualStyles}<link rel="stylesheet" href="/support-assistant.css?v=${revision}"><script type="module" src="/src/client.mjs?v=${revision}"></script></head><body>${header(route)}<noscript><div class="no-script">Ative o JavaScript para usar o menu compacto e a consulta por formulário. Os planos, perguntas e links de navegação continuam disponíveis.</div><style>${noScriptStyle}</style></noscript>${content}${footer(route)}${WhatsAppAssistant()}</body></html>`;
 }
 const pages = {
-  'index.html': page(`<main id="conteudo" tabindex="-1">${hero()}${plans({home:true})}${homeRoutine()}${homeBusiness()}${homeSupport()}${testimonials()}${pendingStories()}${homeFaq()}${homeContactBand()}</main>${coverageDock()}`),
+  'index.html': page(`<main id="conteudo" tabindex="-1">${hero()}${plans({home:true})}${homeRoutine()}${homeBusiness()}${homeSupport()}${testimonials()}${pendingStories()}${homeFaq()}${homeContactBand()}</main>`),
   ...Object.fromEntries([
     ['/planos.html', plans(), ['/cobertura.html', '/perguntas.html']],
     ['/area-do-cliente.html', customerArea(), ['/suporte.html', '/contato.html']],

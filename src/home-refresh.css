@@ -37,7 +37,7 @@
 .home-page .header nav a { min-height:48px;font-size:.9375rem;font-weight:600;letter-spacing:.035em; }
 .home-page .header .header-cta { min-height:48px;padding:11px 20px;border-radius:999px;background:#fff;border-color:#fff;color:var(--home-blue);font-size:.9375rem;box-shadow:0 1px 3px rgba(7,26,46,.15); }
 .home-page .button,.plans-catalog .button { min-height:50px;padding:12px 20px;border-radius:999px;font-size:.9375rem;font-weight:750;transition:background-color 180ms ease,border-color 180ms ease,color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
-.home-page .button.primary,.plans-catalog .button.primary,.coverage-dock .button.primary { border-color:var(--home-blue);background:var(--home-blue);color:#fff; }
+.home-page .button.primary,.plans-catalog .button.primary { border-color:var(--home-blue);background:var(--home-blue);color:#fff; }
 .home-page .button.light { border-color:#fff;background:#fff;color:var(--home-navy); }
 .home-page .button.outline { border:1px solid #8ba6ba;background:#fff;color:var(--home-navy); }
 .home-page .text-link,.plans-catalog .text-link { display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:.9375rem;font-weight:750; }
@@ -255,7 +255,7 @@
 .office-person-worker { clip-path:polygon(46% 40%,48.3% 40%,49% 44%,50.2% 45%,49.5% 48%,46.5% 49%,45.8% 44%);transform-origin:47.5% 49%;--person-duration:2.2s;--person-action:amr-worker-type; }
 .office-person-colleague { clip-path:polygon(52% 43.5%,54.6% 44%,54.8% 48%,56.2% 49%,55% 52%,52% 51%,51.5% 48%);transform-origin:53.5% 52%;--person-duration:3.4s;--person-action:amr-colleague-nod; }
 .office-person-viewer { clip-path:polygon(77% 49%,79% 49.5%,80% 53%,79% 56%,75% 56%,74% 54%,76.5% 52%);transform-origin:78% 56%;--person-duration:4.6s;--person-action:amr-viewer-shift; }
-.office-phone-user { position:absolute;z-index:2;left:34.7%;top:34.4%;width:5.8%;aspect-ratio:2/3;pointer-events:none;transform-origin:53% 95%;background:url('/assets/generated/amr-pessoa-celular-parada.png') center/contain no-repeat;filter:drop-shadow(0 2px 1px #10263b55); }
+.office-phone-user { position:absolute;z-index:2;left:34.7%;top:34.4%;width:5.8%;aspect-ratio:2/3;pointer-events:none;transform-origin:53% 95%;background:url('/assets/generated/amr-pessoa-celular-parada.webp') center/contain no-repeat;filter:drop-shadow(0 2px 1px #10263b55); }
 .office-phone-user:after { content:"";position:absolute;left:66%;top:27%;width:7%;height:5%;border-radius:50%;background:#91cfff;filter:blur(2px);opacity:.1; }
 .office-floor-light { position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none; }
 .office-floor-light path { fill:none;stroke:#c4efff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:120 880;stroke-dashoffset:1000;opacity:0;filter:drop-shadow(0 0 5px #34baff); }
@@ -349,12 +349,6 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
 .home-page .footer-bottom>div:first-child { display:grid;gap:5px; }
 .home-page .footer-bottom small { max-width:690px;color:#8299aa; }
 
-.coverage-dock { position:fixed;z-index:30;right:18px;bottom:18px;display:flex;align-items:center;gap:12px;max-width:500px;padding:10px;border:1px solid var(--home-line);border-radius:16px;background:#fff;box-shadow:var(--home-shadow);color:var(--home-ink); }
-.coverage-dock>div { padding-left:4px; }
-.coverage-dock strong { display:block;font-size:.8125rem; }
-.coverage-dock span { display:block;color:var(--home-muted);font-size:.75rem; }
-.coverage-dock .button { min-height:46px;padding:10px 15px;font-size:.8125rem;white-space:nowrap; }
-.coverage-dock .dock-whatsapp { display:none; }
 
 @media(hover:hover) and (pointer:fine) {
   .home-page .button:hover,.plans-catalog .button:hover { transform:translateY(-2px); }
@@ -504,9 +498,6 @@ body:has(.user-effects-paused) :is(.office-person,.office-phone-user,.office-pho
   .home-page .footer-brand-row { align-items:flex-start; }
   .home-page .footer-brand-row .brand,.home-page .footer-brand-row .brand img { width:142px; }
   .home-page .footer-columns { gap:20px 16px; }
-  .coverage-dock { right:0;bottom:0;left:0;max-width:none;border-radius:0;border-inline:0;padding:9px 12px calc(9px + env(safe-area-inset-bottom,0px)); }
-  .coverage-dock>div { flex:1; }
-  .coverage-dock>div span { display:none; }
 }
 
 @media(max-width:380px) {

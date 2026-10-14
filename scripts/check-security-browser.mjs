@@ -108,7 +108,7 @@ try {
     assert.equal(await page.locator('script:not([src]), [onclick], [onload], [onerror], iframe').count(), 0);
     for (const link of await page.locator('a[target="_blank"]').all()) assert.match(await link.getAttribute('rel'), /noopener noreferrer/);
   }
-  console.log('Aprovado: 12 páginas, headers, CSP de scripts/estilos/formulários, cargas XSS como texto, plano por allowlist, limites, armazenamento vazio, iframe, traversal, arquivos privados e menu sem JavaScript.');
+  console.log(`Aprovado: ${routes.length} páginas, headers, CSP de scripts/estilos/formulários, cargas XSS como texto, plano por allowlist, limites, armazenamento vazio, iframe, traversal, arquivos privados e menu sem JavaScript.`);
 } finally {
   await browser.close();
 }

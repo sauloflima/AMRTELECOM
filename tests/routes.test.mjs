@@ -4,9 +4,9 @@ import { routes } from '../src/routes.mjs';
 import { header, footer, icon } from '../src/components/shared.mjs';
 import { hero } from '../src/components/hero.mjs';
 import { plans } from '../src/components/plans.mjs';
-import { homeBusiness, homeProfiles, testimonials, coverageDock } from '../src/components/home-sections.mjs';
+import { homeBusiness, homeRoutine, testimonials } from '../src/components/home-sections.mjs';
 import { customerArea } from '../src/components/customer.mjs';
-import { interiorPage, homeNavigation } from '../src/components/navigation.mjs';
+import { interiorPage } from '../src/components/navigation.mjs';
 
 test('catálogo contém 16 páginas com caminhos e metadados exclusivos', () => {
   assert.equal(routes.length, 16);
@@ -33,7 +33,7 @@ test('atalho do cabeçalho identifica o WhatsApp sem mudar o destino', () => {
 });
 
 test('início reúne consulta rápida, planos e acessos sem perder páginas existentes', () => {
-  const html = hero() + plans({home:true}) + customerArea({home:true}) + testimonials() + homeBusiness() + homeProfiles() + coverageDock() + footer();
+  const html = hero() + plans({home:true}) + customerArea({home:true}) + testimonials() + homeBusiness() + homeRoutine() + footer();
   for (const route of routes.filter(route => route.icon)) {
     assert.ok(html.includes(`href="${route.path}"`));
   }

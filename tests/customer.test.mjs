@@ -4,7 +4,7 @@ import { config } from '../src/config.mjs';
 import { routes } from '../src/routes.mjs';
 import { customerArea } from '../src/components/customer.mjs';
 import { header, footer } from '../src/components/shared.mjs';
-import { interiorPage, homeNavigation } from '../src/components/navigation.mjs';
+import { interiorPage } from '../src/components/navigation.mjs';
 
 test('Área do cliente substitui Benefícios e só ativa o acesso com um portal HTTPS',()=> {
   const original=config.customerPortalUrl;
@@ -15,7 +15,7 @@ test('Área do cliente substitui Benefícios e só ativa o acesso com um portal 
     assert.match(page,/disabled>Acesso em breve/);
     assert.doesNotMatch(page,/<input|<form/);
     assert.ok(!routes.some(route=>route.path==='/beneficios.html'));
-    for(const html of [customerArea({home:true}),header(),footer(),homeNavigation()]) {
+    for(const html of [customerArea({home:true}),header(),footer()]) {
       assert.match(html,/href="\/area-do-cliente.html"/);
       assert.doesNotMatch(html,/beneficios\.html/);
     }

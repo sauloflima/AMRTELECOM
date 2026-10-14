@@ -8,15 +8,10 @@ export const profileImages = {
 };
 export const homeAssets = [
   ...Object.values(profileImages),
-  '/assets/generated/amr-rotina-conectada-3d.jpg',
   '/assets/generated/amr-escritorio-pessoas.jpg',
-  '/assets/generated/amr-pessoa-celular-parada.png',
+  '/assets/generated/amr-pessoa-celular-parada.webp',
   '/assets/generated/amr-atendimento-bordado-20261001.jpg'
 ];
-
-export function connectionStrip() {
-  return `<div class="connection-strip container" aria-label="Fibra óptica, atendimento local e suporte humano"><p>A conexão é só o começo.</p><ul><li>${icon('fiber')} Fibra óptica</li><li>${icon('pin')} Atendimento local</li><li>${icon('headset')} Suporte humano</li></ul></div>`;
-}
 
 export function testimonials(items=config.testimonials) {
   const approved=(items||[]).filter(item=>item.approved===true && typeof item.name==='string' && item.name.trim() && typeof item.quote==='string' && item.quote.trim());
@@ -59,11 +54,4 @@ export function homeRoutine() {
     ['Filmes e jogos','Velocidade para aproveitar o tempo livre.','/assets/generated/amr-perfil-entretenimento.jpg']
   ];
   return `<section class="routine-section" aria-labelledby="routine-title"><div class="container"><div class="routine-heading"><p class="section-kicker">A internet acompanha a vida</p><h2 id="routine-title">Conexão para todos os momentos.</h2></div><div class="routine-grid">${moments.map(([title,text,image])=>`<a class="routine-card" href="/solucoes.html"><img src="${image}" alt="" width="1536" height="1024" loading="lazy" decoding="async"><span><strong>${title}</strong><small>${text}</small>${icon('arrow')}</span></a>`).join('')}</div></div></section>`;
-}
-
-// Mantém compatibilidade com integrações que ainda importam o nome anterior.
-export const homeProfiles = homeRoutine;
-
-export function coverageDock() {
-  return '';
 }
