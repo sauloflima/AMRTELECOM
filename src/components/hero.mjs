@@ -3,12 +3,12 @@ import { config } from '../config.mjs';
 import { whatsappUrl } from '../lib/whatsapp.mjs';
 import { existsSync } from 'node:fs';
 
-// Fotos das igrejas matriz: só entram no site com arquivo em public/ e crédito preenchido (licença verificada).
+// Fotos das igrejas matriz: só entram no site com arquivo em public/ e crédito preenchido.
 // O crédito não aparece no slide, a pedido da AMR; ele fica em Termos, seção Créditos de imagens (MTur exige crédito).
 // Cada foto: recorte 16:10 com a fachada e a torre inteiras, em 800x500 e 1600x1000 WebP.
 export const cities = [
   { id:'gravata', name:'Gravatá', credit:'Bruno Lima - MTUR' },
-  { id:'amaraji', name:'Amaraji', credit:'' }
+  { id:'amaraji', name:'Amaraji', credit:'@viajandotodoobr' }
 ].map(city => {
   const photo = size => `/assets/photos/igreja-matriz-${city.id}-${size}.webp`;
   const ready = Boolean(city.credit) && [800,1600].every(size => existsSync(new URL(`../../public${photo(size)}`, import.meta.url)));

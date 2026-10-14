@@ -37,7 +37,7 @@ try {
     await page.waitForTimeout(600);
     await snapshot(page, `${width}x${height}-home`);
     assert.equal(await page.locator('[data-carousel]').getAttribute('data-active-slide'), '1');
-    await page.locator('.city-card img').evaluate(img => img.decode());
+    await page.locator('.city-card img').evaluateAll(images => Promise.all(images.map(img => img.decode())));
     assert.equal(await page.locator('.hero-slide-city').getAttribute('aria-hidden'), 'false');
     assert.equal(await page.locator('.city-card').count(), 2);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width);

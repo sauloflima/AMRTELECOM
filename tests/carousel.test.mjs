@@ -58,10 +58,11 @@ test('Cidades abre; um slide reúne Gravatá e Amaraji sem promessas', () => {
   assert.match(gravata, /igreja-matriz-gravata-1600\.webp/);
   assert.equal(cities[0].credit, 'Bruno Lima - MTUR');
   assert.doesNotMatch(city, /Foto:|Bruno Lima/);
-  assert.match(amaraji, /class="city-place"/);
+  assert.match(amaraji, /igreja-matriz-amaraji-1600\.webp/);
   assert.match(amaraji, /Amaraji, PE/);
-  assert.doesNotMatch(amaraji, /<img|igreja-matriz/);
-  assert.deepEqual(cities.map(city => city.ready), [true, false]);
+  assert.doesNotMatch(amaraji, /class="city-place"|igreja-matriz-gravata/);
+  assert.deepEqual(cities.map(city => city.ready), [true, true]);
+  assert.match(terms, /Amaraji\. Crédito indicado na imagem original: @viajandotodoobr/);
 });
 test('crédito da foto de Gravatá fica em Termos, com fonte e acesso pelo rodapé', () => {
   assert.match(terms, /<h2 id="creditos-imagens">Créditos de imagens<\/h2>/);

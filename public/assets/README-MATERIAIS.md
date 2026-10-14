@@ -82,14 +82,14 @@ Exemplo:
 
 ## Fotos das cidades atendidas (carrossel da Home)
 
-O segundo slide da Home reúne Gravatá e Amaraji, lado a lado no computador e empilhadas no celular; Casa abre o carrossel. Cidade sem foto com permissão verificada aparece como um bloco neutro com ícone de localização e o nome logo abaixo, nunca com a foto de outra cidade. Para publicar as fotos, coloque em `photos/`:
+O primeiro slide da Home reúne Gravatá e Amaraji, lado a lado no computador e empilhadas no celular; Casa vem em seguida. Cidade sem foto com permissão verificada aparece como um bloco neutro com ícone de localização e o nome logo abaixo, nunca com a foto de outra cidade. Para publicar as fotos, coloque em `photos/`:
 
 | Arquivo | Igreja (referência para buscar a foto, não vai para a legenda) | Dimensões |
 | --- | --- | --- |
 | `public/assets/photos/igreja-matriz-gravata-800.webp` | Igreja Matriz de Sant’Ana, Centro, Gravatá (PE); confirmar o nome com a paróquia | 800 × 500 (presente) |
 | `public/assets/photos/igreja-matriz-gravata-1600.webp` | mesma foto de Gravatá | 1600 × 1000 (presente) |
-| `public/assets/photos/igreja-matriz-amaraji-800.webp` | Igreja Matriz de São José, Centro, Amaraji (PE); confirmar o nome com a paróquia | 800 × 500 (falta) |
-| `public/assets/photos/igreja-matriz-amaraji-1600.webp` | mesma foto de Amaraji | 1600 × 1000 (falta) |
+| `public/assets/photos/igreja-matriz-amaraji-800.webp` | Igreja Matriz de São José, Centro, Amaraji (PE); confirmar o nome com a paróquia | 800 × 500 (presente) |
+| `public/assets/photos/igreja-matriz-amaraji-1600.webp` | mesma foto de Amaraji | 1600 × 1000 (presente) |
 
 ### Situação das fotos (10/10/2026)
 
@@ -106,3 +106,7 @@ Fotos e páginas conferidas diretamente no Commons e no Flickr em 10/10/2026.
 - Preencha `credit` em `src/components/hero.mjs` com autor e licença (por exemplo, `Nome do fotógrafo (CC BY 4.0)` ou `Prefeitura de Gravatá, uso autorizado`). Sem crédito preenchido, a foto não é publicada.
 - Com os dois arquivos e o crédito de uma cidade, a foto entra automaticamente no build. Casa continua abrindo o carrossel até que as duas fotos sejam aprovadas; para levar as cidades ao início, mude a ordem em `slideNames` e nos slides de `src/components/hero.mjs`, e as posições `videoSlides` em `scripts/check-mobile-browser.mjs`.
 - Guarde a autorização por escrito ou o link da licença. Licenças NC (não comercial) não servem para o site da AMR. Não remova marcas-d’água.
+
+### Amaraji incorporada em 14/10/2026
+
+Foto recebida de Saulo nesta conversa, que solicitou remover o @ lateral e publicar no cartão de Amaraji. Marca original: `@viajandotodoobr`; crédito preservado em Termos de Uso. O arquivo fornecido é diferente da candidata antiga listada acima; a licença independente desta nova imagem não foi verificada. Edição por ferramenta de imagem para remover a marca sobre o céu; derivados WebP em 800 × 500 e 1600 × 1000, com recorte ancorado no topo para preservar a torre.

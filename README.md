@@ -64,7 +64,7 @@ Recompile após editar a configuração. A indexação só é habilitada quando 
 
 ## Vídeo e materiais
 
-O carrossel tem quatro slides: Gravatá e Amaraji, Casa, Empresas e Atendimento. O primeiro slide usa a foto creditada de Gravatá e um espaço reservado para Amaraji, enquanto falta uma foto autorizada. Os créditos ficam em Termos de Uso, com acesso pelo rodapé.
+O carrossel tem quatro slides: Gravatá e Amaraji, Casa, Empresas e Atendimento. O primeiro slide usa as fotos de Gravatá e Amaraji. A imagem de Amaraji foi fornecida por Saulo para publicação, com remoção da marca lateral. Os créditos ficam em Termos de Uso, com acesso pelo rodapé.
 
 Veja [ASSET_AUDIT.md](docs/historico/ASSET_AUDIT.md) para a auditoria individual das mídias originais. O vídeo original `AMR Telecom.mp4` contém textos promocionais, alegações não aprovadas e telefone ilustrativo; permanece preservado em `public/assets/videos`, mas não entra no build. As oito artes de `references` serviram somente como referência.
 
@@ -180,7 +180,7 @@ No Linux/CI a instalação explícita é `npx --no-install playwright install --
 
 O estado visual mais recente e a validação do segundo slide estão em [design-qa.md](docs/historico/design-qa.md). [REDESIGN_HOME.md](docs/historico/REDESIGN_HOME.md), [REDESIGN_HERO.md](docs/historico/REDESIGN_HERO.md), [AUDITORIA_PREMIUM.md](docs/historico/AUDITORIA_PREMIUM.md) e [VALIDACAO.md](docs/historico/VALIDACAO.md) registram etapas anteriores. Assets e proveniência estão em [ASSETS_HOME.md](docs/historico/ASSETS_HOME.md). `testimonials` e `mostChosenPlanId` devem receber somente dados reais confirmados; sem depoimentos aprovados, a seção permanece oculta.
 
-Selecionar um plano residencial abre a consulta de cobertura com `?plano=ID` e preserva a opção na mensagem preparada. Apenas IDs existentes no catálogo são aceitos. A opção empresarial leva ao contato para uma avaliação sem preço anunciado. Na revisão de 14/10/2026, `npm test` aprovou 63 testes, `npm run build` gerou 16 páginas e `npm run check:dist` aprovou 58 arquivos selecionados. A revisão visual anterior cobriu 1440 e 390 px, sem rolagem horizontal ou erros no console. Core Web Vitals não foram medidos.
+Selecionar um plano residencial abre a consulta de cobertura com `?plano=ID` e preserva a opção na mensagem preparada. Apenas IDs existentes no catálogo são aceitos. A opção empresarial leva ao contato para uma avaliação sem preço anunciado. Na revisão de 14/10/2026, `npm test` aprovou 63 testes, `npm run build` gerou 16 páginas e `npm run check:dist` aprovou 60 arquivos selecionados. A revisão visual anterior cobriu 1440 e 390 px, sem rolagem horizontal ou erros no console. Core Web Vitals não foram medidos.
 
 Playwright 1.64.0 é dependência de desenvolvimento com versão exata e integridade no lockfile. `npm run test:browser` reaproveita os cinco `check-*-browser.mjs`; também testa CSP em enforcement local, XSS tratado como texto, falha de módulos, menu sem JS, modal pequeno e rejeição de arquivos privados. Para executar scripts isolados, iniciar a prévia e definir `AMR_ORIGIN` com a base completa. Para `dist/` preparado para Pages, usar `npm run preview -- --pages`; para o build na raiz, usar `npm run preview`. `AMR_PLAYWRIGHT_ROOT` permanece como alternativa local explícita; o CI usa a dependência instalada pelo lockfile.
 
