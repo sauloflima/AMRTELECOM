@@ -65,10 +65,19 @@ try {
         assert.equal(await popup.title(), 'WhatsApp interceptado');
         await popup.close();
         await page.goto(origin + '/');
+        const cep = page.locator('#quick-cep');
+        for (const [position, digit] of [[0, '5'], [3, '3'], [6, '2']]) {
+          await cep.fill('50030-230');
+          await cep.evaluate((field, position) => field.setSelectionRange(position, position + 1), position);
+          await cep.press('Backspace');
+          await cep.press(digit);
+          assert.equal(await cep.inputValue(), '50030-230', 'Corrigir um dígito deve preservar o CEP e a posição da edição.');
+        }
         await page.locator('#quick-cep').fill('50030230');
         await page.locator('#quick-reference').fill('Casa de teste');
         await page.locator('#quick-coverage-form button[type="submit"]').click();
         const quickUrl = await page.locator('#quick-continue').getAttribute('href');
+        assert.match(new URL(quickUrl).searchParams.get('text'), /CEP: 50030-230/);
         assert.equal(await page.locator('#quick-preview').isVisible(), true);
         assert.equal(new URL(quickUrl).searchParams.get('text'), await page.locator('#quick-preview').innerText());
         assert.equal(popups, 1, 'Consulta rápida não abre outra aba automaticamente.');

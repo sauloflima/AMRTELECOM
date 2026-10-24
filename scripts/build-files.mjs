@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { config } from '../src/config.mjs';
 import { heroAssets } from '../src/components/hero.mjs';
@@ -27,7 +27,14 @@ export const mediaAssets = [...new Set([
 
 export async function assetRevision(root) {
   const hash = createHash('sha256');
-  for (const file of [...stylesheets, ...browserModules].map(file => `src/${file}`)) {
+  const components = (await readdir(path.join(root, 'src/components')))
+    .filter(file => file.endsWith('.mjs')).map(file => `components/${file}`);
+  const sources = [
+    ...[...stylesheets, ...browserModules, ...components, 'routes.mjs', 'legal.mjs'].map(file => `src/${file}`),
+    ...['build', 'build-files', 'security', 'seo', 'publication'].map(file => `scripts/${file}.mjs`),
+    'package-lock.json',
+  ];
+  for (const file of sources.sort()) {
     hash.update(file).update('\0').update(await readFile(path.join(root, file))).update('\0');
   }
   return hash.digest('hex').slice(0, 16);

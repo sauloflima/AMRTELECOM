@@ -85,10 +85,6 @@ function mountQuickCoverageForm(quickForm, showPending) {
   };
   quickForm.addEventListener('input',event=> {
     const field=event.target;
-    if(field.name==='cep') {
-      const digits=field.value.replace(/\D/g,'').slice(0,8);
-      field.value=digits.length>5?`${digits.slice(0,5)}-${digits.slice(5)}`:digits;
-    }
     if(field.getAttribute('aria-invalid')==='true') {
       const errors=validateQuickCoverage(Object.fromEntries(new FormData(quickForm)));
       if(!errors[field.name])renderError(field.name,'');
