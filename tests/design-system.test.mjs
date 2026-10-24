@@ -68,7 +68,7 @@ test('estados críticos de acessibilidade permanecem explícitos no CSS', () => 
   assert.match(home,/\.hero-house-video,.hero-house-fallback \{[^}]*object-fit:contain/);
   assert.doesNotMatch(home,/\.hero-house-video[^}]*object-fit:cover/);
   assert.ok(home.includes('.hero-house-video'));
-  assert.ok(home.includes('.business-video'));
+  assert.ok(home.includes('.business-video-fallback'));
   assert.ok(home.includes('.home-faq-list'));
   assert.ok(home.includes('aspect-ratio:16/9'));
   assert.ok(home.includes('transform:translate(-50%,-50%)'));

@@ -123,7 +123,7 @@ O WhatsApp, os preços e benefícios residenciais desta versão e as cidades Gra
 
 As páginas de privacidade e termos descrevem a versão atual e precisam de revisão e complementação com os dados da empresa antes da publicação. A versão anterior está pública no GitHub Pages. As correções desta auditoria são locais; nenhuma mensagem foi enviada a terceiros nem um novo deploy foi realizado.
 
-O formulário não utiliza banco de dados, cookies ou armazenamento local/sessionStorage. A consulta completa usa nome, cidade, bairro e rua ou referência; a rápida usa CEP e número ou referência. Nenhuma pede telefone. Após a validação, o visitante vê a mensagem preparada. Só o clique no link de continuação abre o WhatsApp: nesse momento os dados entram na URL do serviço, antes de qualquer envio da mensagem no aplicativo. Sem número oficial configurado, o site informa a indisponibilidade.
+O formulário não utiliza banco de dados, cookies ou armazenamento local/sessionStorage. A consulta completa usa nome, cidade, bairro e rua ou referência; a rápida usa CEP e número ou referência. O CEP aceita oito dígitos com ou sem hífen, sem reposicionar o cursor durante a edição; a mensagem preparada mantém o formato 00000-000. Nenhuma pede telefone. Após a validação, o visitante vê a mensagem preparada. Só o clique no link de continuação abre o WhatsApp: nesse momento os dados entram na URL do serviço, antes de qualquer envio da mensagem no aplicativo. Sem número oficial configurado, o site informa a indisponibilidade.
 
 Os campos e o botão são habilitados somente depois que o tratamento de envio estiver pronto. Sem JavaScript ou se o script falhar, permanecem desabilitados com orientação visível. Isso impede o envio padrão do navegador, que colocaria os dados na URL.
 

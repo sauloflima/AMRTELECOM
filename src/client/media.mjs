@@ -118,19 +118,15 @@ export function mountMedia() {
     update();
   }
 
-  // Vídeo empresarial decorativo: carrega quando entra em cena e mantém o poster
-  // quando a preferência do sistema ou a conexão pede menos movimento.
+  // A ilustração acompanha visibilidade, pausa e preferências de movimento e dados.
   const office=document.querySelector('[data-office-motion]');
   if(office) {
-    const officeVideo=office.querySelector('[data-business-video]');
     const control=office.querySelector('.office-motion-toggle');
     const connection=navigator.connection;
     const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
     let visible=!('IntersectionObserver' in window);
     let paused=false;
-    const updateVideo=officeVideo ? createHeroVideo(officeVideo,office) : null;
     const sync=()=> {
-      updateVideo?.({paused,reduced:reducedMotion.matches,saveData:Boolean(connection?.saveData),hidden:document.hidden,inView:visible,active:true});
       office.classList.toggle('office-motion-active',visible && !paused && !reducedMotion.matches && !connection?.saveData && !document.hidden);
       control.hidden=reducedMotion.matches;
       control.textContent=paused?'Ativar animação':'Pausar animação';
