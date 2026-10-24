@@ -1,7 +1,7 @@
 // Cada cena fica tempo suficiente para ler o texto e concluir os vídeos de 8s; data-delay encurta slides só de texto e foto.
 export const ROTATION_DELAY = 10000;
 export function canRotate(state) {
-  return !state.paused && !state.focused && !state.hidden && state.visible;
+  return !state.paused && !state.reduced && !state.focused && !state.hidden && state.visible;
 }
 export function swipeStep(dx, dy) {
   return Math.abs(dx) >= 50 && Math.abs(dx) > Math.abs(dy) * 1.5 ? (dx < 0 ? 1 : -1) : 0;
@@ -13,12 +13,14 @@ export function mountCarousel(root, environment = window) {
   const dots = [...root.querySelectorAll('[data-slide]')];
   const rotation = root.querySelector('.carousel-rotation');
   const status = root.querySelector('.carousel-status');
-  const state = { paused: false, focused: false, hidden: document.hidden, visible: true };
+  const motion = environment.matchMedia('(prefers-reduced-motion: reduce)');
+  const state = { paused: false, reduced: motion.matches, focused: false, hidden: document.hidden, visible: true };
   let index = 0, timer, origin, rotationIntent;
   function schedule() {
     environment.clearTimeout(timer);
     rotation.hidden = false;
-    rotation.textContent = state.paused ? 'Ativar carrossel' : 'Pausar carrossel';
+    rotation.disabled = state.reduced;
+    rotation.textContent = state.reduced ? 'Rotação automática desativada' : state.paused ? 'Ativar carrossel' : 'Pausar carrossel';
     root.dataset.rotation = canRotate(state) ? 'playing' : 'paused';
     if (canRotate(state)) timer = environment.setTimeout(() => show(index + 1, false), Number(slides[index].dataset.delay) || ROTATION_DELAY);
   }
@@ -70,6 +72,7 @@ export function mountCarousel(root, environment = window) {
   root.addEventListener('pointercancel', () => { origin = null; });
   root.addEventListener('dragstart', event => event.preventDefault());
   document.addEventListener('visibilitychange', () => { state.hidden = document.hidden; schedule(); });
+  motion.addEventListener('change', () => { state.reduced = motion.matches; schedule(); });
   if ('IntersectionObserver' in environment) new environment.IntersectionObserver(([entry]) => {
     state.visible = entry.isIntersecting; schedule();
   }).observe(root);

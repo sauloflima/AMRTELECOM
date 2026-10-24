@@ -13,7 +13,8 @@ import { coverage, support, faq, contactPage } from '../src/components/contact.m
 import { routes, routeFor } from '../src/routes.mjs';
 import { interiorPage } from '../src/components/navigation.mjs';
 import { contentSecurityPolicy, noScriptStyle } from './security.mjs';
-import { publicationIssues } from './publication.mjs';
+import { publicationIssues, pagesBase } from './publication.mjs';
+import { organizationJson } from './seo.mjs';
 import { privacy, terms } from '../src/legal.mjs';
 import { browserModules, stylesheets, mediaAssets, assetRevision, versionImports } from './build-files.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -25,12 +26,13 @@ const issues = publicationIssues(config, privacy, terms);
 const demo = process.argv.includes('--demo');
 const indexable = issues.length === 0 && !demo;
 const origin = indexable ? config.siteUrl.replace(/\/$/, '') : '';
+const sharingOrigin = demo ? `https://sauloflima.github.io${pagesBase}` : config.siteUrl.replace(/\/$/, '');
 function page(content, route='/') {
   const metadata = routeFor(route);
   const title = metadata.title;
   const description = escape(metadata.description);
   const visualStyles = ['/', '/planos.html'].includes(route) ? `<link rel="stylesheet" href="/home-refresh.css?v=${revision}">` : '';
-  return `<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#020B18"><title>${escape(title)}</title><meta name="description" content="${description}"><meta name="robots" content="${indexable ? 'index, follow':'noindex, nofollow'}"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${description}"><meta property="og:type" content="website"><meta property="og:locale" content="pt_BR">${origin ? `<link rel="canonical" href="${origin}${route}">` : ''}<link rel="icon" type="image/png" href="${config.brand.favicon}"><link rel="stylesheet" href="/styles.css?v=${revision}">${visualStyles}<link rel="stylesheet" href="/support-assistant.css?v=${revision}"><script type="module" src="/src/client.mjs?v=${revision}"></script></head><body>${header(route)}<noscript><div class="no-script">Ative o JavaScript para usar o menu compacto e a consulta por formulário. Os planos, perguntas e links de navegação continuam disponíveis.</div><style>${noScriptStyle}</style></noscript>${content}${footer(route)}${WhatsAppAssistant()}</body></html>`;
+  return `<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#020B18"><title>${escape(title)}</title><meta name="description" content="${description}"><meta name="robots" content="${indexable ? 'index, follow':'noindex, nofollow'}"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${description}"><meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="${escape(config.brand.name)}">${sharingOrigin ? `<meta property="og:url" content="${escape(sharingOrigin + route)}"><meta property="og:image" content="${escape(sharingOrigin + config.brand.logo)}"><meta property="og:image:alt" content="${escape(config.brand.name)}"><meta name="twitter:card" content="summary">` : ''}${route === '/' ? `<script type="application/ld+json">${organizationJson}</script>` : ''}${origin ? `<link rel="canonical" href="${origin}${route}">` : ''}<link rel="icon" type="image/png" href="${config.brand.favicon}"><link rel="stylesheet" href="/styles.css?v=${revision}">${visualStyles}<link rel="stylesheet" href="/support-assistant.css?v=${revision}"><script type="module" src="/src/client.mjs?v=${revision}"></script></head><body>${header(route)}<noscript><div class="no-script">Ative o JavaScript para usar o menu compacto e a consulta por formulário. Os planos, perguntas e links de navegação continuam disponíveis.</div><style>${noScriptStyle}</style></noscript>${content}${footer(route)}${WhatsAppAssistant()}</body></html>`;
 }
 const pages = {
   'index.html': page(`<main id="conteudo" tabindex="-1">${hero()}${plans({home:true})}${homeRoutine()}${homeBusiness()}${homeSupport()}${testimonials()}${pendingStories()}${homeFaq()}${homeContactBand()}</main>`),
@@ -70,6 +72,6 @@ for(const asset of mediaAssets) {
   await mkdir(path.dirname(target),{recursive:true});
   await copyFile(source,target);
 }
-await writeFile(path.join(output,'robots.txt'), `User-agent: *\n${indexable?'Allow: /':'Disallow: /'}\n${origin ? `Sitemap: ${origin}/sitemap.xml\n` : '# Defina siteUrl em src/config.mjs para ativar o sitemap.\n'}`);
+await writeFile(path.join(output,'robots.txt'), `User-agent: *\nAllow: /\n${origin ? `Sitemap: ${origin}/sitemap.xml\n` : '# Indexação desativada por meta robots; sitemap aguarda liberação.\n'}`);
 await writeFile(path.join(output,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${indexable ? routes.map(item => item.path).map(route=>`<url><loc>${origin}${route}</loc></url>`).join('') : ''}</urlset>\n`);
 console.log(`Build concluído: ${output}\n${Object.keys(pages).length} páginas estáticas. ${indexable ? 'Indexação habilitada.' : demo ? 'Demonstração: indexação desativada.' : 'Pré-publicação: indexação desativada (' + issues.length + ' pendências).'}`);

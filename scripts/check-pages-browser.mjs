@@ -2,12 +2,15 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { routes } from '../src/routes.mjs';
+import { config } from '../src/config.mjs';
+import { organizationJson } from './seo.mjs';
+import { pagesBase } from './publication.mjs';
 import { chromium, origin, reportFailure } from './browser-test.mjs';
 
 const browser = await chromium.launch({ headless: true });
 const evidence = process.env.AMR_BROWSER_EVIDENCE || 'output/playwright';
 await mkdir(evidence, { recursive: true });
-const widths = [320, 375, 390, 768, 1024, 1440];
+const widths = [320, 375, 390, 768, 801, 844, 900, 1000, 1024, 1100, 1440];
 const errors = [];
 const links = new Set();
 let contactButtons = 0;
@@ -22,12 +25,24 @@ try {
     const response = await page.goto(origin + route.path);
     assert.equal(response.status(), 200, route.path);
     assert.equal(await page.title(), route.title);
+    assert.equal(await page.locator('meta[name="description"]').getAttribute('content'), route.description);
+    assert.equal(await page.locator('meta[property="og:site_name"]').getAttribute('content'), config.brand.name);
+    const socialUrl = await page.locator('meta[property="og:url"]').getAttribute('content');
+    const sharingOrigin = socialUrl.startsWith(`https://sauloflima.github.io${pagesBase}/`) ? `https://sauloflima.github.io${pagesBase}` : config.siteUrl.replace(/\/$/, '');
+    assert.equal(socialUrl, sharingOrigin + route.path);
+    assert.equal(await page.locator('meta[property="og:image"]').getAttribute('content'), sharingOrigin + config.brand.logo);
+    const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
+    assert.deepEqual(schemas, route.path === '/' ? [organizationJson] : []);
     assert.equal(await page.locator('main h1').count(), 1, route.path);
     assert.ok(!await page.locator('body').innerText().then(text => /[\u2012-\u2015]/u.test(text)));
 
     for (const width of widths) {
       await page.setViewportSize({ width, height: 950 });
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width, `${route.path}: ${width}px`);
+      const customer = page.locator('.header-customer');
+      assert.equal(await customer.isVisible(), true, 'Área do cliente deve aparecer sem abrir o menu.');
+      const box = await customer.boundingBox();
+      assert.ok(box.height >= 44 && box.x >= 0 && box.x + box.width <= width, `${route.path}: acesso do cliente em ${width}px`);
     }
     if (route.path === '/planos.html') {
       await page.screenshot({ path: path.join(evidence, 'amr-pages-desktop.png') });
@@ -55,7 +70,7 @@ try {
         contactButtons++;
       }
     }
-    console.log(`Aprovado: ${route.path}; seis larguras, título e H1.`);
+    console.log(`Aprovado: ${route.path}; ${widths.length} larguras, acesso do cliente visível, título e H1.`);
   }
 
   for (const href of links) {
@@ -63,6 +78,38 @@ try {
     const response = await page.request.get(new URL(href, origin + '/').href);
     assert.equal(response.status(), 200, href);
   }
+
+  const motionPage = await browser.newPage({ viewport: { width: 412, height: 823 }, isMobile: true, reducedMotion: 'reduce' });
+  await motionPage.route('**/*', route => new URL(route.request().url()).hostname === '127.0.0.1' ? route.continue() : route.abort());
+  await motionPage.clock.install();
+  await motionPage.goto(origin + '/');
+  await motionPage.waitForLoadState('networkidle');
+  assert.deepEqual(await motionPage.evaluate(() => performance.getEntriesByType('resource')
+    .filter(entry => /amr-casa-fibra-3d|amr-empresa-flow-poster|amr-atendimento-bordado/.test(entry.name))
+    .map(entry => entry.name)), [], 'Slides não visitados não devem carregar seus posters.');
+  await motionPage.clock.fastForward(9000);
+  assert.equal(await motionPage.locator('[data-carousel]').getAttribute('data-active-slide'), '1');
+  assert.equal(await motionPage.locator('.carousel-rotation').isDisabled(), true);
+  for (const index of [1, 2, 3]) {
+    await motionPage.locator(`[data-slide="${index}"]`).dispatchEvent('click');
+    const image = motionPage.locator('.carousel-slide.is-active img').first();
+    await image.evaluate(img => img.decode());
+    assert.equal(await image.isVisible(), true, 'Imagem de segurança permanece disponível com movimento reduzido.');
+    assert.equal(await motionPage.locator('.carousel-slide.is-active video').evaluate(video => video.paused), true);
+  }
+  await motionPage.emulateMedia({ reducedMotion: 'no-preference' });
+  await motionPage.waitForFunction(() => document.querySelector('[data-carousel]').dataset.rotation === 'playing');
+  await motionPage.emulateMedia({ reducedMotion: 'reduce' });
+  await motionPage.waitForFunction(() => document.querySelector('[data-carousel]').dataset.rotation === 'paused');
+  await motionPage.clock.fastForward(11000);
+  assert.equal(await motionPage.locator('[data-carousel]').getAttribute('data-active-slide'), '4');
+  for (const route of ['/', '/empresas.html', '/cobertura.html']) {
+    await motionPage.goto(origin + route);
+    assert.equal(await motionPage.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto');
+    assert.equal(await motionPage.locator('body').evaluate(body => body.getAnimations({ subtree: true }).length), 0, route);
+  }
+  await motionPage.context().close();
+  console.log('Aprovado: posters sob demanda, fallback dos três vídeos, preferência reduzida inicial e dinâmica, navegação manual e ausência de animações nas páginas internas.');
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(origin + '/');
@@ -86,6 +133,10 @@ try {
   assert.equal(await page.locator('.plan-card').count(), 4);
   await page.goBack();
   assert.equal(new URL(page.url()).pathname, new URL(origin + '/').pathname);
+  await page.locator('.header-customer').click();
+  await page.waitForURL(origin + '/area-do-cliente.html');
+  assert.equal(await page.locator('.header-customer').getAttribute('aria-current'), 'page');
+  assert.equal(await page.locator('.customer-access').getAttribute('href'), config.customerPortalUrl);
 
   await page.goto(origin + '/perguntas.html');
   for (const details of await page.locator('details').all()) {

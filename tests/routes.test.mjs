@@ -32,6 +32,17 @@ test('atalho do cabeçalho identifica o WhatsApp sem mudar o destino', () => {
   assert.ok(html.includes(`${icon('whatsapp')}Falar no WhatsApp`));
 });
 
+test('Área do cliente tem botão próprio fora do menu e indica a página atual', () => {
+  for (const pathname of ['/', '/area-do-cliente.html']) {
+    const html = header(pathname);
+    assert.match(html, /class="button primary header-customer" href="\/area-do-cliente.html"/);
+    assert.match(html, /icon-user[\s\S]*<span>Área do cliente<\/span>/);
+    assert.doesNotMatch(html.match(/<nav id="navigation"[\s\S]*?<\/nav>/)[0], /area-do-cliente\.html/);
+    assert.equal((html.match(/class="button primary header-customer"[^>]*aria-current="page"/g) || []).length, pathname === '/area-do-cliente.html' ? 1 : 0);
+    assert.match(html, /href="\/suporte.html"/);
+  }
+});
+
 test('início reúne consulta rápida, planos e acessos sem perder páginas existentes', () => {
   const html = hero() + plans({home:true}) + customerArea({home:true}) + testimonials() + homeBusiness() + homeRoutine() + footer();
   for (const route of routes.filter(route => route.icon)) {

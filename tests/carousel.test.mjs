@@ -70,7 +70,7 @@ test('crédito da foto de Gravatá fica em Termos, com fonte e acesso pelo rodap
   assert.match(terms, /href="https:\/\/www\.flickr\.com\/photos\/mturdestinos\/40906647611\/"[^>]*rel="noopener noreferrer"/);
   assert.match(footer(), /href="\/termos\.html#creditos-imagens">Créditos de imagens<\/a>/);
 });
-test('autoplay de 10s ignora movimento reduzido e respeita pausa, foco e aba oculta', () => {
+test('autoplay de 10s respeita movimento reduzido, pausa, foco e aba oculta', () => {
   assert.equal(ROTATION_DELAY, 10000);
   const f = fixture(); assert.equal(f.timers.size, 1);
   f.tick(); assert.equal(f.root.dataset.activeSlide, '2');
@@ -78,13 +78,28 @@ test('autoplay de 10s ignora movimento reduzido e respeita pausa, foco e aba ocu
   f.tick(); assert.equal(f.root.dataset.activeSlide, '1');
   f.root.emit('focusin', { target: { matches: () => true } }); assert.equal(f.timers.size, 0);
   f.root.emit('focusout'); assert.equal(f.timers.size, 1);
-  const r = fixture(true); assert.equal(r.timers.size, 1); assert.equal(r.controls['.carousel-rotation'].hidden, false);
-  r.controls['.carousel-rotation'].emit('click'); assert.equal(r.timers.size, 0);
+  const r = fixture(true); assert.equal(r.timers.size, 0); assert.equal(r.controls['.carousel-rotation'].disabled, true);
   const h = fixture(); h.doc.hidden = true; h.doc.emit('visibilitychange'); assert.equal(h.timers.size, 0);
-  assert.equal(canRotate({ reduced: true, visible: true }), true);
+  assert.equal(canRotate({ reduced: true, visible: true }), false);
   const d = fixture(); d.slides[1].dataset.delay = '8000';
   assert.equal(d.delays.at(-1), ROTATION_DELAY);
   d.controls['.carousel-next'].emit('click'); assert.equal(d.delays.at(-1), 8000);
+});
+test('mudança de preferência cancela a rotação sem perder navegação manual ou pausa escolhida', () => {
+  const f = fixture();
+  f.motion.matches = true; f.motion.emit('change');
+  assert.equal(f.timers.size, 0);
+  f.controls['.carousel-next'].emit('click');
+  assert.equal(f.root.dataset.activeSlide, '2');
+  assert.equal(f.timers.size, 0);
+  f.motion.matches = false; f.motion.emit('change');
+  assert.equal(f.timers.size, 1);
+  assert.equal(f.controls['.carousel-rotation'].disabled, false);
+  f.controls['.carousel-rotation'].emit('click');
+  f.motion.matches = true; f.motion.emit('change');
+  f.motion.matches = false; f.motion.emit('change');
+  assert.equal(f.timers.size, 0);
+  assert.equal(f.controls['.carousel-rotation'].textContent, 'Ativar carrossel');
 });
 test('mouse, teclado e toque navegam sem deixar links de slides ocultos no foco', () => {
   const f = fixture(); f.controls['.carousel-next'].emit('click');
@@ -103,5 +118,5 @@ test('pausa por mouse não é desfeita pelo foco automático do botão', () => {
   button.emit('pointerdown'); f.root.emit('focusin'); button.emit('click');
   assert.equal(f.root.dataset.rotation, 'paused');
   button.emit('pointerdown'); button.emit('click'); assert.equal(f.root.dataset.rotation, 'playing');
-  f.motion.matches = true; f.motion.emit('change'); assert.equal(f.timers.size, 1);
+  f.motion.matches = true; f.motion.emit('change'); assert.equal(f.timers.size, 0);
 });

@@ -58,9 +58,9 @@ Todos os dados comerciais ficam em `src/config.mjs`:
 - `social`: URLs HTTPS dos perfis oficiais.
 - `messages`: mensagens de planos, cobertura, Wi-Fi, empresas, suporte e contato geral.
 - `siteUrl`: domínio HTTPS definitivo. Vazio enquanto não confirmado.
-- `customerPortalUrl`: link oficial `https://www.amrfibra.com.br/central/`. Em 26/09/2026 houve certificado vencido e hostname incompatível. Em 13/10/2026, o HTTPS foi revalidado sem bypass, com certificado válido até 26/12/2026 e página pública de login HTTP 200. Login autenticado e segurança interna não foram testados.
+- `customerPortalUrl`: `https://cloud.amrfibra.com.br/central/`, conforme HTML enviado por Saulo em 20/10/2026. Histórico do endereço anterior, `https://www.amrfibra.com.br/central/`: em 26/09/2026 houve certificado vencido e hostname incompatível; em 13/10/2026, o HTTPS foi revalidado sem bypass, com certificado válido até 26/12/2026 e página pública de login HTTP 200. Essa verificação anterior não valida o novo subdomínio. Login autenticado e segurança interna não foram testados.
 
-Recompile após editar a configuração. A indexação só é habilitada quando há domínio HTTPS válido, `commercialConfirmed`, referências das três aprovações e textos legais sem o marcador `PENDENTE DE REVISÃO`. Enquanto houver pendências, `robots.txt` e meta robots bloqueiam a indexação e `sitemap.xml` fica vazio. Uma referência preenchida não comprova, por si só, que a AMR realmente aprovou o conteúdo.
+Recompile após editar a configuração. A indexação só é habilitada quando há domínio HTTPS válido, `commercialConfirmed`, referências das três aprovações e textos legais sem o marcador `PENDENTE DE REVISÃO`. Enquanto houver pendências, a meta robots mantém `noindex, nofollow` e `sitemap.xml` fica vazio. O `robots.txt` permite o rastreamento (`Allow: /`) para o buscador conseguir ler o `noindex`. Uma referência preenchida não comprova, por si só, que a AMR realmente aprovou o conteúdo.
 
 ## Vídeo e materiais
 
@@ -75,6 +75,8 @@ Os posters transparentes `amr-casa-fibra-3d.webp` e `amr-pessoa-celular-parada.w
 O build inclui os vídeos `hero-amr-integrado-corrigido.mp4` para Casa, `amr-empresa-flow-20261001.mp4` para Empresas, `atendimento-amr-bordado-tecido-20261001.mp4` para Atendimento e `amr-empresa-hero.mp4` para a seção empresarial. Os vídeos carregam sob demanda e pausam conforme a visibilidade, a preferência por movimento reduzido e a economia de dados. Os originais fora da lista selecionada não entram no build.
 
 O carrossel oferece controles de navegação e pausa; o primeiro slide avança após 8 segundos e os demais após 10 segundos. Nos planos, “Detalhes do plano” abre uma explicação por vez, inclusive no catálogo da página inicial; a opção empresarial apresenta soluções e contato, sem mensalidade anunciada.
+
+Com movimento reduzido, a rotação automática fica desativada e a navegação manual continua disponível. A preferência também desliga animações e transições decorativas e a rolagem suave, inclusive nas páginas internas. Nos três slides com vídeo, a imagem de segurança é o próprio fallback: ela carrega ao visitar a cena, sem um poster nativo redundante que anteciparia a transferência.
 
 ## Estrutura
 
@@ -135,15 +137,15 @@ Publique somente `dist/`. A raiz do repositório e `public/` contêm originais, 
 
 A demonstração autorizada está em [GitHub Pages](https://sauloflima.github.io/AMRTELECOM/). O workflow `pages.yml` roda em push para `main`, PR para `main` e acionamento manual. Executa instalação pelo lockfile sem lifecycle scripts, auditoria npm, testes Node, instalação explícita do Chromium, build de demonstração, preparação da base `/AMRTELECOM/`, `check:dist -- --demo` e os cinco scripts de navegador. Só então envia o mesmo `dist/` ao Pages. Uma falha impede o upload e o deploy dependente; PRs nunca fazem deploy. Os jobs têm limites de 20 minutos para build/testes e 10 para deploy. Actions estão fixadas por commit e só deploy recebe Pages/OIDC; checkout não persiste credenciais.
 
-A demonstração conserva meta `noindex, nofollow`, `Disallow: /` e sitemap vazio, inclusive se a configuração definitiva vier a ser aprovada. `noindex` não restringe acesso. O workflow de demonstração **não executa `prepublish:check`**: esse gate verifica domínio e aprovações comerciais/legais da publicação definitiva.
+A demonstração conserva meta `noindex, nofollow`, rastreamento permitido para leitura dessa meta e sitemap vazio, inclusive se a configuração definitiva vier a ser aprovada. `noindex` não restringe acesso. O workflow de demonstração **não executa `prepublish:check`**: esse gate verifica domínio e aprovações comerciais/legais da publicação definitiva.
 
-O gate separado está em `.github/workflows/release-readiness.yml`, somente manual e com `if: ${{ false }}`. Está desativado e não contém job de deploy. Depois da decisão de destino e das aprovações reais, sua ativação precisa ser revisada e autorizada; preencher referências não é prova de aprovação. O gate executará `prepublish:check` e a mesma suíte no build sem base do Pages. Hoje `prepublish:check` deve falhar nas quatro pendências de domínio, comercial, privacidade e termos. Nenhuma aprovação foi preenchida.
+O gate separado está em `.github/workflows/release-readiness.yml`, somente manual e com `if: ${{ false }}`. Está desativado e não contém job de deploy. Depois da decisão de destino e das aprovações reais, sua ativação precisa ser revisada e autorizada; preencher referências não é prova de aprovação. O gate executará `prepublish:check` e a mesma suíte no build sem base do Pages. Hoje `prepublish:check` deve falhar nas três pendências de aprovação comercial, privacidade e termos; o domínio já está configurado. Nenhuma aprovação foi preenchida.
 
 ## Segurança efetivamente entregue
 
 Em 13/10/2026, as 16 URLs do Pages responderam HTTP 200 por HTTPS, com meta CSP e noindex. HTTP redirecionou com 301 para HTTPS; HSTS veio com `max-age=31556952`. Os sete headers de `hostingHeaders` estavam ausentes. A prévia local aplica esses valores; seus testes não comprovam proteção pública.
 
-`scripts/security.mjs` é a fonte da política: CSP restrita sem `unsafe-inline` ou `unsafe-eval`, hash do CSS de fallback, proteção MIME, referrer, permissões, COOP e CORP. A meta CSP não aceita `frame-ancestors`; esse controle e `X-Frame-Options` exigem headers HTTP. O Pages não oferece configuração de headers personalizados; `_headers` e `.htaccess` não resolvem esse destino. A limitação está confirmada pelas respostas observadas e pela [resposta de mantenedor na comunidade GitHub](https://github.com/orgs/community/discussions/54257). Veja também [MDN: frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors).
+`scripts/security.mjs` é a fonte da política: CSP restrita sem `unsafe-inline` ou `unsafe-eval`, hash do CSS de fallback e do JSON-LD da organização, proteção MIME, referrer, permissões, COOP e CORP. A meta CSP não aceita `frame-ancestors`; esse controle e `X-Frame-Options` exigem headers HTTP. O Pages não oferece configuração de headers personalizados; `_headers` e `.htaccess` não resolvem esse destino. A limitação está confirmada pelas respostas observadas e pela [resposta de mantenedor na comunidade GitHub](https://github.com/orgs/community/discussions/54257). Veja também [MDN: frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors).
 
 Não há configuração de servidor alternativo neste projeto. As opções para decisão são manter o Pages como demonstração com a limitação registrada, aprovar uma camada de entrega com controle de headers em domínio próprio ou aprovar uma hospedagem estática compatível. Domínio, operador, custo, publicação e reversão precisam ser definidos antes de gerar a configuração específica. Não presumir que o Apache do portal é a hospedagem deste site.
 
@@ -187,3 +189,11 @@ Playwright 1.64.0 é dependência de desenvolvimento com versão exata e integri
 ## Correção mobile de 26/09/2026
 
 Diagnóstico, arquivos alterados, capturas comparativas e resultados estão em [MOBILE_QA.md](docs/historico/MOBILE_QA.md) e [galeria visual](mobile-qa/index.html). `scripts/check-mobile-browser.mjs` verifica os quatro slides e três vídeos, avanço real dos vídeos, entrada, pausa e retomada, movimento reduzido, economia de dados, bloqueio de autoplay e falha de MP4, usando a mesma dependência dos demais testes de navegador. Esse registro é histórico; a integração ao CI em 13/10/2026 adicionou somente Playwright às dependências de desenvolvimento.
+
+## SEO e compartilhamento
+
+`src/routes.mjs` centraliza títulos e descrições exclusivos das 16 páginas. A Home descreve a oferta em Gravatá e Amaraji sem prometer cobertura integral. O build inclui Open Graph com nome do site, URL e logo existente como imagem, além de cartão social compacto. O build `--demo` usa URLs de compartilhamento do Pages; o build normal usa o domínio configurado. Canonical e sitemap preenchido continuam condicionados às aprovações de publicação.
+
+`scripts/seo.mjs` gera JSON-LD `Organization` na Home com marca, domínio, logo, Instagram e contato confirmados, sem endereço, horário, avaliações ou ofertas inventados. O hash exato do JSON-LD é permitido pela CSP central, sem `unsafe-inline`. Após alterar esses dados, recompile e atualize os headers da hospedagem quando a publicação for autorizada. Dados estruturados e metatags não garantem posicionamento nem exibição especial no Google.
+
+Validação local: `npm test`, `npm run build`, `npm run check:dist`; para a demonstração, `npm run build -- --demo`, `node scripts/prepare-pages.mjs` e `npm run check:dist -- --demo`. `npm run test:browser` verifica o artefato local e os metadados no DOM; isso não verifica indexação pública nem aparência real em redes sociais.

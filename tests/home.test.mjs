@@ -76,10 +76,11 @@ test('rotina e empresas usam mídias próprias e não usam referência Nio',()=>
   assert.doesNotMatch(html, /[\u2012-\u2015]/u);
 });
 
-test('primeiro slide usa vídeo da casa com poster e fallback compatível',()=>{
+test('slide da casa usa vídeo com imagem de fallback sem requisitar poster nativo antecipado',()=>{
   const html=hero();
   assert.match(html,/class="hero-house-video"[^>]*muted loop playsinline preload="none"/);
-  assert.match(html,/poster="\/assets\/generated\/amr-casa-fibra-3d\.webp"/);
+  assert.doesNotMatch(html,/<video[^>]*\bposter=/);
+  assert.match(html,/<img class="hero-house-fallback" src="\/assets\/generated\/amr-casa-fibra-3d\.webp"/);
   assert.match(html,/hero-amr-integrado-corrigido\.mp4/);
   assert.match(html,/class="hero-house-fallback"/);
 });

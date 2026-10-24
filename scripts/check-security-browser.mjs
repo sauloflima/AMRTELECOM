@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { config } from '../src/config.mjs';
 import { routes } from '../src/routes.mjs';
 import { hostingHeaders } from './security.mjs';
+import { organizationJson } from './seo.mjs';
 import { chromium, origin, reportFailure } from './browser-test.mjs';
 
 const browser = await chromium.launch({ headless: true });
@@ -101,7 +102,8 @@ try {
       const ids = elements.map(el => el.id);
       return ids.filter((id, index) => ids.indexOf(id) !== index);
     }), [], `IDs duplicados: ${route.path}`);
-    assert.equal(await page.locator('script:not([src]), [onclick], [onload], [onerror], iframe').count(), 0);
+    assert.deepEqual(await page.locator('script:not([src])').allTextContents(), route.path === '/' ? [organizationJson] : []);
+    assert.equal(await page.locator('script:not([src]):not([type="application/ld+json"]), [onclick], [onload], [onerror], iframe').count(), 0);
     for (const link of await page.locator('a[target="_blank"]').all()) assert.match(await link.getAttribute('rel'), /noopener noreferrer/);
   }
   console.log(`Aprovado: ${routes.length} páginas, headers locais, CSP de scripts/estilos/formulários, cargas XSS como texto, plano por allowlist, limites, armazenamento vazio, iframe, traversal, arquivos privados e menu sem JavaScript.`);

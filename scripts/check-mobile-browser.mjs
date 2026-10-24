@@ -26,6 +26,12 @@ async function visibleVideo(page, index) {
     const video=document.querySelector(selector).querySelector('video');
     return !video.paused && video.currentTime > 0 && video.readyState >= 2;
   }, mediaSelectors[index]);
+  // Reproduzir sem revelar o vídeo deixa o carrossel visualmente estático.
+  await page.waitForFunction(selector => {
+    const media=document.querySelector(selector);
+    return getComputedStyle(media.querySelector('video')).opacity === '1'
+      && getComputedStyle(media.querySelector('img')).visibility === 'hidden';
+  }, mediaSelectors[index]);
   return video;
 }
 try {

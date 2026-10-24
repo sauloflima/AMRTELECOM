@@ -5,7 +5,7 @@ import { privacy, terms } from '../src/legal.mjs';
 import { publicationIssues, withPagesBase } from '../scripts/publication.mjs';
 
 test('indexação exige domínio HTTPS e aprovações separadas dos textos e do comercial', () => {
-  assert.equal(publicationIssues(config, privacy, terms).length, 4);
+  assert.equal(publicationIssues({ ...config, siteUrl: '' }, privacy, terms).length, 4);
   const approved = { ...config, siteUrl: 'https://amr-provedor.com.br', publicationApprovals: { commercial: 'registro comercial', privacy: 'registro privacidade', terms: 'registro termos' } };
   assert.equal(publicationIssues(approved, privacy, terms).length, 2);
   const reviewedPrivacy = privacy.replace('PENDENTE DE REVISÃO', 'REVISADO');
